@@ -1,0 +1,29 @@
+services:
+  evokare_strapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: evokare_strapi
+    command: sleep infinity
+    volumes:
+      - ..:/workspace:cached
+    ports:
+      - 8000:8000
+    networks:
+      - app-network
+  evokare_db:
+    image: postgres
+    container_name: evokare_db
+    restart: always
+    environment:
+      POSTGRES_USER: evokare
+      POSTGRES_PASSWORD: test1234
+      POSTGRES_DB: evokare_db
+    ports:
+      - 5432:5432
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
