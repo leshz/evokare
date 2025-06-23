@@ -48,8 +48,5 @@
     }
   },
   "postCreateCommand": "yarn",
-  "postStartCommand": {
-    "dev": "yarn dev"
-  },
   "remoteUser": "node"
 }
