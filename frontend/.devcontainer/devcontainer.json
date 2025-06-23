@@ -25,6 +25,11 @@
         "usernamehw.errorlens"
       ],
       "settings": {
+        "terminal.integrated.profiles.linux": {
+          "zsh": {
+            "path": "/bin/zsh"
+          }
+        },
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.codeActionsOnSave": {
@@ -43,7 +48,7 @@
   ],
   "portsAttributes": {
     "3000": {
-      "label": "Next.js App",
+      "label": "Evokare Website",
       "onAutoForward": "notify"
     }
   },

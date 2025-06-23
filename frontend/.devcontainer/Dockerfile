@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     vim \
-    && rm -rf /var/lib/apt/lists/*
+    zsh
 
 # Configurar el usuario por defecto
 USER node
