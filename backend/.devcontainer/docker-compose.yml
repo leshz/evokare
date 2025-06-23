@@ -1,29 +1,37 @@
+version: "3.8"
+
 services:
-  evokare_strapi:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: evokare_strapi
-    command: sleep infinity
-    volumes:
-      - ..:/workspace:cached
-    ports:
-      - 8000:8000
-    networks:
-      - app-network
-  evokare_db:
-    image: postgres
-    container_name: evokare_db
-    restart: always
-    environment:
-      POSTGRES_USER: evokare
-      POSTGRES_PASSWORD: test1234
-      POSTGRES_DB: evokare_db
-    ports:
-      - 5432:5432
-    networks:
-      - app-network
 
-networks:
-  app-network:
-    driver: bridge
+    volumes:
+      - ../..:/workspaces:cached
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
+    network_mode: service:db
+
+    # Use "forwardPorts" in **devcontainer.json** to forward an app port locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - psql-data:/tmp/dev/pgsql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: evokare
+      POSTGRES_USER: evokare
+      POSTGRES_PASSWORD: evokar123
+
+    # Add "forwardPorts": ["5432"] to **devcontainer.json** to forward PostgreSQL locally.
+    # (Adding the "ports" property to this file will not forward from a Codespace.)
+
+volumes:
+  psql-data:
