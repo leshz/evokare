@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,10 +22,11 @@ export function Header() {
             <div className="text-2xl font-bold text-secundario">EVOKARE</div>
           </div>
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-gray-700 hover:text-secundario transition-colors">INICIO</a>
-            <a href="#" className="text-gray-700 hover:text-secundario transition-colors">NOSOTROS</a>
-            <a href="#" className="text-gray-700 hover:text-secundario transition-colors">SERVICIOS</a>
-            <a href="#" className="text-gray-700 hover:text-secundario transition-colors">CONTACTO</a>
+            <Link href="/" className="text-gray-700 hover:text-secundario transition-colors">INICIO</Link>
+            <Link href="#" className="text-gray-700 hover:text-secundario transition-colors">NOSOTROS</Link>
+            <Link href="#" className="text-gray-700 hover:text-secundario transition-colors">SERVICIOS</Link>
+            <Link href="/blogs" className="text-gray-700 hover:text-secundario transition-colors">BLOGS</Link>
+            <Link href="/contacto" className="text-gray-700 hover:text-secundario transition-colors">CONTACTO</Link>
             <button className="bg-secundario text-white px-4 py-2 rounded-full hover:bg-terciario transition-colors">
               Comenzar
             </button>
@@ -43,10 +45,11 @@ export function Header() {
         </div>
         <div className={`md:hidden absolute top-full left-0 right-0 bg-principal shadow-lg transition-all duration-300 ease-in-out ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
           <nav className="flex flex-col py-4 px-4">
-            <a href="#" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">INICIO</a>
-            <a href="#" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">NOSOTROS</a>
-            <a href="#" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">SERVICIOS</a>
-            <a href="#" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">CONTACTO</a>
+            <Link href="/" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">INICIO</Link>
+            <Link href="#" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">NOSOTROS</Link>
+            <Link href="#" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">SERVICIOS</Link>
+            <Link href="/blogs" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">BLOGS</Link>
+            <Link href="/contacto" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">CONTACTO</Link>
             <button className="bg-secundario text-white px-4 py-3 rounded-full hover:bg-terciario transition-colors mt-4">
               Comenzar
             </button>
