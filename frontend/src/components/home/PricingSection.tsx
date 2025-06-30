@@ -1,59 +1,49 @@
 export function PricingSection() {
   return (
-    <section className="py-20 bg-fuchsia-50">
+    <section className="py-20 bg-principal">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">
-              Invierte En Tu<br />
-              Bienestar
-            </h2>
-            <div className="space-y-6">
-              <div className="bg-white rounded-2xl p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Plan Básico</h3>
-                <div className="text-3xl font-bold text-fuchsia-800 mb-4">$99<span className="text-lg text-gray-600">/mes</span></div>
-                <ul className="space-y-2 text-gray-600">
-                  <li className="flex items-center"><span className="text-fuchsia-800 mr-2">✓</span> Sesiones semanales</li>
-                  <li className="flex items-center"><span className="text-fuchsia-800 mr-2">✓</span> Apoyo por email</li>
-                  <li className="flex items-center"><span className="text-fuchsia-800 mr-2">✓</span> Biblioteca de recursos</li>
-                </ul>
-              </div>
-              <div className="bg-fuchsia-800 text-white rounded-2xl p-6">
-                <h3 className="text-xl font-semibold mb-2">Plan Premium</h3>
-                <div className="text-3xl font-bold mb-4">$199<span className="text-lg text-fuchsia-200">/mes</span></div>
-                <ul className="space-y-2 text-fuchsia-100">
-                  <li className="flex items-center"><span className="text-white mr-2">✓</span> Sesiones ilimitadas</li>
-                  <li className="flex items-center"><span className="text-white mr-2">✓</span> Apoyo 24/7</li>
-                  <li className="flex items-center"><span className="text-white mr-2">✓</span> Terapia grupal</li>
-                </ul>
-              </div>
-            </div>
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Planes y Precios</h2>
+          <p className="text-xl text-gray-600">Elige el plan que mejor se adapte a tus necesidades</p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Plan Básico</h3>
+            <div className="text-3xl font-bold text-secundario mb-4">$99<span className="text-lg text-gray-600">/mes</span></div>
+            <ul className="space-y-2 text-gray-600 mb-6">
+              <li className="flex items-center"><span className="text-secundario mr-2">✓</span> Sesiones semanales</li>
+              <li className="flex items-center"><span className="text-secundario mr-2">✓</span> Apoyo por email</li>
+              <li className="flex items-center"><span className="text-secundario mr-2">✓</span> Biblioteca de recursos</li>
+            </ul>
+            <button className="w-full bg-secundario text-white py-3 rounded-full hover:bg-terciario transition-colors font-medium">
+              Comenzar
+            </button>
           </div>
-          <div className="bg-white rounded-3xl p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              Esto Es Lo Que<br />
-              Necesitas Saber
-            </h3>
-            <div className="space-y-4">
-              <div className="flex items-start space-x-4">
-                <div className="w-6 h-6 bg-fuchsia-800 rounded-full flex-shrink-0 mt-1"></div>
-                <p className="text-gray-600">Horarios flexibles para adaptarse a tu estilo de vida</p>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="w-6 h-6 bg-fuchsia-800 rounded-full flex-shrink-0 mt-1"></div>
-                <p className="text-gray-600">Profesionales licenciados con años de experiencia</p>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="w-6 h-6 bg-fuchsia-800 rounded-full flex-shrink-0 mt-1"></div>
-                <p className="text-gray-600">Sesiones confidenciales y seguras</p>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="w-6 h-6 bg-fuchsia-800 rounded-full flex-shrink-0 mt-1"></div>
-                <p className="text-gray-600">Planes de tratamiento personalizados</p>
-              </div>
-            </div>
-            <button className="w-full bg-fuchsia-800 text-white py-3 rounded-full mt-6 hover:bg-fuchsia-900 transition-colors font-medium">
-              Comienza Hoy
+
+          <div className="bg-secundario text-white rounded-2xl p-6">
+            <h3 className="text-2xl font-bold mb-4">Plan Premium</h3>
+            <div className="text-3xl font-bold mb-4">$199<span className="text-lg text-principal">/mes</span></div>
+            <ul className="space-y-2 text-principal">
+              <li className="flex items-center">
+                <div className="w-6 h-6 bg-white rounded-full flex-shrink-0 mt-1"></div>
+                <span className="ml-2">Todo del plan básico</span>
+              </li>
+              <li className="flex items-center">
+                <div className="w-6 h-6 bg-white rounded-full flex-shrink-0 mt-1"></div>
+                <span className="ml-2">Sesiones ilimitadas</span>
+              </li>
+              <li className="flex items-center">
+                <div className="w-6 h-6 bg-white rounded-full flex-shrink-0 mt-1"></div>
+                <span className="ml-2">Apoyo 24/7</span>
+              </li>
+              <li className="flex items-center">
+                <div className="w-6 h-6 bg-white rounded-full flex-shrink-0 mt-1"></div>
+                <span className="ml-2">Recursos exclusivos</span>
+              </li>
+            </ul>
+            <button className="w-full bg-white text-secundario py-3 rounded-full mt-6 hover:bg-principal transition-colors font-medium">
+              Comenzar
             </button>
           </div>
         </div>
