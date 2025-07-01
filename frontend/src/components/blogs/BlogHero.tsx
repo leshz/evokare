@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export const BlogHero = () => {
   return (
     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-8">
@@ -9,8 +11,8 @@ export const BlogHero = () => {
         </nav>
       </div>
       <div className="flex flex-col gap-4 md:w-1/2">
-        <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Therapy" className="rounded-2xl w-full h-40 object-cover" />
-        <img src="https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=400&q=80" alt="Session" className="rounded-2xl w-1/2 h-20 object-cover self-end" />
+        <Image src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" width={400} height={80} alt="Therapy" className="rounded-2xl w-full h-40 object-cover" />
+        <Image src="https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=400&q=80" width={400} height={80} alt="Session" className="rounded-2xl w-1/2 h-20 object-cover self-end" />
       </div>
     </div>
   );

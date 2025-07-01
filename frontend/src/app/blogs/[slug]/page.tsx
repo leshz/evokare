@@ -4,8 +4,9 @@ import { PostContent } from "@/components/blogs/single/PostContent";
 import { PostSidebar } from "@/components/blogs/single/PostSidebar";
 import { getPost, extendedBlogs } from "@/components/blogs/single/PostData";
 
-export default function SinglePostPage({ params }: { params: { slug: string } }) {
-  const post = getPost(params.slug);
+const SinglePostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
+  const post = getPost(slug);
   if (!post) return notFound();
 
   return (
@@ -16,10 +17,13 @@ export default function SinglePostPage({ params }: { params: { slug: string } })
         <div className="grid md:grid-cols-3 gap-8 items-start">
           <PostContent title={post.title} image={post.image} content={post.content} />
           <div>
-            <PostSidebar currentSlug={params.slug} blogs={extendedBlogs} />
+            <PostSidebar currentSlug={slug} blogs={extendedBlogs} />
           </div>
         </div>
       </section>
     </main>
   );
-} 
+}
+
+
+export default SinglePostPage;

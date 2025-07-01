@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface PostHeroProps {
   postImage: string;
 }
@@ -13,10 +15,10 @@ export const PostHero = ({ postImage }: PostHeroProps) => {
         </nav>
       </div>
       <div className="flex flex-col gap-4 md:w-1/2">
-        <img src={postImage} alt="Main" className="rounded-2xl w-full h-40 object-cover" />
+        <Image src={postImage} width={400} height={80} alt="Main" className="rounded-2xl w-full h-40 object-cover" />
         <div className="flex gap-4">
-          <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Session" className="rounded-2xl w-1/2 h-20 object-cover" />
-          <img src="https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=400&q=80" alt="Session" className="rounded-2xl w-1/2 h-20 object-cover" />
+          <Image src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" width={400} height={80} alt="Session" className="rounded-2xl w-1/2 h-20 object-cover" />
+          <Image src="https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?auto=format&fit=crop&w=400&q=80" width={400} height={80} alt="Session" className="rounded-2xl w-1/2 h-20 object-cover" />
         </div>
       </div>
     </div>
