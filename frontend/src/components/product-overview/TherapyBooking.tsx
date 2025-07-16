@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-interface TherapyProduct {
+export interface TherapyProduct {
   id: number;
   name: string;
   price: number;

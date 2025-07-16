@@ -1,12 +1,11 @@
-'use client';
-
-import { useState } from 'react';
 import { ProductGallery } from "@/components/product-overview/ProductGallery";
 import { ProductInfo } from "@/components/product-overview/ProductInfo";
 import { ProductReviews } from "@/components/product-overview/ProductReviews";
 import { RelatedProducts } from "@/components/product-overview/RelatedProducts";
 import { TherapyBooking } from "@/components/product-overview/TherapyBooking";
 import { ShoppingCart } from "@/components/products/ShoppingCart";
+import Link from 'next/link';
+import type { TherapyProduct } from '@/components/product-overview/TherapyBooking';
 
 // Mock data - en producción esto vendría de una API
 const productos = [
@@ -97,14 +96,9 @@ const productos = [
   }
 ];
 
-interface ProductPageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default function ProductPage({ params }: ProductPageProps) {
-  const productId = parseInt(params.id);
+export default async function ProductOverview({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const productId = parseInt(id);
   const product = productos.find(p => p.id === productId);
 
   if (!product) {
@@ -113,12 +107,12 @@ export default function ProductPage({ params }: ProductPageProps) {
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Producto no encontrado</h1>
           <p className="text-gray-600 mb-8">El producto que buscas no existe o ha sido removido.</p>
-          <a
+          <Link
             href="/productos"
             className="bg-secundario text-white px-6 py-3 rounded-full hover:bg-terciario transition-colors"
           >
             Volver a productos
-          </a>
+          </Link>
         </div>
       </div>
     );
@@ -130,9 +124,9 @@ export default function ProductPage({ params }: ProductPageProps) {
       <nav className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center space-x-2 text-sm">
-            <a href="/" className="text-gray-500 hover:text-secundario">Inicio</a>
+            <Link href="/" className="text-gray-500 hover:text-secundario">Inicio</Link>
             <span className="text-gray-400">/</span>
-            <a href="/productos" className="text-gray-500 hover:text-secundario">Productos</a>
+            <Link href="/productos" className="text-gray-500 hover:text-secundario">Productos</Link>
             <span className="text-gray-400">/</span>
             <span className="text-gray-900">{product.name}</span>
           </div>
@@ -150,15 +144,15 @@ export default function ProductPage({ params }: ProductPageProps) {
         </div>
 
         {/* Sección de reserva de terapia (solo para productos de terapia) */}
-        {product.isTherapyProduct && (
+        {product.isTherapyProduct && product.duration && (
           <div className="mt-16">
-            <TherapyBooking product={product} />
+            <TherapyBooking product={product as TherapyProduct} />
           </div>
         )}
 
         {/* Reseñas */}
         <div className="mt-16">
-          <ProductReviews productId={product.id} rating={product.rating} reviewCount={product.reviewCount} />
+          <ProductReviews rating={product.rating} reviewCount={product.reviewCount} />
         </div>
 
         {/* Productos relacionados */}

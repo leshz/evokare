@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 interface CartItem {
   id: number;
@@ -89,9 +90,11 @@ export function ShoppingCart() {
                 <div className="space-y-4">
                   {cartItems.map((item) => (
                     <div key={item.id} className="flex items-center bg-gray-50 p-4 rounded-lg">
-                      <img
+                      <Image
                         src={item.image}
                         alt={item.name}
+                        width={64}
+                        height={64}
                         className="w-16 h-16 object-cover rounded-lg mr-4"
                       />
                       <div className="flex-1">

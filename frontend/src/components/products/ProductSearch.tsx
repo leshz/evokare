@@ -36,7 +36,7 @@ export function ProductSearch({ onSearch, placeholder = "Buscar productos holís
       setSuggestions([]);
       setShowSuggestions(false);
     }
-  }, [searchQuery]);
+  }, [searchQuery, popularSearches]);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);

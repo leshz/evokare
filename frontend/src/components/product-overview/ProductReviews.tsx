@@ -13,7 +13,6 @@ interface Review {
 }
 
 interface ProductReviewsProps {
-  productId: number;
   rating: number;
   reviewCount: number;
 }
@@ -58,7 +57,7 @@ const mockReviews: Review[] = [
   }
 ];
 
-export function ProductReviews({ productId, rating, reviewCount }: ProductReviewsProps) {
+export function ProductReviews({ rating, reviewCount }: ProductReviewsProps) {
   const [reviews, setReviews] = useState(mockReviews);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [newReview, setNewReview] = useState({
