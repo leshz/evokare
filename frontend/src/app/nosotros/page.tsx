@@ -1,23 +1,15 @@
-import { AboutHeroSection } from "@/components/about/AboutHeroSection";
-import { GrowingStorySection } from "@/components/about/GrowingStorySection";
-import { DailyQuotesAboutSection } from "@/components/about/DailyQuotesAboutSection";
-import { SupportSystemAboutSection } from "@/components/about/SupportSystemAboutSection";
-import { HealingJourneySection } from "@/components/about/HealingJourneySection";
-import { SupportingServicesSection } from "@/components/about/SupportingServicesSection";
-import { TestimonialsAboutSection } from "@/components/about/TestimonialsAboutSection";
-import { FlexiblePlansSection } from "@/components/about/FlexiblePlansSection";
+import { AboutProfile } from '@/components/about/AboutProfile';
+import { AboutBio } from '@/components/about/AboutBio';
+import { AboutCredentials } from '@/components/about/AboutCredentials';
+import { AboutBooks } from '@/components/about/AboutBooks';
 
-export default function About() {
+export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <AboutHeroSection />
-      <GrowingStorySection />
-      <DailyQuotesAboutSection />
-      <SupportSystemAboutSection />
-      <HealingJourneySection />
-      <SupportingServicesSection />
-      <TestimonialsAboutSection />
-      <FlexiblePlansSection />
+    <div className="min-h-screen">
+      <AboutProfile />
+      <AboutBio />
+      <AboutCredentials />
+      <AboutBooks />
     </div>
   );
 } 

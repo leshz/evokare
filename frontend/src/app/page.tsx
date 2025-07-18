@@ -7,7 +7,7 @@ import { StatisticsSection } from "@/components/home/StatisticsSection";
 import { TestimonialSection } from "@/components/home/TestimonialSection";
 import { FreshPerspectivesSection } from "@/components/home/FreshPerspectivesSection";
 import { DailyQuotesSection } from "@/components/home/DailyQuotesSection";
-import { PricingSection } from "@/components/home/PricingSection";
+// import { PricingSection } from "@/components/home/PricingSection";
 
 export default function Home() {
   return (
@@ -21,7 +21,7 @@ export default function Home() {
       <TestimonialSection />
       <FreshPerspectivesSection />
       <DailyQuotesSection />
-      <PricingSection />
+      {/* <PricingSection /> */}
     </div>
   );
 }
