@@ -121,7 +121,7 @@ export default async function ProductOverview({ params }: { params: Promise<{ id
   return (
     <div className="min-h-screen bg-principal">
       {/* Breadcrumb */}
-      <nav className="bg-white border-b">
+      <nav className="bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center space-x-2 text-sm">
             <Link href="/" className="text-gray-500 hover:text-secundario">Inicio</Link>
