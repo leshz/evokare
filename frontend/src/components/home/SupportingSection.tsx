@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function SupportingSection() {
   return (
     <section className="py-20">
@@ -37,11 +39,11 @@ export function SupportingSection() {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-principal rounded-2xl aspect-square flex items-center justify-center">
-              <span className="text-secundario font-medium text-center">Sesiones de<br />Terapia</span>
+            <div className="bg-principal rounded-2xl aspect-square flex items-center justify-center overflow-hidden">
+              <Image src="https://picsum.photos/500/500" alt="Sesiones de Terapia" width={500} height={500} />
             </div>
-            <div className="bg-principal rounded-2xl aspect-square flex items-center justify-center">
-              <span className="text-secundario font-medium text-center">Programas de<br />Bienestar</span>
+            <div className="bg-principal rounded-2xl aspect-square flex items-center justify-center overflow-hidden">
+              <Image src="https://picsum.photos/500/500" alt="Sesiones de Terapia" width={500} height={500} />
             </div>
           </div>
         </div>

@@ -1,3 +1,5 @@
+import { CheckCircle } from "lucide-react";
+
 export function SupportSystemSection() {
   return (
     <section className="py-20 bg-gradient-to-br from-principal to-principal">
@@ -9,33 +11,32 @@ export function SupportSystemSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h3 className="text-2xl font-semibold text-gray-900 mb-6">
-              Terapia Personalizada y Apoyo Continuo
-            </h3>
-            <p className="text-gray-600 mb-8">
-              Cada persona es única, por eso diseñamos un plan de tratamiento personalizado que se adapte a tus necesidades específicas, objetivos y estilo de vida.
-            </p>
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <div className="w-6 h-6 bg-secundario rounded-full mr-4"></div>
-                <span className="text-gray-700">Sesiones individuales personalizadas</span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-6 h-6 bg-secundario rounded-full mr-4"></div>
-                <span className="text-gray-700">Apoyo entre sesiones</span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-6 h-6 bg-secundario rounded-full mr-4"></div>
-                <span className="text-gray-700">Recursos digitales exclusivos</span>
-              </div>
+        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-8 md:p-12">
+          <h3 className="text-2xl font-bold mb-6 text-gray-800">
+            Terapia Personalizada y Apoyo Continuo
+          </h3>
+          <p className="text-gray-600 mb-8">
+            Nuestro programa de terapia personalizada está diseñado para
+            adaptarse a tus necesidades específicas, ofrecerte soporte de vida.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex items-start gap-3">
+              <CheckCircle className="text-indigo-600 mt-1 flex-shrink-0" size={20} />
+              <p className="text-gray-700">
+                Sesiones individuales personalizadas
+              </p>
             </div>
-          </div>
-
-          <div className="flex justify-center">
-            <div className="w-32 h-32 bg-secundario rounded-2xl mx-auto mb-6 flex items-center justify-center">
-              <span className="text-white text-4xl">💙</span>
+            <div className="flex items-start gap-3">
+              <CheckCircle className="text-indigo-600 mt-1 flex-shrink-0" size={20} />
+              <p className="text-gray-700">Apoyo entre sesiones</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <CheckCircle className="text-indigo-600 mt-1 flex-shrink-0" size={20} />
+              <p className="text-gray-700">Recursos digitales accesibles</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <CheckCircle className="text-indigo-600 mt-1 flex-shrink-0" size={20} />
+              <p className="text-gray-700">Seguimiento de progreso personal</p>
             </div>
           </div>
         </div>

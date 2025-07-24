@@ -50,12 +50,12 @@ export function AboutBooks() {
         </div>
 
         <div className="mt-12 text-center">
-          <div className="bg-gradient-to-r from-secundario to-terciario rounded-xl p-8 text-white">
+          <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-8 text-gray-800">
             <h3 className="text-2xl font-bold mb-4">Nuestro Enfoque Integral</h3>
             <p className="text-lg mb-2">
-              <strong>Terapia Compasiva e Integrativa</strong>
+              <strong className="text-gray-800">Terapia Compasiva e Integrativa</strong>
             </p>
-            <p className="text-principal opacity-90">
+            <p className="text-gray-800 opacity-90">
               Combinamos múltiples enfoques terapéuticos para crear un plan de tratamiento
               personalizado que aborde las necesidades únicas de cada persona. Nuestro objetivo
               es proporcionar herramientas efectivas y apoyo continuo en el camino hacia la sanación.
