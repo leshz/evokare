@@ -109,7 +109,7 @@ export default async function ProductOverview({ params }: { params: Promise<{ id
           <p className="text-gray-600 mb-8">El producto que buscas no existe o ha sido removido.</p>
           <Link
             href="/productos"
-            className="bg-secundario text-white px-6 py-3 rounded-full hover:bg-terciario transition-colors"
+            className="bg-gradient-to-br from-secundario to-terciario text-white px-6 py-3 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all"
           >
             Volver a productos
           </Link>

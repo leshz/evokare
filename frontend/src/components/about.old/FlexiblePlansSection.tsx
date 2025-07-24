@@ -90,7 +90,7 @@ export function FlexiblePlansSection() {
                 <span className="text-gray-600">Acceso a talleres</span>
               </li>
             </ul>
-            <button className="w-full bg-secundario text-white py-3 rounded-full hover:bg-terciario transition-colors font-medium">
+            <button className="w-full bg-gradient-to-br from-secundario to-terciario text-white py-3 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all font-medium">
               Comenzar
             </button>
           </div>

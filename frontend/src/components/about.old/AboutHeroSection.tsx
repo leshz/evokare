@@ -15,7 +15,7 @@ export function AboutHeroSection() {
               comprensibles y efectivos para cada persona.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-secundario text-white px-8 py-3 rounded-full hover:bg-terciario transition-colors font-medium">
+              <button className="bg-gradient-to-br from-secundario to-terciario text-white px-8 py-3 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all font-medium">
                 Conoce Nuestro Enfoque
               </button>
               <button className="border border-secundario text-secundario px-8 py-3 rounded-full hover:bg-secundario hover:text-white transition-colors font-medium">

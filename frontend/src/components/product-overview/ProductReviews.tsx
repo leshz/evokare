@@ -117,7 +117,7 @@ export function ProductReviews({ rating, reviewCount }: ProductReviewsProps) {
         <h2 className="text-2xl font-bold text-gray-900">Reseñas de Clientes</h2>
         <button
           onClick={() => setShowReviewForm(!showReviewForm)}
-          className="bg-secundario text-white px-4 py-2 rounded-full hover:bg-terciario transition-colors"
+          className="bg-gradient-to-br from-secundario to-terciario text-white px-4 py-2 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all"
         >
           Escribir Reseña
         </button>
@@ -186,7 +186,7 @@ export function ProductReviews({ rating, reviewCount }: ProductReviewsProps) {
           <div className="flex space-x-3">
             <button
               onClick={handleSubmitReview}
-              className="bg-secundario text-white px-6 py-2 rounded-full hover:bg-terciario transition-colors"
+              className="bg-gradient-to-br from-secundario to-terciario text-white px-6 py-2 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all"
             >
               Publicar Reseña
             </button>

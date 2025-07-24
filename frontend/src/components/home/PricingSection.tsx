@@ -16,7 +16,7 @@ export function PricingSection() {
               <li className="flex items-center"><span className="text-secundario mr-2">✓</span> Apoyo por email</li>
               <li className="flex items-center"><span className="text-secundario mr-2">✓</span> Biblioteca de recursos</li>
             </ul>
-            <button className="w-full bg-secundario text-white py-3 rounded-full hover:bg-terciario transition-colors font-medium">
+            <button className="w-full bg-gradient-to-br from-secundario to-terciario text-white py-3 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all font-medium">
               Comenzar
             </button>
           </div>

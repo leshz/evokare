@@ -78,7 +78,7 @@ export function ProductCard({ producto }: ProductCardProps) {
               ${producto.price}
             </span>
           </div>
-          <button className="bg-secundario text-white px-6 py-2 rounded-full hover:bg-terciario transition-colors font-medium">
+          <button className="bg-gradient-to-br from-secundario to-terciario text-white px-6 py-2 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all font-medium">
             Agregar
           </button>
         </div>

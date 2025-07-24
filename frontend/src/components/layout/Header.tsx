@@ -29,7 +29,7 @@ export function Header() {
             <Link href="/productos" className="text-gray-700 hover:text-secundario transition-colors">PRODUCTOS</Link>
             <Link href="/blogs" className="text-gray-700 hover:text-secundario transition-colors">BLOGS</Link>
             <Link href="/contacto" className="text-gray-700 hover:text-secundario transition-colors">CONTACTO</Link>
-            <button className="bg-secundario text-white px-4 py-2 rounded-full hover:bg-terciario transition-colors">
+            <button className="bg-gradient-to-br from-secundario to-terciario text-white px-4 py-2 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all">
               Comenzar
             </button>
           </nav>
@@ -52,7 +52,7 @@ export function Header() {
             <Link href="/productos" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">PRODUCTOS</Link>
             <Link href="/blogs" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">BLOGS</Link>
             <Link href="/contacto" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">CONTACTO</Link>
-            <button className="bg-secundario text-white px-4 py-3 rounded-full hover:bg-terciario transition-colors mt-4">
+            <button className="bg-gradient-to-br from-secundario to-terciario text-white px-4 py-3 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all mt-4">
               Comenzar
             </button>
           </nav>

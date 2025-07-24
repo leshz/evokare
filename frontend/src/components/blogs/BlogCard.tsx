@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 interface BlogCardProps {
   title: string;
@@ -18,9 +19,9 @@ export const BlogCard = ({ title, description, image, slug }: BlogCardProps) => 
         <Link href={`/blogs/${slug}`} className="font-semibold text-lg text-gray-900 mb-1 block hover:text-secundario transition-colors">{title}</Link>
         <p className="text-gray-600 text-sm mb-2">{description}</p>
         <Link href={`/blogs/${slug}`} className="inline-flex items-center text-secundario font-medium hover:underline group">
-          <span>Read More</span>
+          <span>Leer Más</span>
           <span className="ml-2 bg-secundario bg-opacity-10 rounded-full p-1 group-hover:bg-opacity-20 transition">
-            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+            <ArrowRight className="w-4 h-4 text-white" />
           </span>
         </Link>
       </div>

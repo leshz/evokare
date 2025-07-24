@@ -137,7 +137,7 @@ export function ShoppingCart() {
                   <span className="text-xl font-bold text-gray-900">Total:</span>
                   <span className="text-2xl font-bold text-secundario">${getTotalPrice()}</span>
                 </div>
-                <button className="w-full bg-secundario text-white py-3 rounded-full font-medium hover:bg-terciario transition-colors">
+                <button className="w-full bg-gradient-to-br from-secundario to-terciario text-white py-3 rounded-full font-medium hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all">
                   Proceder al Pago
                 </button>
               </div>

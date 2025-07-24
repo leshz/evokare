@@ -48,7 +48,7 @@ export function AboutSection() {
         </div>
 
         <div className="mt-16 text-center">
-          <button className="bg-secundario text-white px-8 py-4 rounded-full hover:bg-terciario transition-colors font-medium text-lg shadow-lg">
+          <button className="bg-gradient-to-br from-secundario to-terciario text-white px-8 py-4 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all font-medium text-lg shadow-lg">
             Conoce Más Sobre Nosotros
           </button>
         </div>

@@ -14,7 +14,7 @@ export function FreshPerspectivesSection() {
             <p className="text-gray-600 mb-6">
               Sesiones personalizadas adaptadas a tus necesidades específicas y objetivos de crecimiento personal.
             </p>
-            <button className="bg-secundario text-white px-6 py-2 rounded-full text-sm hover:bg-terciario transition-colors">
+            <button className="bg-gradient-to-br from-secundario to-terciario text-white px-6 py-2 rounded-full text-sm hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all">
               Saber Más
             </button>
           </div>
@@ -25,7 +25,7 @@ export function FreshPerspectivesSection() {
             <p className="text-gray-600 mb-6">
               Conecta con otros en un ambiente seguro y de apoyo para compartir experiencias y aprender juntos.
             </p>
-            <button className="bg-secundario text-white px-6 py-2 rounded-full text-sm hover:bg-terciario transition-colors">
+            <button className="bg-gradient-to-br from-secundario to-terciario text-white px-6 py-2 rounded-full text-sm hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all">
               Saber Más
             </button>
           </div>
@@ -36,7 +36,7 @@ export function FreshPerspectivesSection() {
             <p className="text-gray-600 mb-6">
               Acceso a herramientas, ejercicios y contenido educativo para continuar tu crecimiento entre sesiones.
             </p>
-            <button className="bg-secundario text-white px-6 py-2 rounded-full text-sm hover:bg-terciario transition-colors">
+            <button className="bg-gradient-to-br from-secundario to-terciario text-white px-6 py-2 rounded-full text-sm hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all">
               Saber Más
             </button>
           </div>

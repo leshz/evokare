@@ -133,8 +133,8 @@ export function ProductInfo({ product }: ProductInfoProps) {
                 key={index}
                 onClick={() => setSelectedColor(index)}
                 className={`w-10 h-10 rounded-full border-2 transition-all ${selectedColor === index
-                    ? 'border-secundario ring-2 ring-secundario ring-opacity-50'
-                    : 'border-gray-300 hover:border-gray-400'
+                  ? 'border-secundario ring-2 ring-secundario ring-opacity-50'
+                  : 'border-gray-300 hover:border-gray-400'
                   }`}
                 style={{ backgroundColor: color }}
               />
@@ -163,7 +163,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
 
         <button
           onClick={handleAddToCart}
-          className="flex-1 bg-secundario text-white py-3 rounded-full hover:bg-terciario transition-colors font-medium"
+          className="flex-1 bg-gradient-to-br from-secundario to-terciario text-white py-3 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all font-medium"
         >
           {product.isTherapyProduct ? 'Reservar Sesión' : 'Agregar al Carrito'}
         </button>
@@ -183,8 +183,8 @@ export function ProductInfo({ product }: ProductInfoProps) {
           <button
             onClick={() => setActiveTab('description')}
             className={`text-sm font-medium pb-2 border-b-2 transition-colors ${activeTab === 'description'
-                ? 'border-secundario text-secundario'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+              ? 'border-secundario text-secundario'
+              : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
           >
             Descripción
@@ -192,8 +192,8 @@ export function ProductInfo({ product }: ProductInfoProps) {
           <button
             onClick={() => setActiveTab('benefits')}
             className={`text-sm font-medium pb-2 border-b-2 transition-colors ${activeTab === 'benefits'
-                ? 'border-secundario text-secundario'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+              ? 'border-secundario text-secundario'
+              : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
           >
             Beneficios
@@ -201,8 +201,8 @@ export function ProductInfo({ product }: ProductInfoProps) {
           <button
             onClick={() => setActiveTab('usage')}
             className={`text-sm font-medium pb-2 border-b-2 transition-colors ${activeTab === 'usage'
-                ? 'border-secundario text-secundario'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+              ? 'border-secundario text-secundario'
+              : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
           >
             Uso
@@ -210,8 +210,8 @@ export function ProductInfo({ product }: ProductInfoProps) {
           <button
             onClick={() => setActiveTab('ingredients')}
             className={`text-sm font-medium pb-2 border-b-2 transition-colors ${activeTab === 'ingredients'
-                ? 'border-secundario text-secundario'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+              ? 'border-secundario text-secundario'
+              : 'border-transparent text-gray-500 hover:text-gray-700'
               }`}
           >
             Ingredientes

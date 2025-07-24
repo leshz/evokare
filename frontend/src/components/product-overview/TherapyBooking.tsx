@@ -137,8 +137,8 @@ export function TherapyBooking({ product }: TherapyBookingProps) {
                   key={type.id}
                   onClick={() => setSelectedType(type.id)}
                   className={`p-4 rounded-lg border-2 transition-all ${selectedType === type.id
-                      ? 'border-secundario bg-secundario bg-opacity-10'
-                      : 'border-gray-200 hover:border-gray-300'
+                    ? 'border-secundario bg-secundario bg-opacity-10'
+                    : 'border-gray-200 hover:border-gray-300'
                     }`}
                 >
                   <div className="text-center">
@@ -159,8 +159,8 @@ export function TherapyBooking({ product }: TherapyBookingProps) {
                   key={date.value}
                   onClick={() => setSelectedDate(date.value)}
                   className={`p-3 rounded-lg border text-left transition-all ${selectedDate === date.value
-                      ? 'border-secundario bg-secundario bg-opacity-10'
-                      : 'border-gray-200 hover:border-gray-300'
+                    ? 'border-secundario bg-secundario bg-opacity-10'
+                    : 'border-gray-200 hover:border-gray-300'
                     }`}
                 >
                   <div className="font-medium text-gray-900">{date.label}</div>
@@ -180,10 +180,10 @@ export function TherapyBooking({ product }: TherapyBookingProps) {
                     onClick={() => slot.available && setSelectedTime(slot.time)}
                     disabled={!slot.available}
                     className={`p-3 rounded-lg border text-center transition-all ${!slot.available
-                        ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
-                        : selectedTime === slot.time
-                          ? 'border-secundario bg-secundario bg-opacity-10 text-secundario'
-                          : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
+                      : selectedTime === slot.time
+                        ? 'border-secundario bg-secundario bg-opacity-10 text-secundario'
+                        : 'border-gray-200 hover:border-gray-300'
                       }`}
                   >
                     {slot.time}
@@ -198,8 +198,8 @@ export function TherapyBooking({ product }: TherapyBookingProps) {
             onClick={() => setShowBookingForm(true)}
             disabled={!selectedDate || !selectedTime}
             className={`w-full py-4 rounded-full font-medium transition-colors ${selectedDate && selectedTime
-                ? 'bg-secundario text-white hover:bg-terciario'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              ? 'bg-gradient-to-br from-secundario to-terciario text-white hover:bg-gradient-to-br hover:from-terciario hover:to-secundario'
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
           >
             Continuar con la reserva
@@ -282,7 +282,7 @@ export function TherapyBooking({ product }: TherapyBookingProps) {
             </button>
             <button
               onClick={handleBooking}
-              className="flex-1 py-3 bg-secundario text-white rounded-full hover:bg-terciario transition-colors"
+              className="flex-1 py-3 bg-gradient-to-br from-secundario to-terciario text-white rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all"
             >
               Confirmar Reserva
             </button>

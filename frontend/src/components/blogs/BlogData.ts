@@ -34,7 +34,7 @@ export const blogs: Blog[] = [
     slug: "the-10-second-mental-habit",
     title: "The 10-Second Mental Habit That Can Change Your Whole Day",
     description: "It's free, simple, and backed by science. Try this one tiny shift that therapists swear by to instantly reset your mood.",
-    image: "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
   },
   {
     slug: "the-anxiety-you-dont-see",
