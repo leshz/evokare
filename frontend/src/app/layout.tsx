@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Metadata } from "next";
-import { Hind, Josefin_Sans } from "next/font/google";
+import { Hind, Josefin_Sans, Spectral, Montserrat } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
 
-const primary = Hind({
+const primary = Montserrat({
   variable: "--font-primary",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const secondary = Josefin_Sans({
+const secondary = Spectral({
   variable: "--font-secondary",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
