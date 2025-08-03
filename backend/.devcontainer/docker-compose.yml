@@ -22,7 +22,7 @@ services:
     image: postgres
     restart: always
     volumes:
-      - psql-data:/tmp/dev/pgsql/data
+      - psql-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     environment:
