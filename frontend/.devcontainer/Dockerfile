@@ -13,6 +13,12 @@ USER node
 # Establecer el directorio de trabajo  
 WORKDIR /workspace
 
+RUN echo "alias c='clear'" >> ~/.bashrc && \
+    echo "alias dev='yarn dev'" >> ~/.bashrc
+
+RUN echo "alias c='clear'" >> ~/.bashrc && \
+    echo "alias dev='yarn dev'" >> ~/.bashrc
+
 # Instalar herramientas globales de Node.js
 RUN npm install -g \
     @next/codemod \

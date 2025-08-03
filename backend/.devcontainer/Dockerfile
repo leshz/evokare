@@ -10,8 +10,8 @@ RUN apt-get update && apt-get install -y \
     wget \
     curl
 
-RUN echo "alias c='clear'" >> ~/.zshrc \
-    echo "alias dev='yarn dev'" >> ~/.zshrc \
+RUN echo "alias c='clear'" >> ~/.bashrc && \
+    echo "alias dev='yarn dev'" >> ~/.bashrc
 
 # [Optional] Uncomment if you want to install an additional version of node using nvm
 # ARG EXTRA_NODE_VERSION=10
