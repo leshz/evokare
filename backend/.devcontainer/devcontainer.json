@@ -3,11 +3,12 @@
 {
 	"name": "Strapi evokare",
 	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
+	"service": "strapi",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"mounts": [
 		"source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached"
+		"source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.wakatime.cfg,target=/home/node/.wakatime.cfg,type=bind,consistency=delegated"
 	],
 	"forwardPorts": [
 		"1337",
@@ -44,7 +45,8 @@
 				"esbenp.prettier-vscode",
 				"streetsidesoftware.code-spell-checker",
 				"ms-vscode.vscode-typescript-next",
-				"Yummygum.city-lights-icon-vsc"
+				"Yummygum.city-lights-icon-vsc",
+				"bradlc.vscode-tailwindcss"
 			]
 		}
 	},

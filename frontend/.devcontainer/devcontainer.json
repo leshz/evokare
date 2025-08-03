@@ -1,12 +1,12 @@
 {
-  "name": "Next.js Development Container",
+  "name": "Evokare Frontend",
   "build": {
     "dockerfile": "Dockerfile"
   },
   "mounts": [
     "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
     "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.wakatime.cfg,target=/home/vscode/.wakatime.cfg,type=bind,consistency=delegated"
+    "source=${localEnv:HOME}/.wakatime.cfg,target=/home/node/.wakatime.cfg,type=bind,consistency=delegated"
   ],
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
