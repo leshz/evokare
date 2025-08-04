@@ -8,7 +8,8 @@
 	"mounts": [
 		"source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
 		"source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
-		"source=${localEnv:HOME}/.wakatime.cfg,target=/home/node/.wakatime.cfg,type=bind,consistency=delegated"
+		"source=${localEnv:HOME}/.wakatime.cfg,target=/home/node/.wakatime.cfg,type=bind,consistency=delegated",
+		"source=${localEnv:HOME}/Dev/Web/mercadopago-strapi/,target=/workspaces/backend/src/plugins/mercadopago-strapi,type=bind,consistency=delegated"
 	],
 	"forwardPorts": [
 		"1337",
