@@ -65,8 +65,8 @@ ENV PATH=$PATH:/usr/local/share/npm-global/bin
 ENV SHELL=/bin/zsh
 
 # Set the default editor and visual
-ENV EDITOR cursor
-ENV VISUAL cursor
+ENV EDITOR=cursor
+ENV VISUAL=cursor
 
 # Default powerline10k theme
 ARG ZSH_IN_DOCKER_VERSION=1.2.0
@@ -89,13 +89,11 @@ RUN npm install -g \
 
 
 # Copy and set up firewall script
-COPY init-firewall.sh /usr/local/bin/
-USER root
-RUN chmod +x /usr/local/bin/init-firewall.sh && \
-    echo "node ALL=(root) NOPASSWD: /usr/local/bin/init-firewall.sh" > /etc/sudoers.d/node-firewall && \
-    chmod 0440 /etc/sudoers.d/node-firewall
-USER node
-
+# COPY init-firewall.sh /usr/local/bin/
+# USER root
+# RUN chmod +x /usr/local/bin/init-firewall.sh && \
+#     echo "node ALL=(root) NOPASSWD: /usr/local/bin/init-firewall.sh" > /etc/sudoers.d/node-firewall && \
+#     chmod 0440 /etc/sudoers.d/node-firewall
 
 # Configurar el usuario por defecto
 USER node
