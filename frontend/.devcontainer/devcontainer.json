@@ -9,9 +9,6 @@
     "source=${localEnv:HOME}/.wakatime.cfg,target=/home/node/.wakatime.cfg,type=bind,consistency=delegated"
   ],
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "22"
-    },
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
@@ -27,7 +24,8 @@
         "christian-kohler.path-intellisense",
         "ms-vscode.vscode-typescript-next",
         "bradlc.vscode-tailwindcss",
-        "usernamehw.errorlens"
+        "usernamehw.errorlens",
+        "Anthropic.claude-code"
       ],
       "settings": {
         "terminal.integrated.profiles.linux": {
