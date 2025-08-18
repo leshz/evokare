@@ -137,7 +137,7 @@ Este proyecto es privado y confidencial.
 
 ## 👥 Equipo
 
-Desarrollado con ❤️ por el equipo de Evokare
+Desarrollado con ❤️ shzTech.dev
 
 ---
 

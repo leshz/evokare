@@ -1,5 +1,5 @@
 {
-  "name": "Evokare Frontend",
+  "name": "Elisa Horta Frontend",
   "build": {
     "dockerfile": "Dockerfile"
   },
@@ -53,7 +53,7 @@
   ],
   "portsAttributes": {
     "3000": {
-      "label": "Evokare Website",
+      "label": "Elisa Horta Website",
       "onAutoForward": "notify"
     }
   },

@@ -11,7 +11,7 @@ export function AboutBio() {
 
         <div className="space-y-8 text-gray-600 text-lg leading-relaxed">
           <p className="text-center font-medium text-gray-700">
-            En Evokare, creemos en un enfoque integral y compasivo para la salud mental,
+En mi consulta, creo en un enfoque integral y compasivo para la salud mental,
             combinando técnicas terapéuticas basadas en evidencia con un entendimiento
             profundo del trauma y la resiliencia humana.
           </p>

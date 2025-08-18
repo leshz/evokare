@@ -25,7 +25,7 @@ export function TestimonialsAboutSection() {
               </div>
             </div>
             <p className="text-gray-600 mb-4">
-              &ldquo;Evokare me ayudó a encontrar herramientas que no sabía que tenía.
+              &ldquo;Elisa me ayudó a encontrar herramientas que no sabía que tenía.
               La terapia personalizada realmente hizo la diferencia en mi vida diaria.&rdquo;
             </p>
             <div className="flex items-center">
@@ -49,7 +49,7 @@ export function TestimonialsAboutSection() {
               </div>
             </div>
             <p className="text-gray-600 mb-4">
-              &ldquo;El enfoque holístico de Evokare me permitió trabajar no solo mis síntomas,
+              &ldquo;El enfoque holístico de Elisa me permitió trabajar no solo mis síntomas,
               sino también las causas profundas de mi ansiedad. Excelente equipo profesional.&rdquo;
             </p>
             <div className="flex items-center">

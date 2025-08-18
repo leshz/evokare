@@ -19,7 +19,7 @@ const secondary = Spectral({
 });
 
 export const metadata: Metadata = {
-  title: "Evokare - Apoyo en Salud Mental y Bienestar",
+  title: "Elisa Horta - Apoyo en Salud Mental y Bienestar",
   description: "Te ayudamos a reconectar con tu verdadero ser a través de apoyo profesional en salud mental y sesiones de terapia personalizadas.",
 };
 

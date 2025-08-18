@@ -13,7 +13,7 @@ export function TestimonialSection() {
             </div>
             <div className="flex-1">
               <p className="text-lg text-gray-700 mb-4 italic">
-                &quot;Evokare cambió mi vida. El apoyo que recibí me ayudó a superar la ansiedad y encontrar mi paz interior. Los profesionales son increíbles y el ambiente es muy acogedor.&quot;
+                &quot;Elisa cambió mi vida. El apoyo que recibí me ayudó a superar la ansiedad y encontrar mi paz interior. Es una profesional increíble y el ambiente es muy acogedor.&quot;
               </p>
               <div>
                 <div className="font-semibold text-gray-900">María González</div>
