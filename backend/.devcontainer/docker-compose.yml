@@ -8,7 +8,6 @@ services:
 
     volumes:
       - ../..:/workspaces:cached
-      
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
@@ -26,6 +25,7 @@ services:
       - psql-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+      - "1337:1337"
     environment:
       POSTGRES_DB: evokare
       POSTGRES_USER: evokare
