@@ -1,12 +1,12 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #FBFCFF;
+  --background: #fbfcff;
   --foreground: #171717;
-  --color-principal: #FBFCFF;
+  --color-principal: #fbfcff;
   --color-secundario: #9f97f0;
   --color-terciario: #5893f7;
-  
+
   /* Indigo colors */
   --color-indigo-50: #eef2ff;
   --color-indigo-100: #e0e7ff;
@@ -18,7 +18,7 @@
   --color-indigo-700: #4338ca;
   --color-indigo-800: #3730a3;
   --color-indigo-900: #312e81;
-  
+
   /* Purple colors */
   --color-purple-50: #faf5ff;
   --color-purple-100: #f3e8ff;
@@ -40,7 +40,7 @@
   --color-terciario: var(--color-terciario);
   --font-primary: var(--font-primary);
   --font-secondary: var(--font-secondary);
-  
+
   /* Indigo theme colors */
   --color-indigo-50: var(--color-indigo-50);
   --color-indigo-100: var(--color-indigo-100);
@@ -52,7 +52,7 @@
   --color-indigo-700: var(--color-indigo-700);
   --color-indigo-800: var(--color-indigo-800);
   --color-indigo-900: var(--color-indigo-900);
-  
+
   /* Purple theme colors */
   --color-purple-50: var(--color-purple-50);
   --color-purple-100: var(--color-purple-100);
@@ -72,6 +72,11 @@ body {
   font-family: var(--font-primary);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-secondary);
 }

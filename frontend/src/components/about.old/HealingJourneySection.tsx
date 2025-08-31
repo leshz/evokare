@@ -1,21 +1,23 @@
 export function HealingJourneySection() {
   return (
-    <section className="py-20 bg-gradient-to-br from-secundario to-terciario">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="from-secundario to-terciario bg-gradient-to-br py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center text-white">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">
-            Comienza Tu Viaje De<br />
+          <h2 className="mb-8 text-4xl font-bold md:text-5xl">
+            Comienza Tu Viaje De
+            <br />
             <span className="text-yellow-300">Sanación Hoy</span>
           </h2>
-          <p className="text-xl mb-12 max-w-3xl mx-auto opacity-90">
-            No esperes más para comenzar tu transformación. Cada paso que tomes hacia
-            tu bienestar es una inversión en tu futuro y en las personas que amas.
+          <p className="mx-auto mb-12 max-w-3xl text-xl opacity-90">
+            No esperes más para comenzar tu transformación. Cada paso que tomes
+            hacia tu bienestar es una inversión en tu futuro y en las personas
+            que amas.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-white text-secundario px-8 py-4 rounded-full hover:bg-gray-100 transition-colors font-medium text-lg">
+          <div className="flex flex-col justify-center gap-6 sm:flex-row">
+            <button className="text-secundario rounded-full bg-white px-8 py-4 text-lg font-medium transition-colors hover:bg-gray-100">
               Agendar Primera Sesión
             </button>
-            <button className="border-2 border-white text-white px-8 py-4 rounded-full hover:bg-white hover:text-secundario transition-colors font-medium text-lg">
+            <button className="hover:text-secundario rounded-full border-2 border-white px-8 py-4 text-lg font-medium text-white transition-colors hover:bg-white">
               Conocer Nuestros Planes
             </button>
           </div>
@@ -23,4 +25,4 @@ export function HealingJourneySection() {
       </div>
     </section>
   );
-} 
+}

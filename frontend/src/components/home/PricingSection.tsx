@@ -1,48 +1,66 @@
 export function PricingSection() {
   return (
-    <section className="py-20 bg-principal">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Planes y Precios</h2>
-          <p className="text-xl text-gray-600">Elige el plan que mejor se adapte a tus necesidades</p>
+    <section className="bg-principal py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-16 text-center">
+          <h2 className="mb-4 text-4xl font-bold text-gray-900">
+            Planes y Precios
+          </h2>
+          <p className="text-xl text-gray-600">
+            Elige el plan que mejor se adapte a tus necesidades
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Plan Básico</h3>
-            <div className="text-3xl font-bold text-secundario mb-4">$99<span className="text-lg text-gray-600">/mes</span></div>
-            <ul className="space-y-2 text-gray-600 mb-6">
-              <li className="flex items-center"><span className="text-secundario mr-2">✓</span> Sesiones semanales</li>
-              <li className="flex items-center"><span className="text-secundario mr-2">✓</span> Apoyo por email</li>
-              <li className="flex items-center"><span className="text-secundario mr-2">✓</span> Biblioteca de recursos</li>
+        <div className="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
+          <div className="rounded-2xl bg-white p-6 shadow-sm">
+            <h3 className="mb-4 text-2xl font-bold text-gray-900">
+              Plan Básico
+            </h3>
+            <div className="text-secundario mb-4 text-3xl font-bold">
+              $99<span className="text-lg text-gray-600">/mes</span>
+            </div>
+            <ul className="mb-6 space-y-2 text-gray-600">
+              <li className="flex items-center">
+                <span className="text-secundario mr-2">✓</span> Sesiones
+                semanales
+              </li>
+              <li className="flex items-center">
+                <span className="text-secundario mr-2">✓</span> Apoyo por email
+              </li>
+              <li className="flex items-center">
+                <span className="text-secundario mr-2">✓</span> Biblioteca de
+                recursos
+              </li>
             </ul>
-            <button className="w-full bg-gradient-to-br from-secundario to-terciario text-white py-3 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all font-medium">
+            <button className="from-secundario to-terciario hover:from-terciario hover:to-secundario w-full rounded-full bg-gradient-to-br py-3 font-medium text-white transition-all hover:bg-gradient-to-br">
               Comenzar
             </button>
           </div>
 
-          <div className="bg-secundario text-white rounded-2xl p-6">
-            <h3 className="text-2xl font-bold mb-4">Plan Premium</h3>
-            <div className="text-3xl font-bold mb-4">$199<span className="text-lg text-principal">/mes</span></div>
-            <ul className="space-y-2 text-principal">
+          <div className="bg-secundario rounded-2xl p-6 text-white">
+            <h3 className="mb-4 text-2xl font-bold">Plan Premium</h3>
+            <div className="mb-4 text-3xl font-bold">
+              $199<span className="text-principal text-lg">/mes</span>
+            </div>
+            <ul className="text-principal space-y-2">
               <li className="flex items-center">
-                <div className="w-6 h-6 bg-white rounded-full flex-shrink-0 mt-1"></div>
+                <div className="mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-white"></div>
                 <span className="ml-2">Todo del plan básico</span>
               </li>
               <li className="flex items-center">
-                <div className="w-6 h-6 bg-white rounded-full flex-shrink-0 mt-1"></div>
+                <div className="mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-white"></div>
                 <span className="ml-2">Sesiones ilimitadas</span>
               </li>
               <li className="flex items-center">
-                <div className="w-6 h-6 bg-white rounded-full flex-shrink-0 mt-1"></div>
+                <div className="mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-white"></div>
                 <span className="ml-2">Apoyo 24/7</span>
               </li>
               <li className="flex items-center">
-                <div className="w-6 h-6 bg-white rounded-full flex-shrink-0 mt-1"></div>
+                <div className="mt-1 h-6 w-6 flex-shrink-0 rounded-full bg-white"></div>
                 <span className="ml-2">Recursos exclusivos</span>
               </li>
             </ul>
-            <button className="w-full bg-white text-secundario py-3 rounded-full mt-6 hover:bg-principal transition-colors font-medium">
+            <button className="text-secundario hover:bg-principal mt-6 w-full rounded-full bg-white py-3 font-medium transition-colors">
               Comenzar
             </button>
           </div>
@@ -50,4 +68,4 @@ export function PricingSection() {
       </div>
     </section>
   );
-} 
+}

@@ -1,20 +1,21 @@
 export function ProductHero() {
   return (
-    <section className="py-20 bg-gradient-to-r from-secundario to-terciario">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="from-secundario to-terciario bg-gradient-to-r py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h1 className="mb-6 text-4xl font-bold text-white md:text-5xl">
             Productos Holísticos
           </h1>
-          <p className="text-xl text-principal mb-8 max-w-3xl mx-auto">
-            Descubre nuestra colección cuidadosamente seleccionada de productos naturales
-            y holísticos para tu bienestar físico, mental y espiritual.
+          <p className="text-principal mx-auto mb-8 max-w-3xl text-xl">
+            Descubre nuestra colección cuidadosamente seleccionada de productos
+            naturales y holísticos para tu bienestar físico, mental y
+            espiritual.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-secundario px-8 py-3 rounded-full font-medium hover:bg-principal transition-colors">
+          <div className="flex flex-col justify-center gap-4 sm:flex-row">
+            <button className="text-secundario hover:bg-principal rounded-full bg-white px-8 py-3 font-medium transition-colors">
               Explorar Productos
             </button>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-full font-medium hover:bg-white hover:text-secundario transition-colors">
+            <button className="hover:text-secundario rounded-full border-2 border-white px-8 py-3 font-medium text-white transition-colors hover:bg-white">
               Guía de Productos
             </button>
           </div>
@@ -22,4 +23,4 @@ export function ProductHero() {
       </div>
     </section>
   );
-} 
+}

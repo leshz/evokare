@@ -13,7 +13,7 @@ export function ProductFilter() {
     'Hierbas',
     'Aromaterapia',
     'Terapia Sonora',
-    'Masajes'
+    'Masajes',
   ];
 
   const handleFilterChange = (category: string) => {
@@ -24,9 +24,9 @@ export function ProductFilter() {
 
   return (
     <section className="py-12 pb-2">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 text-center">
+          <h2 className="mb-4 text-3xl font-bold text-gray-900">
             Explora por Categorías
           </h2>
           <p className="text-gray-600">
@@ -35,15 +35,16 @@ export function ProductFilter() {
         </div>
 
         {/* Filtros de categorías */}
-        <div className="flex flex-wrap justify-center gap-4 mb-8">
-          {categories.map((category) => (
+        <div className="mb-8 flex flex-wrap justify-center gap-4">
+          {categories.map(category => (
             <button
               key={category}
               onClick={() => handleFilterChange(category)}
-              className={`px-6 py-2 rounded-full font-medium transition-colors ${activeFilter === category
-                ? 'bg-secundario text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+              className={`rounded-full px-6 py-2 font-medium transition-colors ${
+                activeFilter === category
+                  ? 'bg-secundario text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
             >
               {category}
             </button>
@@ -52,4 +53,4 @@ export function ProductFilter() {
       </div>
     </section>
   );
-} 
+}

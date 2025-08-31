@@ -13,10 +13,10 @@ interface BlogGridProps {
 
 export const BlogGrid = ({ blogs }: BlogGridProps) => {
   return (
-    <div className="grid md:grid-cols-2 gap-8">
+    <div className="grid gap-8 md:grid-cols-2">
       {blogs.map((blog, idx) => (
         <BlogCard key={idx} {...blog} />
       ))}
     </div>
   );
-}; 
+};

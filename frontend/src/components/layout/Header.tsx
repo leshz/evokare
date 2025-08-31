@@ -16,43 +16,106 @@ export function Header() {
   };
 
   return (
-    <header className="bg-principal shadow-sm relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+    <header className="bg-principal relative shadow-sm">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between py-4">
           <div className="flex items-center">
             <Image src="/logo.png" alt="ELisa" width={100} height={100} />
             {/* <div className="text-2xl font-bold text-secundario">ELisa</div> */}
           </div>
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-secundario transition-colors">INICIO</Link>
-            <Link href="/nosotros" className="text-gray-700 hover:text-secundario transition-colors">NOSOTROS</Link>
-            <Link href="/productos" className="text-gray-700 hover:text-secundario transition-colors">PRODUCTOS</Link>
-            <Link href="/blogs" className="text-gray-700 hover:text-secundario transition-colors">BLOGS</Link>
-            <Link href="/contacto" className="text-gray-700 hover:text-secundario transition-colors">CONTACTO</Link>
-            <button className="bg-gradient-to-br from-secundario to-terciario text-white px-4 py-2 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all">
+          <nav className="hidden items-center space-x-8 md:flex">
+            <Link
+              href="/"
+              className="hover:text-secundario text-gray-700 transition-colors"
+            >
+              INICIO
+            </Link>
+            <Link
+              href="/nosotros"
+              className="hover:text-secundario text-gray-700 transition-colors"
+            >
+              NOSOTROS
+            </Link>
+            <Link
+              href="/productos"
+              className="hover:text-secundario text-gray-700 transition-colors"
+            >
+              PRODUCTOS
+            </Link>
+            <Link
+              href="/blogs"
+              className="hover:text-secundario text-gray-700 transition-colors"
+            >
+              BLOGS
+            </Link>
+            <Link
+              href="/contacto"
+              className="hover:text-secundario text-gray-700 transition-colors"
+            >
+              CONTACTO
+            </Link>
+            <button className="from-secundario to-terciario hover:from-terciario hover:to-secundario rounded-full bg-gradient-to-br px-4 py-2 text-white transition-all hover:bg-gradient-to-br">
               Comenzar
             </button>
           </nav>
           <button
             onClick={toggleMenu}
-            className="md:hidden flex items-center p-2 text-gray-700 hover:text-secundario transition-colors"
+            className="hover:text-secundario flex items-center p-2 text-gray-700 transition-colors md:hidden"
             aria-label="Toggle menu"
           >
-            <div className="w-6 h-6 flex flex-col justify-center items-center">
-              <span className={`block w-5 h-0.5 bg-current transform transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1' : '-translate-y-1'}`}></span>
-              <span className={`block w-5 h-0.5 bg-current transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-              <span className={`block w-5 h-0.5 bg-current transform transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1' : 'translate-y-1'}`}></span>
+            <div className="flex h-6 w-6 flex-col items-center justify-center">
+              <span
+                className={`block h-0.5 w-5 transform bg-current transition-all duration-300 ${isMenuOpen ? 'translate-y-1 rotate-45' : '-translate-y-1'}`}
+              ></span>
+              <span
+                className={`block h-0.5 w-5 bg-current transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}
+              ></span>
+              <span
+                className={`block h-0.5 w-5 transform bg-current transition-all duration-300 ${isMenuOpen ? '-translate-y-1 -rotate-45' : 'translate-y-1'}`}
+              ></span>
             </div>
           </button>
         </div>
-        <div className={`md:hidden absolute top-full left-0 right-0 bg-principal shadow-lg transition-all duration-300 ease-in-out ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-          <nav className="flex flex-col py-4 px-4">
-            <Link href="/" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">INICIO</Link>
-            <Link href="/nosotros" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">NOSOTROS</Link>
-            <Link href="/productos" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">PRODUCTOS</Link>
-            <Link href="/blogs" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">BLOGS</Link>
-            <Link href="/contacto" onClick={closeMenu} className="text-gray-700 hover:text-secundario transition-colors py-3 border-b border-gray-100">CONTACTO</Link>
-            <button className="bg-gradient-to-br from-secundario to-terciario text-white px-4 py-3 rounded-full hover:bg-gradient-to-br hover:from-terciario hover:to-secundario transition-all mt-4">
+        <div
+          className={`bg-principal absolute top-full right-0 left-0 shadow-lg transition-all duration-300 ease-in-out md:hidden ${isMenuOpen ? 'visible opacity-100' : 'invisible opacity-0'}`}
+        >
+          <nav className="flex flex-col px-4 py-4">
+            <Link
+              href="/"
+              onClick={closeMenu}
+              className="hover:text-secundario border-b border-gray-100 py-3 text-gray-700 transition-colors"
+            >
+              INICIO
+            </Link>
+            <Link
+              href="/nosotros"
+              onClick={closeMenu}
+              className="hover:text-secundario border-b border-gray-100 py-3 text-gray-700 transition-colors"
+            >
+              NOSOTROS
+            </Link>
+            <Link
+              href="/productos"
+              onClick={closeMenu}
+              className="hover:text-secundario border-b border-gray-100 py-3 text-gray-700 transition-colors"
+            >
+              PRODUCTOS
+            </Link>
+            <Link
+              href="/blogs"
+              onClick={closeMenu}
+              className="hover:text-secundario border-b border-gray-100 py-3 text-gray-700 transition-colors"
+            >
+              BLOGS
+            </Link>
+            <Link
+              href="/contacto"
+              onClick={closeMenu}
+              className="hover:text-secundario border-b border-gray-100 py-3 text-gray-700 transition-colors"
+            >
+              CONTACTO
+            </Link>
+            <button className="from-secundario to-terciario hover:from-terciario hover:to-secundario mt-4 rounded-full bg-gradient-to-br px-4 py-3 text-white transition-all hover:bg-gradient-to-br">
               Comenzar
             </button>
           </nav>
@@ -60,4 +123,4 @@ export function Header() {
       </div>
     </header>
   );
-} 
+}

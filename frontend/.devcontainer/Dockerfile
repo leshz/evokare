@@ -107,3 +107,4 @@ RUN echo "alias c='clear'" >> ~/.zshrc && \
 
 # Exponer el puerto por defecto de Next.js
 EXPOSE 3000 
+EXPOSE 42909
