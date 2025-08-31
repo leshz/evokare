@@ -32,9 +32,13 @@ export const get = async <T = any>(
 
   const requestPath = `${baseUrl}${url}`;
   try {
-    console.debug(`GET Request to: ${requestPath}`);
+    console.log(`GET Request to: ${requestPath}`);
 
-    const response = await fetch(requestPath, {
+    const params = new URLSearchParams({
+      populate: 'all',
+    }).toString();
+
+    const response = await fetch(`${requestPath}?${params}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

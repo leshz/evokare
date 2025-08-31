@@ -13,8 +13,8 @@ services:
     environment:
       - NODE_ENV=development
     networks:
-      - nextjs-network
+      - service:db
 
 networks:
-  nextjs-network:
+  service:db:
     driver: bridge
