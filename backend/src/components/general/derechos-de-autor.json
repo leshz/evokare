@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_general_derechos_de_autors",
+  "info": {
+    "displayName": "Derechos de autor",
+    "icon": "user"
+  },
+  "options": {},
+  "attributes": {
+    "autor": {
+      "type": "richtext"
+    }
+  },
+  "config": {}
+}

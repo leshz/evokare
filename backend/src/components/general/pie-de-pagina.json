@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_general_pie_de_paginas",
+  "info": {
+    "displayName": "Columnas"
+  },
+  "options": {},
+  "attributes": {
+    "Columnas": {
+      "type": "component",
+      "component": "general.columna",
+      "repeatable": true
+    },
+    "autor": {
+      "type": "component",
+      "component": "general.derechos-de-autor",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}

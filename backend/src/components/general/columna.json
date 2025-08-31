@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_general_columnas",
+  "info": {
+    "displayName": "Columna",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "Titulo": {
+      "type": "string",
+      "required": true
+    },
+    "Contenido": {
+      "type": "richtext",
+      "required": true
+    }
+  },
+  "config": {}
+}

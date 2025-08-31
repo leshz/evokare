@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_general_barra_de_navegacions",
+  "info": {
+    "displayName": "Barra de navegacion",
+    "icon": "brush"
+  },
+  "options": {},
+  "attributes": {
+    "Icono": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "Link": {
+      "type": "component",
+      "component": "shared.accion",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}

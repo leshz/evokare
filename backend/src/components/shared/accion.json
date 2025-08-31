@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_accions",
+  "info": {
+    "displayName": "accion"
+  },
+  "options": {},
+  "attributes": {
+    "Texto": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "Link": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}
