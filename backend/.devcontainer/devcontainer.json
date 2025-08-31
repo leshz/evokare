@@ -12,12 +12,8 @@
 		"source=${localEnv:HOME}/Dev/Web/mercadopago-strapi/,target=/workspaces/backend/src/plugins/mercadopago-strapi,type=bind,consistency=delegated"
 	],
 	"forwardPorts": [
-		"1337",
-		"5432"
-	],
-	"ports": [
-		"1337",
-		"5432"
+		1337,
+		5432
 	],
 	"customizations": {
 		"vscode": {

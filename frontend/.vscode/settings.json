@@ -18,5 +18,8 @@
   },
   "editor.quickSuggestions": {
     "strings": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }

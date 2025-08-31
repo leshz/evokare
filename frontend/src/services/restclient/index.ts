@@ -24,14 +24,15 @@ const createAbortController = (timeout: number) => {
 const token = `${process.env.STRAPI_API_TOKEN}`;
 const baseUrl = `${process.env.STRAPI_API_URL}/api`;
 
-export const apiService = {
-  async get<T = any>(
-    url: string,
-    config: RequestConfig = {}
-  ): Promise<ApiResponse<T>> {
-    const controller = createAbortController(config.timeout || DEFAULT_TIMEOUT);
+export const get = async <T = any>(
+  url: string,
+  config: RequestConfig = {}
+): Promise<ApiResponse<T>> => {
+  const controller = createAbortController(config.timeout || DEFAULT_TIMEOUT);
 
-    const requestPath = `${baseUrl}${url}`;
+  const requestPath = `${baseUrl}${url}`;
+  try {
+    console.debug(`GET Request to: ${requestPath}`);
 
     const response = await fetch(requestPath, {
       method: 'GET',
@@ -54,40 +55,44 @@ export const apiService = {
       status: response.status,
       statusText: response.statusText,
     };
-  },
-
-  async post<T = any>(
-    url: string,
-    body: any,
-    config: RequestConfig = {}
-  ): Promise<ApiResponse<T>> {
-    const controller = createAbortController(config.timeout || DEFAULT_TIMEOUT);
-
-    const requestPath = `${baseUrl}${url}`;
-
-    const response = await fetch(requestPath, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer  ${token}`,
-        ...config.headers,
-      },
-      body: JSON.stringify(body),
-      signal: controller.signal,
-    });
-
-    if (!response.ok) {
-      throw new ApiError(response.status, response.statusText);
-    }
-
-    const data = await response.json();
-
-    return {
-      data,
-      status: response.status,
-      statusText: response.statusText,
-    };
-  },
+  } catch (error: any) {
+    throw new ApiError(
+      error.status || 500,
+      error.statusText || 'Unknown Error',
+      `${error.message} - ${requestPath}`
+    );
+  }
 };
 
-export { ApiError };
+export const post = async <T = any>(
+  url: string,
+  body: any,
+  config: RequestConfig = {}
+): Promise<ApiResponse<T>> => {
+  const controller = createAbortController(config.timeout || DEFAULT_TIMEOUT);
+
+  const requestPath = `${baseUrl}${url}`;
+
+  const response = await fetch(requestPath, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer  ${token}`,
+      ...config.headers,
+    },
+    body: JSON.stringify(body),
+    signal: controller.signal,
+  });
+
+  if (!response.ok) {
+    throw new ApiError(response.status, response.statusText);
+  }
+
+  const data = await response.json();
+
+  return {
+    data,
+    status: response.status,
+    statusText: response.statusText,
+  };
+};

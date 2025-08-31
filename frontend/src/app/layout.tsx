@@ -4,6 +4,7 @@ import { Hind, Josefin_Sans, Spectral, Montserrat } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import './globals.css';
+import { getGeneralService } from '@/services/general';
 
 const primary = Montserrat({
   variable: '--font-primary',
@@ -21,13 +22,17 @@ export const metadata: Metadata = {
   title: 'Elisa Horta - Apoyo en Salud Mental y Bienestar',
   description:
     'Te ayudamos a reconectar con tu verdadero ser a través de apoyo profesional en salud mental y sesiones de terapia personalizadas.',
-};
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const generalData = await getGeneralService();
+
+  console.log('generalData', generalData);
   return (
     <html lang="es">
       <body className={`${primary.variable} ${secondary.variable} antialiased`}>

@@ -1,8 +1,8 @@
-import { apiService } from '../restclient';
+import { get } from '../restclient';
 
 export const getGeneralService = async () => {
   try {
-    const generalResponse = await apiService.get('/general');
+    const generalResponse = await get('/general');
     return generalResponse;
   } catch (error) {
     throw error;
