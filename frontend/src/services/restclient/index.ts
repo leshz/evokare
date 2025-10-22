@@ -24,7 +24,7 @@ const createAbortController = (timeout: number) => {
 const token = `${process.env.STRAPI_API_TOKEN}`;
 const baseUrl = `${process.env.STRAPI_API_URL}/api`;
 
-export const get = async <T = any>(
+export const get = async <T = unknown>(
   url: string,
   config: RequestConfig = {}
 ): Promise<ApiResponse<T>> => {
@@ -52,7 +52,7 @@ export const get = async <T = any>(
       throw new ApiError(response.status, response.statusText);
     }
 
-    const data = await response.json();
+    const { data } = await response.json();
 
     return {
       data,
@@ -68,7 +68,7 @@ export const get = async <T = any>(
   }
 };
 
-export const post = async <T = any>(
+export const post = async <T = unknown>(
   url: string,
   body: any,
   config: RequestConfig = {}

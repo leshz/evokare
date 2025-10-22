@@ -33,7 +33,7 @@
         }
       },
       "component": "general.pie-de-pagina",
-      "repeatable": true,
+      "repeatable": false,
       "required": true,
       "min": 1,
       "max": 3

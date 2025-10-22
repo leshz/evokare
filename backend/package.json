@@ -11,7 +11,7 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "strapi": "strapi",
-    "upgrade": "npx @strapi/upgrade latest",
+    "upgrade": "npx @strapi/upgrade patch",
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {

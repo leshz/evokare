@@ -406,7 +406,7 @@ export interface ApiGeneralGeneral extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
-    pie_de_pagina: Schema.Attribute.Component<'general.pie-de-pagina', true> &
+    pie_de_pagina: Schema.Attribute.Component<'general.pie-de-pagina', false> &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

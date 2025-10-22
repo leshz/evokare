@@ -20,8 +20,8 @@ export interface GeneralColumna extends Struct.ComponentSchema {
     icon: 'apps';
   };
   attributes: {
-    Contenido: Schema.Attribute.RichText & Schema.Attribute.Required;
-    Titulo: Schema.Attribute.String & Schema.Attribute.Required;
+    contenido: Schema.Attribute.RichText & Schema.Attribute.Required;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -32,7 +32,7 @@ export interface GeneralDerechosDeAutor extends Struct.ComponentSchema {
     icon: 'user';
   };
   attributes: {
-    autor: Schema.Attribute.RichText;
+    autor: Schema.Attribute.Blocks;
   };
 }
 
@@ -42,8 +42,8 @@ export interface GeneralPieDePagina extends Struct.ComponentSchema {
     displayName: 'Columnas';
   };
   attributes: {
-    autor: Schema.Attribute.Component<'general.derechos-de-autor', false>;
-    Columnas: Schema.Attribute.Component<'general.columna', true>;
+    autor: Schema.Attribute.Blocks;
+    columnas: Schema.Attribute.Component<'general.columna', true>;
   };
 }
 

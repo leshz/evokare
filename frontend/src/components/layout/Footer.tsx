@@ -1,4 +1,13 @@
-export function Footer() {
+import { BlocksRendererCustom } from "@/components/commons/BlocksRendererCustom";
+
+import { FooterProps } from "./types";
+
+
+export const Footer = ({ footer }: FooterProps) => {
+  const { autor } = footer
+
+
+
   return (
     <footer className="from-secundario to-terciario m-4 rounded-2xl bg-gradient-to-r py-16 text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -54,18 +63,7 @@ export function Footer() {
 
         <div className="border-opacity-20 mt-12 border-t border-white pt-8 text-center">
           <div className="mb-4 flex justify-center space-x-6">
-            <a
-              href="#"
-              className="text-gray-100 transition-colors hover:text-white"
-            >
-              Política de Privacidad
-            </a>
-            <a
-              href="#"
-              className="text-gray-100 transition-colors hover:text-white"
-            >
-              Términos de Servicio
-            </a>
+            <BlocksRendererCustom content={autor} />
           </div>
           <p className="text-gray-100">
             © 2024 Elisa Horta. Todos los derechos reservados.

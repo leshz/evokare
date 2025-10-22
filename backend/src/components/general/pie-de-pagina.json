@@ -5,15 +5,13 @@
   },
   "options": {},
   "attributes": {
-    "Columnas": {
+    "columnas": {
       "type": "component",
       "component": "general.columna",
       "repeatable": true
     },
     "autor": {
-      "type": "component",
-      "component": "general.derechos-de-autor",
-      "repeatable": false
+      "type": "blocks"
     }
   },
   "config": {}

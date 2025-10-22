@@ -7,7 +7,7 @@
   "options": {},
   "attributes": {
     "autor": {
-      "type": "richtext"
+      "type": "blocks"
     }
   },
   "config": {}
