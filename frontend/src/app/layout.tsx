@@ -30,12 +30,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const { data: { pie_de_pagina: footer } } = await getGeneralService();
+  const { data: { pie_de_pagina: footer, navegacion: topbar, menu } } = await getGeneralService();
 
   return (
     <html lang="es">
       <body className={`${primary.variable} ${secondary.variable} antialiased`}>
-        <Header />
+        <Header content={topbar} menu={menu} />
         {children}
         <Footer footer={footer} />
       </body>

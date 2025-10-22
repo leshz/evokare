@@ -51,6 +51,13 @@ export interface FooterSection {
   autor: BlocksContent;
 }
 
+export interface MenuSection {
+  __component: 'shared.accion';
+  id: number;
+  texto: string;
+  link: string;
+}
+
 export interface GeneralData {
   id: number;
   documentId: string;
@@ -60,6 +67,7 @@ export interface GeneralData {
   locale: string;
   navegacion: Navegacion;
   pie_de_pagina: FooterSection;
+  menu: MenuSection[];
   localizations: any[];
 }
 

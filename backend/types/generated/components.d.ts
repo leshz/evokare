@@ -7,9 +7,8 @@ export interface GeneralBarraDeNavegacion extends Struct.ComponentSchema {
     icon: 'brush';
   };
   attributes: {
-    Icono: Schema.Attribute.Media<'images' | 'files'> &
+    icono: Schema.Attribute.Media<'images' | 'files'> &
       Schema.Attribute.Required;
-    Link: Schema.Attribute.Component<'shared.accion', false>;
   };
 }
 
@@ -114,8 +113,8 @@ export interface SharedAccion extends Struct.ComponentSchema {
     displayName: 'accion';
   };
   attributes: {
-    Link: Schema.Attribute.String & Schema.Attribute.Required;
-    Texto: Schema.Attribute.String & Schema.Attribute.Required;
+    link: Schema.Attribute.String & Schema.Attribute.Required;
+    texto: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 

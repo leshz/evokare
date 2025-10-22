@@ -63,11 +63,14 @@ export const Footer = ({ footer }: FooterProps) => {
 
         <div className="border-opacity-20 mt-12 border-t border-white pt-8 text-center">
           <div className="mb-4 flex justify-center space-x-6">
-            <BlocksRendererCustom content={autor} />
+            <BlocksRendererCustom content={autor}
+              classNames={
+                {
+                  paragraph: 'text-gray-100'
+                }
+              }
+            />
           </div>
-          <p className="text-gray-100">
-            © 2024 Elisa Horta. Todos los derechos reservados.
-          </p>
         </div>
       </div>
     </footer>

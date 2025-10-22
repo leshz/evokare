@@ -1,10 +1,23 @@
 'use client';
 
 import { useState } from 'react';
+import { menuMapping } from '@/helpers/menu-mapping'
+
 import Link from 'next/link';
 import Image from 'next/image';
 
-export function Header() {
+import { Navegacion, MenuSection } from "@/services/general/types";
+
+interface HeaderProps {
+  content: Navegacion
+  menu: MenuSection[]
+}
+
+export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
+
+  const menuContent = menuMapping(menu)
+
+  console.log(content, menu)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -24,36 +37,18 @@ export function Header() {
             {/* <div className="text-2xl font-bold text-secundario">ELisa</div> */}
           </div>
           <nav className="hidden items-center space-x-8 md:flex">
-            <Link
-              href="/"
-              className="hover:text-secundario text-gray-700 transition-colors"
-            >
-              INICIO
-            </Link>
-            <Link
-              href="/nosotros"
-              className="hover:text-secundario text-gray-700 transition-colors"
-            >
-              NOSOTROS
-            </Link>
-            <Link
-              href="/productos"
-              className="hover:text-secundario text-gray-700 transition-colors"
-            >
-              PRODUCTOS
-            </Link>
-            <Link
-              href="/blogs"
-              className="hover:text-secundario text-gray-700 transition-colors"
-            >
-              BLOGS
-            </Link>
-            <Link
-              href="/contacto"
-              className="hover:text-secundario text-gray-700 transition-colors"
-            >
-              CONTACTO
-            </Link>
+            {menuContent.map(({ id, link, texto }) => {
+
+              return (<Link
+                key={id}
+                href={link}
+                className="hover:text-secundario text-gray-700 transition-colors"
+              >
+                {texto}
+              </Link>)
+
+
+            })}
             <button className="from-secundario to-terciario hover:from-terciario hover:to-secundario rounded-full bg-gradient-to-br px-4 py-2 text-white transition-all hover:bg-gradient-to-br">
               Comenzar
             </button>

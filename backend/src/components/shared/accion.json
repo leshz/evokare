@@ -5,12 +5,12 @@
   },
   "options": {},
   "attributes": {
-    "Texto": {
+    "texto": {
       "type": "string",
       "required": true,
       "unique": false
     },
-    "Link": {
+    "link": {
       "type": "string",
       "required": true
     }

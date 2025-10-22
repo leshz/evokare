@@ -397,6 +397,12 @@ export interface ApiGeneralGeneral extends Struct.SingleTypeSchema {
       'oneToMany',
       'api::general.general'
     >;
+    menu: Schema.Attribute.DynamicZone<['shared.accion']> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     navegacion: Schema.Attribute.Component<
       'general.barra-de-navegacion',
       false
