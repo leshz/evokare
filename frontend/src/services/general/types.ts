@@ -74,6 +74,7 @@ export interface MenuSection {
   id: number;
   texto: string;
   link: string;
+  boton: boolean;
 }
 
 export interface GeneralData {

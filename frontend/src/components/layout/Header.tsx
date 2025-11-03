@@ -36,24 +36,20 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center">
             <AdaptiveImage image={icono} width={100} height={100} />
-            {/* <div className="text-2xl font-bold text-secundario">ELisa</div> */}
           </div>
           <nav className="hidden items-center space-x-8 md:flex">
-            {menuContent.map(({ id, link, texto }) => {
-
+            {menuContent.map(({ id, link, texto, boton }) => {
+              const buttonClassNames = 'from-secundario to-terciario hover:from-terciario hover:to-secundario capitalize rounded-full bg-gradient-to-br px-4 py-2 text-white transition-all hover:bg-gradient-to-br';
+              const linkClassNames = 'hover:text-secundario text-gray-700 transition-colors capitalize';
+              const classNames = boton ? buttonClassNames : linkClassNames;
               return (<Link
                 key={id}
                 href={link}
-                className="hover:text-secundario text-gray-700 transition-colors capitalize"
+                className={classNames}
               >
                 {texto}
               </Link>)
-
-
             })}
-            <button className="from-secundario to-terciario hover:from-terciario hover:to-secundario rounded-full bg-gradient-to-br px-4 py-2 text-white transition-all hover:bg-gradient-to-br">
-              Comenzar
-            </button>
           </nav>
           <button
             onClick={toggleMenu}

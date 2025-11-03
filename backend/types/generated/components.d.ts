@@ -125,6 +125,9 @@ export interface SharedAccion extends Struct.ComponentSchema {
     displayName: 'accion';
   };
   attributes: {
+    boton: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
     link: Schema.Attribute.String & Schema.Attribute.Required;
     texto: Schema.Attribute.String & Schema.Attribute.Required;
   };
