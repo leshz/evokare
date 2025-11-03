@@ -1,5 +1,16 @@
 import { BlocksContent } from '@strapi/blocks-react-renderer';
 
+export interface ImageFormat {
+  url: string;
+  width: number;
+  height: number;
+  size: number;
+  mime: string;
+  name: string;
+  hash: string;
+  ext: string;
+}
+
 export interface StrapiImage {
   id: number;
   documentId: string;
@@ -8,7 +19,12 @@ export interface StrapiImage {
   caption: string | null;
   width: number;
   height: number;
-  formats: any;
+  formats: {
+    thumbnail?: ImageFormat;
+    small?: ImageFormat;
+    medium?: ImageFormat;
+    large?: ImageFormat;
+  } | null;
   hash: string;
   ext: string;
   mime: string;
@@ -30,8 +46,7 @@ export interface NavLink {
 
 export interface Navegacion {
   id: number;
-  Icono: StrapiImage;
-  Link: NavLink;
+  icono: StrapiImage;
 }
 
 export interface FooterColumn {

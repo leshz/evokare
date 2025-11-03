@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { menuMapping } from '@/helpers/menu-mapping'
+import { AdaptiveImage } from "@/components/shared/AdaptiveImage";
 
 import Link from 'next/link';
-import Image from 'next/image';
 
 import { Navegacion, MenuSection } from "@/services/general/types";
 
@@ -17,7 +17,9 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
 
   const menuContent = menuMapping(menu)
 
-  console.log(content, menu)
+  const { icono } = content
+
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -33,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center">
-            <Image src="/logo.png" alt="ELisa" width={100} height={100} />
+            <AdaptiveImage image={icono} width={100} height={100} />
             {/* <div className="text-2xl font-bold text-secundario">ELisa</div> */}
           </div>
           <nav className="hidden items-center space-x-8 md:flex">
@@ -42,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
               return (<Link
                 key={id}
                 href={link}
-                className="hover:text-secundario text-gray-700 transition-colors"
+                className="hover:text-secundario text-gray-700 transition-colors capitalize"
               >
                 {texto}
               </Link>)
