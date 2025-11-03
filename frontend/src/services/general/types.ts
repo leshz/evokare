@@ -53,18 +53,20 @@ export interface Navegacion {
 export interface FooterColumn {
   id: number;
   titulo: string;
-  contenido: string;
+  contenido: BlocksContent;
 }
 
-export interface FooterAuthor {
+export interface FooterInvitacion {
   id: number;
-  autor: string;
+  titulo: string;
+  contenido: BlocksContent;
 }
 
 export interface FooterSection {
   id: number;
   columnas: FooterColumn[];
   autor: BlocksContent;
+  invitacion: FooterInvitacion;
 }
 
 export interface MenuSection {

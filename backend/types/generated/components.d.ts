@@ -19,7 +19,7 @@ export interface GeneralColumna extends Struct.ComponentSchema {
     icon: 'apps';
   };
   attributes: {
-    contenido: Schema.Attribute.RichText & Schema.Attribute.Required;
+    contenido: Schema.Attribute.Blocks & Schema.Attribute.Required;
     titulo: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
@@ -35,6 +35,17 @@ export interface GeneralDerechosDeAutor extends Struct.ComponentSchema {
   };
 }
 
+export interface GeneralInvitacion extends Struct.ComponentSchema {
+  collectionName: 'components_general_invitacions';
+  info: {
+    displayName: 'Invitacion';
+  };
+  attributes: {
+    contenido: Schema.Attribute.Blocks;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface GeneralPieDePagina extends Struct.ComponentSchema {
   collectionName: 'components_general_pie_de_paginas';
   info: {
@@ -43,6 +54,7 @@ export interface GeneralPieDePagina extends Struct.ComponentSchema {
   attributes: {
     autor: Schema.Attribute.Blocks;
     columnas: Schema.Attribute.Component<'general.columna', true>;
+    invitacion: Schema.Attribute.Component<'general.invitacion', false>;
   };
 }
 
@@ -175,6 +187,7 @@ declare module '@strapi/strapi' {
       'general.barra-de-navegacion': GeneralBarraDeNavegacion;
       'general.columna': GeneralColumna;
       'general.derechos-de-autor': GeneralDerechosDeAutor;
+      'general.invitacion': GeneralInvitacion;
       'general.pie-de-pagina': GeneralPieDePagina;
       'mercadopago.customer': MercadopagoCustomer;
       'mercadopago.fulfillment': MercadopagoFulfillment;

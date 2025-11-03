@@ -12,6 +12,11 @@
     },
     "autor": {
       "type": "blocks"
+    },
+    "invitacion": {
+      "type": "component",
+      "component": "general.invitacion",
+      "repeatable": false
     }
   },
   "config": {}

@@ -2,6 +2,7 @@
 
 import { BlocksRenderer } from '@strapi/blocks-react-renderer'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import type { BlocksContent } from "@strapi/blocks-react-renderer";
 
@@ -175,14 +176,14 @@ export const BlocksRendererCustom: React.FC<BlocksRendererCustomProps> = ({
 
         // Link block
         link: ({ children, url }) => (
-          <a
+          <Link
             href={url}
             className={getClassString(colors.link, classNames.link)}
             target={url.startsWith('http') ? '_blank' : undefined}
             rel={url.startsWith('http') ? 'noopener noreferrer' : undefined}
           >
             {children}
-          </a>
+          </Link>
         ),
       }}
       modifiers={{

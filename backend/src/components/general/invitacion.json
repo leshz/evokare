@@ -1,8 +1,7 @@
 {
-  "collectionName": "components_general_columnas",
+  "collectionName": "components_general_invitacions",
   "info": {
-    "displayName": "Columna",
-    "icon": "apps"
+    "displayName": "Invitacion"
   },
   "options": {},
   "attributes": {
@@ -11,8 +10,7 @@
       "required": true
     },
     "contenido": {
-      "type": "blocks",
-      "required": true
+      "type": "blocks"
     }
   },
   "config": {}
