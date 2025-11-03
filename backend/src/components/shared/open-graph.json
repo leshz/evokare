@@ -8,8 +8,8 @@
   "attributes": {
     "ogTitle": {
       "type": "string",
-      "required": true,
-      "maxLength": 70
+      "maxLength": 70,
+      "required": true
     },
     "ogDescription": {
       "type": "string",
@@ -17,19 +17,33 @@
       "required": true
     },
     "ogImage": {
+      "type": "media",
+      "multiple": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "ogUrl": {
       "type": "string",
       "required": false
     },
     "ogType": {
-      "type": "string",
-      "required": false
+      "type": "enumeration",
+      "enum": [
+        "website",
+        "article",
+        "blog",
+        "book",
+        "profile",
+        "video.movie",
+        "video.episode",
+        "video.tv_show",
+        "video.other",
+        "music.song",
+        "music.album",
+        "music.playlist",
+        "music.radio_station"
+      ]
     }
   }
 }

@@ -151,7 +151,23 @@ export interface SharedOpenGraph extends Struct.ComponentSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 70;
       }>;
-    ogType: Schema.Attribute.String;
+    ogType: Schema.Attribute.Enumeration<
+      [
+        'website',
+        'article',
+        'blog',
+        'book',
+        'profile',
+        'video.movie',
+        'video.episode',
+        'video.tv_show',
+        'video.other',
+        'music.song',
+        'music.album',
+        'music.playlist',
+        'music.radio_station',
+      ]
+    >;
     ogUrl: Schema.Attribute.String;
   };
 }

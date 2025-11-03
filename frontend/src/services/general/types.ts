@@ -1,4 +1,5 @@
 import { BlocksContent } from '@strapi/blocks-react-renderer';
+import { SEO } from '../seo/types';
 
 export interface ImageFormat {
   url: string;
@@ -87,6 +88,7 @@ export interface GeneralData {
   navegacion: Navegacion;
   pie_de_pagina: FooterSection;
   menu: MenuSection[];
+  seo: SEO;
   localizations: any[];
 }
 

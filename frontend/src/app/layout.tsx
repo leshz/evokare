@@ -5,6 +5,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import './globals.css';
 import { getGeneralService } from '@/services/general';
+import { generateMetadataFromSEO } from '../services/seo';
 
 const primary = Montserrat({
   variable: '--font-primary',
@@ -18,10 +19,9 @@ const secondary = Spectral({
   weight: ['300', '400', '500', '600', '700'],
 });
 
-export const metadata: Metadata = {
-  title: 'Elisa Horta - Apoyo en Salud Mental y Bienestar',
-  description:
-    'Te ayudamos a reconectar con tu verdadero ser a través de apoyo profesional en salud mental y sesiones de terapia personalizadas.',
+export async function generateMetadata(): Promise<Metadata> {
+  const { data: { seo } } = await getGeneralService();
+  return generateMetadataFromSEO(seo);
 }
 
 export default async function RootLayout({
