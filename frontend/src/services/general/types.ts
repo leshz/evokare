@@ -36,12 +36,13 @@ export interface StrapiImage {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  isUrlSigned: boolean;
 }
 
 export interface NavLink {
   id: number;
-  Texto: string;
-  Link: string;
+  texto: string;
+  link: string;
 }
 
 export interface Navegacion {
