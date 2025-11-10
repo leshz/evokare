@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_inicio_banners",
+  "info": {
+    "displayName": "banner"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "contenido": {
+      "type": "string",
+      "required": true
+    },
+    "botones": {
+      "type": "component",
+      "component": "shared.accion",
+      "repeatable": true,
+      "required": true,
+      "max": 2
+    }
+  },
+  "config": {}
+}

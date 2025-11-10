@@ -22,7 +22,7 @@ services:
     image: postgres
     restart: always
     volumes:
-      - psql-data:/var/lib/postgresql/data
+      - psql-data:/var/lib/postgresql
     ports:
       - "5432:5432"
       - "1337:1337"

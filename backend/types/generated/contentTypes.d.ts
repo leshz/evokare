@@ -439,6 +439,40 @@ export interface ApiGeneralGeneral extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiInicioInicio extends Struct.SingleTypeSchema {
+  collectionName: 'inicios';
+  info: {
+    displayName: 'Inicio';
+    pluralName: 'inicios';
+    singularName: 'inicio';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::inicio.inicio'>;
+    publishedAt: Schema.Attribute.DateTime;
+    secciones: Schema.Attribute.DynamicZone<['shared.banner-comp']> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1174,6 +1208,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::general.general': ApiGeneralGeneral;
+      'api::inicio.inicio': ApiInicioInicio;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
