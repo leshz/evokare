@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { SupportingSection } from '@/components/home/SupportingSection';
 import { SupportSystemSection } from '@/components/home/SupportSystemSection';
 import { StatisticsSection } from '@/components/home/StatisticsSection';
@@ -6,7 +7,21 @@ import { FreshPerspectivesSection } from '@/components/home/FreshPerspectivesSec
 import { DailyQuotesSection } from '@/components/home/DailyQuotesSection';
 import { getInicioService } from '@/services/inicio';
 import { renderSection } from '@/lib/component-factory';
+import { generateMetadataFromSEO } from '@/services/seo';
 // import { PricingSection } from "@/components/home/PricingSection";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { data: { seo } } = await getInicioService();
+
+  if (!seo) {
+    return {
+      title: 'Inicio',
+      description: 'Bienvenido a nuestra plataforma de bienestar mental'
+    };
+  }
+
+  return generateMetadataFromSEO(seo);
+}
 
 export default async function Home() {
   const { data: inicioData } = await getInicioService();

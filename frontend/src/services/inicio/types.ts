@@ -1,4 +1,5 @@
 import { StrapiImage } from '../general/types';
+import { SEO } from '../seo/types';
 
 export interface Boton {
   id: number;
@@ -64,6 +65,7 @@ export interface InicioData {
   publishedAt: string;
   locale: string;
   secciones: SeccionInicio[];
+  seo: SEO | null;
   localizations: any[];
 }
 
