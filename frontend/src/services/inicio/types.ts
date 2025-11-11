@@ -21,17 +21,23 @@ export interface BannerComponent {
   banners: Banner[];
 }
 
-// Interfaces para futuros componentes
-// export interface AboutComponent {
-//   __component: 'shared.about-comp';
-//   id: number;
-//   // ... propiedades específicas
-// }
+export interface Destacado {
+  id: number;
+  dato: string;
+  descripcion: string;
+}
+
+export interface AboutComponent {
+  __component: 'inicio.acerca';
+  id: number;
+  titulo: string;
+  descripcion: string;
+  destacado: Destacado[];
+  botones: Boton[];
+}
 
 // Union type para todos los tipos de secciones
-// A medida que se agreguen más componentes, expandir este tipo:
-// export type SeccionInicio = BannerComponent | AboutComponent | ...;
-export type SeccionInicio = BannerComponent;
+export type SeccionInicio = BannerComponent | AboutComponent;
 
 export interface InicioData {
   id: number;

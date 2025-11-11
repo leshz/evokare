@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_inicio_destacados",
+  "info": {
+    "displayName": "destacados"
+  },
+  "options": {},
+  "attributes": {
+    "dato": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

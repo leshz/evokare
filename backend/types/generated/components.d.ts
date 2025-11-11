@@ -58,6 +58,25 @@ export interface GeneralPieDePagina extends Struct.ComponentSchema {
   };
 }
 
+export interface InicioAcerca extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_acercas';
+  info: {
+    displayName: 'acerca';
+  };
+  attributes: {
+    botones: Schema.Attribute.Component<'shared.accion', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 2;
+        },
+        number
+      >;
+    descripcion: Schema.Attribute.Text;
+    destacado: Schema.Attribute.Component<'inicio.destacados', true>;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface InicioBanner extends Struct.ComponentSchema {
   collectionName: 'components_inicio_banners';
   info: {
@@ -75,6 +94,17 @@ export interface InicioBanner extends Struct.ComponentSchema {
     contenido: Schema.Attribute.String & Schema.Attribute.Required;
     imagen: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface InicioDestacados extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_destacados';
+  info: {
+    displayName: 'destacados';
+  };
+  attributes: {
+    dato: Schema.Attribute.String & Schema.Attribute.Required;
+    descripcion: Schema.Attribute.String;
   };
 }
 
@@ -238,7 +268,9 @@ declare module '@strapi/strapi' {
       'general.derechos-de-autor': GeneralDerechosDeAutor;
       'general.invitacion': GeneralInvitacion;
       'general.pie-de-pagina': GeneralPieDePagina;
+      'inicio.acerca': InicioAcerca;
       'inicio.banner': InicioBanner;
+      'inicio.destacados': InicioDestacados;
       'mercadopago.customer': MercadopagoCustomer;
       'mercadopago.fulfillment': MercadopagoFulfillment;
       'mercadopago.information': MercadopagoInformation;

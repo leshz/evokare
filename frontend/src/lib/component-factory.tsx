@@ -1,4 +1,5 @@
 import { HeroSection } from '@/components/home/HeroSection';
+import { AboutSection } from '@/components/home/AboutSection';
 import { SeccionInicio } from '@/services/inicio/types';
 
 type ComponentMap = {
@@ -7,8 +8,8 @@ type ComponentMap = {
 
 const COMPONENT_MAP: ComponentMap = {
   'shared.banner-comp': HeroSection,
+  'inicio.acerca': AboutSection,
   // Futuros componentes se agregarán aquí
-  // 'shared.about-comp': AboutSection,
   // 'shared.understanding-comp': UnderstandingSection,
 };
 
@@ -22,12 +23,25 @@ export function renderSection(section: SeccionInicio, index: number) {
     return null;
   }
 
-  // Para banner-comp, extraemos el primer banner
+  // Para banner-comp, pasamos el array completo de banners para el slider
   if (section.__component === 'shared.banner-comp') {
-    const banner = section.banners[0];
-    if (!banner) return null;
-    return <Component key={`${section.__component}-${index}`} banner={banner} />;
+    if (!section.banners || section.banners.length === 0) {
+      console.warn('banner-comp: No banners found');
+      return null;
+    }
+    return <Component key={`${section.__component}-${index}`} banners={section.banners} />;
   }
 
+  // Para inicio.acerca, validamos que tenga los datos requeridos
+  if (section.__component === 'inicio.acerca') {
+    if (!section.destacado || section.destacado.length === 0) {
+      console.warn('inicio.acerca: No destacado items found');
+      return null;
+    }
+    // Type narrowing: TypeScript ahora sabe que section es AboutComponent
+    return <Component key={`${section.__component}-${index}`} data={section} />;
+  }
+
+  // Fallback genérico para futuros componentes
   return <Component key={`${section.__component}-${index}`} data={section} />;
 }

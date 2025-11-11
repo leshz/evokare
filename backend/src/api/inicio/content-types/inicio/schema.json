@@ -23,7 +23,8 @@
         }
       },
       "components": [
-        "shared.banner-comp"
+        "shared.banner-comp",
+        "inicio.acerca"
       ]
     }
   }

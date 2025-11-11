@@ -461,7 +461,9 @@ export interface ApiInicioInicio extends Struct.SingleTypeSchema {
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::inicio.inicio'>;
     publishedAt: Schema.Attribute.DateTime;
-    secciones: Schema.Attribute.DynamicZone<['shared.banner-comp']> &
+    secciones: Schema.Attribute.DynamicZone<
+      ['shared.banner-comp', 'inicio.acerca']
+    > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

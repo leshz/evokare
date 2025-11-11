@@ -1,4 +1,3 @@
-import { AboutSection } from '@/components/home/AboutSection';
 import { UnderstandingSection } from '@/components/home/UnderstandingSection';
 import { SupportingSection } from '@/components/home/SupportingSection';
 import { SupportSystemSection } from '@/components/home/SupportSystemSection';
@@ -21,7 +20,6 @@ export default async function Home() {
       )}
 
       {/* Secciones estáticas (temporalmente hasta que se migren al CMS) */}
-      <AboutSection />
       <UnderstandingSection />
       <SupportingSection />
       <SupportSystemSection />

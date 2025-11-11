@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_inicio_acercas",
+  "info": {
+    "displayName": "acerca"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "destacado": {
+      "type": "component",
+      "component": "inicio.destacados",
+      "repeatable": true
+    },
+    "botones": {
+      "type": "component",
+      "component": "shared.accion",
+      "repeatable": true,
+      "max": 2
+    }
+  },
+  "config": {}
+}
