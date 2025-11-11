@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_inicio_entendiendos",
+  "info": {
+    "displayName": "Entendiendo"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "subtitulo": {
+      "type": "string"
+    },
+    "punto": {
+      "type": "component",
+      "component": "inicio.puntos",
+      "repeatable": true,
+      "max": 3
+    }
+  },
+  "config": {}
+}

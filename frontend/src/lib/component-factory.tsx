@@ -1,5 +1,6 @@
 import { HeroSection } from '@/components/home/HeroSection';
 import { AboutSection } from '@/components/home/AboutSection';
+import { UnderstandingSection } from '@/components/home/UnderstandingSection';
 import { SeccionInicio } from '@/services/inicio/types';
 
 type ComponentMap = {
@@ -9,8 +10,8 @@ type ComponentMap = {
 const COMPONENT_MAP: ComponentMap = {
   'shared.banner-comp': HeroSection,
   'inicio.acerca': AboutSection,
+  'inicio.entendiendo': UnderstandingSection,
   // Futuros componentes se agregarán aquí
-  // 'shared.understanding-comp': UnderstandingSection,
 };
 
 export function renderSection(section: SeccionInicio, index: number) {
@@ -38,10 +39,18 @@ export function renderSection(section: SeccionInicio, index: number) {
       console.warn('inicio.acerca: No destacado items found');
       return null;
     }
-    // Type narrowing: TypeScript ahora sabe que section es AboutComponent
+    return <Component key={`${section.__component}-${index}`} data={section} />;
+  }
+
+  // Para inicio.entendiendo, validamos que tenga los datos requeridos
+  if (section.__component === 'inicio.entendiendo') {
+    if (!section.punto || section.punto.length === 0) {
+      console.warn('inicio.entendiendo: No punto items found');
+      return null;
+    }
     return <Component key={`${section.__component}-${index}`} data={section} />;
   }
 
   // Fallback genérico para futuros componentes
-  return <Component key={`${section.__component}-${index}`} data={section} />;
+  return <Component key={`${(section as SeccionInicio).__component}-${index}`} data={section} />;
 }

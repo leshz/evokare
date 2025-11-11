@@ -108,6 +108,38 @@ export interface InicioDestacados extends Struct.ComponentSchema {
   };
 }
 
+export interface InicioEntendiendo extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_entendiendos';
+  info: {
+    displayName: 'Entendiendo';
+  };
+  attributes: {
+    punto: Schema.Attribute.Component<'inicio.puntos', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+        },
+        number
+      >;
+    subtitulo: Schema.Attribute.String;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface InicioPuntos extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_puntos';
+  info: {
+    displayName: 'puntos';
+  };
+  attributes: {
+    icono: Schema.Attribute.Enumeration<
+      ['AlertCircle', 'CloudRain', 'BrainCircuit', 'Heart', 'Zap', 'Shield']
+    >;
+    subtitulo: Schema.Attribute.Text;
+    titulo: Schema.Attribute.String;
+  };
+}
+
 export interface MercadopagoCustomer extends Struct.ComponentSchema {
   collectionName: 'components_mercadopago_customer';
   info: {
@@ -271,6 +303,8 @@ declare module '@strapi/strapi' {
       'inicio.acerca': InicioAcerca;
       'inicio.banner': InicioBanner;
       'inicio.destacados': InicioDestacados;
+      'inicio.entendiendo': InicioEntendiendo;
+      'inicio.puntos': InicioPuntos;
       'mercadopago.customer': MercadopagoCustomer;
       'mercadopago.fulfillment': MercadopagoFulfillment;
       'mercadopago.information': MercadopagoInformation;

@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_inicio_puntos",
+  "info": {
+    "displayName": "puntos"
+  },
+  "options": {},
+  "attributes": {
+    "icono": {
+      "type": "enumeration",
+      "enum": [
+        "AlertCircle",
+        "CloudRain",
+        "BrainCircuit",
+        "Heart",
+        "Zap",
+        "Shield"
+      ]
+    },
+    "titulo": {
+      "type": "string"
+    },
+    "subtitulo": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

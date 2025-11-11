@@ -36,8 +36,25 @@ export interface AboutComponent {
   botones: Boton[];
 }
 
+export type IconName = 'AlertCircle' | 'CloudRain' | 'BrainCircuit' | 'Heart' | 'Zap' | 'Shield';
+
+export interface Punto {
+  id: number;
+  titulo: string;
+  subtitulo: string;
+  icono: IconName;
+}
+
+export interface UnderstandingComponent {
+  __component: 'inicio.entendiendo';
+  id: number;
+  titulo: string;
+  subtitulo: string;
+  punto: Punto[];
+}
+
 // Union type para todos los tipos de secciones
-export type SeccionInicio = BannerComponent | AboutComponent;
+export type SeccionInicio = BannerComponent | AboutComponent | UnderstandingComponent;
 
 export interface InicioData {
   id: number;
