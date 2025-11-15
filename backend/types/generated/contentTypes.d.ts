@@ -524,6 +524,7 @@ export interface ApiInicioInicio extends Struct.SingleTypeSchema {
         'inicio.acerca',
         'inicio.entendiendo',
         'inicio.apoyo',
+        'inicio.sistemaintegral',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

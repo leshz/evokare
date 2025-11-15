@@ -153,6 +153,18 @@ export interface InicioPuntos extends Struct.ComponentSchema {
   };
 }
 
+export interface InicioSistemaintegral extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_sistemaintegrals';
+  info: {
+    displayName: 'sistemaintegral';
+  };
+  attributes: {
+    contenido: Schema.Attribute.Blocks;
+    subtitulo: Schema.Attribute.String;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface MercadopagoCustomer extends Struct.ComponentSchema {
   collectionName: 'components_mercadopago_customer';
   info: {
@@ -330,6 +342,7 @@ declare module '@strapi/strapi' {
       'inicio.destacados': InicioDestacados;
       'inicio.entendiendo': InicioEntendiendo;
       'inicio.puntos': InicioPuntos;
+      'inicio.sistemaintegral': InicioSistemaintegral;
       'mercadopago.customer': MercadopagoCustomer;
       'mercadopago.fulfillment': MercadopagoFulfillment;
       'mercadopago.information': MercadopagoInformation;

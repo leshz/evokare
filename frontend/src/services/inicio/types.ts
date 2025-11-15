@@ -1,5 +1,6 @@
 import { StrapiImage } from '../general/types';
 import { SEO } from '../seo/types';
+import type { BlocksContent } from '@strapi/blocks-react-renderer';
 
 export interface Boton {
   id: number;
@@ -69,8 +70,16 @@ export interface SupportingComponent {
   imagen: StrapiImage;
 }
 
+export interface SupportSystemComponent {
+  __component: 'inicio.sistemaintegral';
+  id: number;
+  titulo: string;
+  subtitulo: string;
+  contenido: BlocksContent;
+}
+
 // Union type para todos los tipos de secciones
-export type SeccionInicio = BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent;
+export type SeccionInicio = BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent | SupportSystemComponent;
 
 export interface InicioData {
   id: number;

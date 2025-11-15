@@ -149,6 +149,11 @@ export const BlocksRendererCustom: React.FC<BlocksRendererCustomProps> = ({
           )
         },
 
+        // List item block
+        'list-item': ({ children }) => (
+          <li>{children}</li>
+        ),
+
         // Quote block
         quote: ({ children }) => (
           <blockquote className={getClassString(colors.quote, classNames.quote)}>
