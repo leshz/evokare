@@ -54,8 +54,23 @@ export interface UnderstandingComponent {
   punto: Punto[];
 }
 
+export interface ItemApoyo {
+  id: number;
+  titulo: string;
+  contenido: string;
+}
+
+export interface SupportingComponent {
+  __component: 'inicio.apoyo';
+  id: number;
+  titulo: string;
+  subtitulo: string;
+  item: ItemApoyo[];
+  imagen: StrapiImage;
+}
+
 // Union type para todos los tipos de secciones
-export type SeccionInicio = BannerComponent | AboutComponent | UnderstandingComponent;
+export type SeccionInicio = BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent;
 
 export interface InicioData {
   id: number;

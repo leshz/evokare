@@ -1,6 +1,7 @@
 import { HeroSection } from '@/components/home/HeroSection';
 import { AboutSection } from '@/components/home/AboutSection';
 import { UnderstandingSection } from '@/components/home/UnderstandingSection';
+import { SupportingSection } from '@/components/home/SupportingSection';
 import { SeccionInicio } from '@/services/inicio/types';
 
 type ComponentMap = {
@@ -11,6 +12,7 @@ const COMPONENT_MAP: ComponentMap = {
   'shared.banner-comp': HeroSection,
   'inicio.acerca': AboutSection,
   'inicio.entendiendo': UnderstandingSection,
+  'inicio.apoyo': SupportingSection,
   // Futuros componentes se agregarán aquí
 };
 
@@ -46,6 +48,15 @@ export function renderSection(section: SeccionInicio, index: number) {
   if (section.__component === 'inicio.entendiendo') {
     if (!section.punto || section.punto.length === 0) {
       console.warn('inicio.entendiendo: No punto items found');
+      return null;
+    }
+    return <Component key={`${section.__component}-${index}`} data={section} />;
+  }
+
+  // Para inicio.apoyo, validamos que tenga los datos requeridos
+  if (section.__component === 'inicio.apoyo') {
+    if (!section.item || section.item.length === 0) {
+      console.warn('inicio.apoyo: No item array found');
       return null;
     }
     return <Component key={`${section.__component}-${index}`} data={section} />;

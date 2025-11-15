@@ -77,6 +77,19 @@ export interface InicioAcerca extends Struct.ComponentSchema {
   };
 }
 
+export interface InicioApoyo extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_apoyos';
+  info: {
+    displayName: 'apoyo';
+  };
+  attributes: {
+    imagen: Schema.Attribute.Media<'images'>;
+    item: Schema.Attribute.Component<'shared.items', true>;
+    subtitulo: Schema.Attribute.Text;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface InicioBanner extends Struct.ComponentSchema {
   collectionName: 'components_inicio_banners';
   info: {
@@ -225,6 +238,17 @@ export interface SharedBannerComp extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedItems extends Struct.ComponentSchema {
+  collectionName: 'components_shared_items';
+  info: {
+    displayName: 'items';
+  };
+  attributes: {
+    contenido: Schema.Attribute.Text;
+    titulo: Schema.Attribute.String;
+  };
+}
+
 export interface SharedOpenGraph extends Struct.ComponentSchema {
   collectionName: 'components_shared_open_graphs';
   info: {
@@ -301,6 +325,7 @@ declare module '@strapi/strapi' {
       'general.invitacion': GeneralInvitacion;
       'general.pie-de-pagina': GeneralPieDePagina;
       'inicio.acerca': InicioAcerca;
+      'inicio.apoyo': InicioApoyo;
       'inicio.banner': InicioBanner;
       'inicio.destacados': InicioDestacados;
       'inicio.entendiendo': InicioEntendiendo;
@@ -311,6 +336,7 @@ declare module '@strapi/strapi' {
       'mercadopago.promotion': MercadopagoPromotion;
       'shared.accion': SharedAccion;
       'shared.banner-comp': SharedBannerComp;
+      'shared.items': SharedItems;
       'shared.open-graph': SharedOpenGraph;
       'shared.seo': SharedSeo;
     }
