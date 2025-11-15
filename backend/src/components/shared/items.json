@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_items",
+  "info": {
+    "displayName": "items"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "contenido": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

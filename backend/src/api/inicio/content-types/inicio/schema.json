@@ -25,7 +25,8 @@
       "components": [
         "shared.banner-comp",
         "inicio.acerca",
-        "inicio.entendiendo"
+        "inicio.entendiendo",
+        "inicio.apoyo"
       ]
     },
     "seo": {
