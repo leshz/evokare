@@ -23,12 +23,13 @@
         }
       },
       "components": [
-        "shared.banner-comp",
         "inicio.acerca",
         "inicio.entendiendo",
         "inicio.apoyo",
         "inicio.sistemaintegral",
-        "inicio.datos"
+        "inicio.datos",
+        "inicio.hero",
+        "inicio.que-dicen"
       ]
     },
     "seo": {

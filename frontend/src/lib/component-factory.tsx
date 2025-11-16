@@ -11,6 +11,7 @@ type ComponentMap = {
 };
 
 const COMPONENT_MAP: ComponentMap = {
+  'inicio.hero': HeroSection,
   'shared.banner-comp': HeroSection,
   'inicio.acerca': AboutSection,
   'inicio.entendiendo': UnderstandingSection,
@@ -28,6 +29,23 @@ export function renderSection(section: SeccionInicio, index: number) {
       `Component not found for type: ${section.__component}. Please add it to COMPONENT_MAP.`
     );
     return null;
+  }
+
+  // Para inicio.hero, validamos que tenga banners y pasamos el componente completo
+  if (section.__component === 'inicio.hero') {
+    if (!section.banners || section.banners.length === 0) {
+      console.warn('inicio.hero: No banners found');
+      return null;
+    }
+    // Verificar que al menos un bannerGroup tenga bannersa
+    const hasValidBanners = section.banners.some(
+      (bannerGroup) => bannerGroup.bannersa && bannerGroup.bannersa.length > 0
+    );
+    if (!hasValidBanners) {
+      console.warn('inicio.hero: No valid bannersa found in banner groups');
+      return null;
+    }
+    return <Component key={`${section.__component}-${index}`} data={section} />;
   }
 
   // Para banner-comp, pasamos el array completo de banners para el slider

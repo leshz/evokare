@@ -1,11 +1,11 @@
 {
   "collectionName": "components_shared_banner_comps",
   "info": {
-    "displayName": "BannerComp"
+    "displayName": "Banners"
   },
   "options": {},
   "attributes": {
-    "banners": {
+    "bannersa": {
       "type": "component",
       "component": "inicio.banner",
       "repeatable": true

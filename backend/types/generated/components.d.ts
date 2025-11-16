@@ -156,6 +156,16 @@ export interface InicioEntendiendo extends Struct.ComponentSchema {
   };
 }
 
+export interface InicioHero extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_heroes';
+  info: {
+    displayName: 'hero';
+  };
+  attributes: {
+    banners: Schema.Attribute.Component<'shared.banner-comp', true>;
+  };
+}
+
 export interface InicioPuntos extends Struct.ComponentSchema {
   collectionName: 'components_inicio_puntos';
   info: {
@@ -170,6 +180,17 @@ export interface InicioPuntos extends Struct.ComponentSchema {
   };
 }
 
+export interface InicioQueDicen extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_que_dicens';
+  info: {
+    displayName: 'que-dicen';
+  };
+  attributes: {
+    testimonio: Schema.Attribute.Component<'inicio.testimonios', true>;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface InicioSistemaintegral extends Struct.ComponentSchema {
   collectionName: 'components_inicio_sistemaintegrals';
   info: {
@@ -179,6 +200,19 @@ export interface InicioSistemaintegral extends Struct.ComponentSchema {
     contenido: Schema.Attribute.Blocks;
     subtitulo: Schema.Attribute.String;
     titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface InicioTestimonios extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_testimonios';
+  info: {
+    displayName: 'testimonios';
+  };
+  attributes: {
+    contenido: Schema.Attribute.String & Schema.Attribute.Required;
+    descripcion: Schema.Attribute.String & Schema.Attribute.Required;
+    foto: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    nombre: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -260,10 +294,10 @@ export interface SharedAccion extends Struct.ComponentSchema {
 export interface SharedBannerComp extends Struct.ComponentSchema {
   collectionName: 'components_shared_banner_comps';
   info: {
-    displayName: 'BannerComp';
+    displayName: 'Banners';
   };
   attributes: {
-    banners: Schema.Attribute.Component<'inicio.banner', true>;
+    bannersa: Schema.Attribute.Component<'inicio.banner', true>;
   };
 }
 
@@ -359,8 +393,11 @@ declare module '@strapi/strapi' {
       'inicio.datos': InicioDatos;
       'inicio.destacados': InicioDestacados;
       'inicio.entendiendo': InicioEntendiendo;
+      'inicio.hero': InicioHero;
       'inicio.puntos': InicioPuntos;
+      'inicio.que-dicen': InicioQueDicen;
       'inicio.sistemaintegral': InicioSistemaintegral;
+      'inicio.testimonios': InicioTestimonios;
       'mercadopago.customer': MercadopagoCustomer;
       'mercadopago.fulfillment': MercadopagoFulfillment;
       'mercadopago.information': MercadopagoInformation;

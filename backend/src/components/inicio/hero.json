@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_inicio_heroes",
+  "info": {
+    "displayName": "hero"
+  },
+  "options": {},
+  "attributes": {
+    "banners": {
+      "type": "component",
+      "component": "shared.banner-comp",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

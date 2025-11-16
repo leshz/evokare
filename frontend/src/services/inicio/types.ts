@@ -17,6 +17,17 @@ export interface Banner {
   botones: Boton[];
 }
 
+export interface BannerGroup {
+  id: number;
+  bannersa: Banner[];
+}
+
+export interface HeroComponent {
+  __component: 'inicio.hero';
+  id: number;
+  banners: BannerGroup[];
+}
+
 export interface BannerComponent {
   __component: 'shared.banner-comp';
   id: number;
@@ -91,7 +102,7 @@ export interface StatisticsComponent {
 }
 
 // Union type para todos los tipos de secciones
-export type SeccionInicio = BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent | SupportSystemComponent | StatisticsComponent;
+export type SeccionInicio = HeroComponent | BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent | SupportSystemComponent | StatisticsComponent;
 
 export interface InicioData {
   id: number;

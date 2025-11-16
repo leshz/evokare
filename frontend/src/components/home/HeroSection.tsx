@@ -2,17 +2,20 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Banner } from '@/services/inicio/types';
+import { HeroComponent } from '@/services/inicio/types';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect, useState } from 'react';
 
 interface HeroSectionProps {
-  banners: Banner[];
+  data: HeroComponent;
 }
 
-export function HeroSection({ banners }: HeroSectionProps) {
+export function HeroSection({ data }: HeroSectionProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  // Flatten the nested banners structure
+  const banners = data?.banners?.flatMap((bannerGroup) => bannerGroup.bannersa || []) || [];
 
   const scrollTo = useCallback(
     (index: number) => emblaApi && emblaApi.scrollTo(index),
@@ -42,7 +45,13 @@ export function HeroSection({ banners }: HeroSectionProps) {
     return () => clearInterval(interval);
   }, [emblaApi]);
 
+  if (!data) {
+    console.error('HeroSection: data is undefined');
+    return null;
+  }
+
   if (!banners || banners.length === 0) {
+    console.warn('HeroSection: No banners found');
     return null;
   }
 

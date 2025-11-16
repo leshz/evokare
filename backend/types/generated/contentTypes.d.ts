@@ -520,12 +520,13 @@ export interface ApiInicioInicio extends Struct.SingleTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     secciones: Schema.Attribute.DynamicZone<
       [
-        'shared.banner-comp',
         'inicio.acerca',
         'inicio.entendiendo',
         'inicio.apoyo',
         'inicio.sistemaintegral',
         'inicio.datos',
+        'inicio.hero',
+        'inicio.que-dicen',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
