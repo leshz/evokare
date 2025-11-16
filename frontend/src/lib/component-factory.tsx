@@ -4,6 +4,7 @@ import { UnderstandingSection } from '@/components/home/UnderstandingSection';
 import { SupportingSection } from '@/components/home/SupportingSection';
 import { SupportSystemSection } from '@/components/home/SupportSystemSection';
 import { StatisticsSection } from '@/components/home/StatisticsSection';
+import { TestimonialSection } from '@/components/home/TestimonialSection';
 import { SeccionInicio } from '@/services/inicio/types';
 
 type ComponentMap = {
@@ -18,6 +19,7 @@ const COMPONENT_MAP: ComponentMap = {
   'inicio.apoyo': SupportingSection,
   'inicio.sistemaintegral': SupportSystemSection,
   'inicio.datos': StatisticsSection,
+  'inicio.que-dicen': TestimonialSection,
   // Futuros componentes se agregarán aquí
 };
 
@@ -97,6 +99,15 @@ export function renderSection(section: SeccionInicio, index: number) {
   if (section.__component === 'inicio.datos') {
     if (!section.datos || section.datos.length === 0) {
       console.warn('inicio.datos: No datos array found');
+      return null;
+    }
+    return <Component key={`${section.__component}-${index}`} data={section} />;
+  }
+
+  // Para inicio.que-dicen, validamos que tenga los datos requeridos
+  if (section.__component === 'inicio.que-dicen') {
+    if (!section.testimonio || section.testimonio.length === 0) {
+      console.warn('inicio.que-dicen: No testimonio array found');
       return null;
     }
     return <Component key={`${section.__component}-${index}`} data={section} />;

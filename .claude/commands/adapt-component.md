@@ -32,6 +32,11 @@ You must perform the following steps systematically:
 - Preserve existing styling, icons, and colors
 - Use proper semantic variable names
 - Map dynamic data to existing UI structure
+- **ALWAYS use `AdaptiveImage` from `@/components/shared/AdaptiveImage` for Strapi images**
+  - Import: `import { AdaptiveImage } from '@/components/shared/AdaptiveImage';`
+  - Never use Next.js `Image` component directly for Strapi images
+  - Pass the full Strapi image object to `AdaptiveImage`
+  - Specify appropriate format: 'thumbnail', 'small', 'medium', or 'large'
 
 ### Step 4: Update Component Factory (`src/lib/component-factory.tsx`)
 - Import the new component
@@ -114,6 +119,50 @@ export function Component({ data }: ComponentProps) {
 ))}
 ```
 
+### Image Handling with AdaptiveImage
+```typescript
+// ✅ Good - using AdaptiveImage for Strapi images
+import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
+
+// For small images (thumbnails, avatars)
+<AdaptiveImage
+  image={strapiImageObject}
+  format="thumbnail"
+  alt="Description"
+  width={64}
+  height={64}
+  className="rounded-full object-cover"
+/>
+
+// For medium images (cards, sections)
+<AdaptiveImage
+  image={strapiImageObject}
+  format="medium"
+  alt="Description"
+  width={400}
+  height={300}
+  className="rounded-lg"
+/>
+
+// For large images (hero, full-width)
+<AdaptiveImage
+  image={strapiImageObject}
+  format="large"
+  alt="Description"
+  fill
+  className="object-cover"
+/>
+
+// ❌ Bad - using Next.js Image directly for Strapi images
+import Image from 'next/image';
+<Image
+  src={strapiImageObject.url}
+  alt={strapiImageObject.alternativeText}
+  width={64}
+  height={64}
+/>
+```
+
 ## Response Format
 
 After completing all steps, provide:
@@ -130,6 +179,7 @@ After completing all steps, provide:
 - ALWAYS use destructuring with default values
 - ALWAYS add proper null checks
 - ALWAYS maintain TypeScript type safety
+- **ALWAYS use `AdaptiveImage` for Strapi images** - Never use Next.js `Image` component directly
 - Focus ONLY on `src/app/page.tsx` components for now
 
 ## Example Interaction

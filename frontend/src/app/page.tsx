@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { TestimonialSection } from '@/components/home/TestimonialSection';
 import { FreshPerspectivesSection } from '@/components/home/FreshPerspectivesSection';
 import { DailyQuotesSection } from '@/components/home/DailyQuotesSection';
 import { getInicioService } from '@/services/inicio';
@@ -31,7 +30,6 @@ export default async function Home() {
       )}
 
       {/* Secciones estáticas (temporalmente hasta que se migren al CMS) */}
-      <TestimonialSection />
       <FreshPerspectivesSection />
       <DailyQuotesSection />
       {/* <PricingSection /> */}

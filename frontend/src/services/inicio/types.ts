@@ -101,8 +101,23 @@ export interface StatisticsComponent {
   datos: Dato[];
 }
 
+export interface Testimonio {
+  id: number;
+  contenido: string;
+  nombre: string;
+  descripcion: string;
+  foto: StrapiImage;
+}
+
+export interface TestimonialComponent {
+  __component: 'inicio.que-dicen';
+  id: number;
+  titulo: string;
+  testimonio: Testimonio[];
+}
+
 // Union type para todos los tipos de secciones
-export type SeccionInicio = HeroComponent | BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent | SupportSystemComponent | StatisticsComponent;
+export type SeccionInicio = HeroComponent | BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent | SupportSystemComponent | StatisticsComponent | TestimonialComponent;
 
 export interface InicioData {
   id: number;
