@@ -36,7 +36,7 @@ export function SupportingSection({ data }: SupportingSectionProps) {
           <div className="space-y-6">
             {item.map(({ id, titulo: itemTitulo, contenido }) => (
               <div key={id} className="flex items-start">
-                <div className="bg-secundario mt-1 h-6 w-6 flex-shrink-0 rounded-full"></div>
+                <div className="bg-secundario mt-1 h-6 w-6 shrink-0 rounded-full"></div>
                 <div className="ml-4">
                   <h3 className="mb-2 text-lg font-semibold text-gray-900">
                     {itemTitulo}
