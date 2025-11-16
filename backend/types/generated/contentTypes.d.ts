@@ -528,6 +528,7 @@ export interface ApiInicioInicio extends Struct.SingleTypeSchema {
         'inicio.hero',
         'inicio.que-dicen',
         'inicio.perspectivas',
+        'inicio.reflexiones',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

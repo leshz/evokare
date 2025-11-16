@@ -132,8 +132,24 @@ export interface PerspectivesComponent {
   resaltar: Resaltar[];
 }
 
+export interface Reflexion {
+  id: number;
+  contenido: string;
+  consejo: string;
+  nombre: string;
+  descripcion: string;
+  emoji: string;
+}
+
+export interface ReflexionesComponent {
+  __component: 'inicio.reflexiones';
+  id: number;
+  titulo: string;
+  reflexion: Reflexion[];
+}
+
 // Union type para todos los tipos de secciones
-export type SeccionInicio = HeroComponent | BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent | SupportSystemComponent | StatisticsComponent | TestimonialComponent | PerspectivesComponent;
+export type SeccionInicio = HeroComponent | BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent | SupportSystemComponent | StatisticsComponent | TestimonialComponent | PerspectivesComponent | ReflexionesComponent;
 
 export interface InicioData {
   id: number;

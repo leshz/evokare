@@ -210,6 +210,17 @@ export interface InicioQueDicen extends Struct.ComponentSchema {
   };
 }
 
+export interface InicioReflexiones extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_reflexiones';
+  info: {
+    displayName: 'reflexiones';
+  };
+  attributes: {
+    reflexion: Schema.Attribute.Component<'shared.contenido', true>;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface InicioSistemaintegral extends Struct.ComponentSchema {
   collectionName: 'components_inicio_sistemaintegrals';
   info: {
@@ -317,6 +328,20 @@ export interface SharedBannerComp extends Struct.ComponentSchema {
   };
   attributes: {
     bannersa: Schema.Attribute.Component<'inicio.banner', true>;
+  };
+}
+
+export interface SharedContenido extends Struct.ComponentSchema {
+  collectionName: 'components_shared_contenidos';
+  info: {
+    displayName: 'contenido';
+  };
+  attributes: {
+    consejo: Schema.Attribute.String & Schema.Attribute.Required;
+    contenido: Schema.Attribute.String & Schema.Attribute.Required;
+    descripcion: Schema.Attribute.String;
+    emoji: Schema.Attribute.String;
+    nombre: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -429,6 +454,7 @@ declare module '@strapi/strapi' {
       'inicio.perspectivas': InicioPerspectivas;
       'inicio.puntos': InicioPuntos;
       'inicio.que-dicen': InicioQueDicen;
+      'inicio.reflexiones': InicioReflexiones;
       'inicio.sistemaintegral': InicioSistemaintegral;
       'inicio.testimonios': InicioTestimonios;
       'mercadopago.customer': MercadopagoCustomer;
@@ -437,6 +463,7 @@ declare module '@strapi/strapi' {
       'mercadopago.promotion': MercadopagoPromotion;
       'shared.accion': SharedAccion;
       'shared.banner-comp': SharedBannerComp;
+      'shared.contenido': SharedContenido;
       'shared.items': SharedItems;
       'shared.open-graph': SharedOpenGraph;
       'shared.perspectiva': SharedPerspectiva;

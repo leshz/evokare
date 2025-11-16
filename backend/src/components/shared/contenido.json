@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_shared_contenidos",
+  "info": {
+    "displayName": "contenido"
+  },
+  "options": {},
+  "attributes": {
+    "contenido": {
+      "type": "string",
+      "required": true
+    },
+    "consejo": {
+      "type": "string",
+      "required": true
+    },
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "descripcion": {
+      "type": "string"
+    },
+    "emoji": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
