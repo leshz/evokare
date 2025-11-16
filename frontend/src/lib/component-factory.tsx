@@ -5,6 +5,7 @@ import { SupportingSection } from '@/components/home/SupportingSection';
 import { SupportSystemSection } from '@/components/home/SupportSystemSection';
 import { StatisticsSection } from '@/components/home/StatisticsSection';
 import { TestimonialSection } from '@/components/home/TestimonialSection';
+import { FreshPerspectivesSection } from '@/components/home/FreshPerspectivesSection';
 import { SeccionInicio } from '@/services/inicio/types';
 
 type ComponentMap = {
@@ -20,6 +21,7 @@ const COMPONENT_MAP: ComponentMap = {
   'inicio.sistemaintegral': SupportSystemSection,
   'inicio.datos': StatisticsSection,
   'inicio.que-dicen': TestimonialSection,
+  'inicio.perspectivas': FreshPerspectivesSection,
   // Futuros componentes se agregarán aquí
 };
 
@@ -108,6 +110,15 @@ export function renderSection(section: SeccionInicio, index: number) {
   if (section.__component === 'inicio.que-dicen') {
     if (!section.testimonio || section.testimonio.length === 0) {
       console.warn('inicio.que-dicen: No testimonio array found');
+      return null;
+    }
+    return <Component key={`${section.__component}-${index}`} data={section} />;
+  }
+
+  // Para inicio.perspectivas, validamos que tenga los datos requeridos
+  if (section.__component === 'inicio.perspectivas') {
+    if (!section.resaltar || section.resaltar.length === 0) {
+      console.warn('inicio.perspectivas: No resaltar array found');
       return null;
     }
     return <Component key={`${section.__component}-${index}`} data={section} />;

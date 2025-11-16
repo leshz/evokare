@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_shared_perspectivas",
+  "info": {
+    "displayName": "perspectiva"
+  },
+  "options": {},
+  "attributes": {
+    "resalto": {
+      "type": "string",
+      "required": true
+    },
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "subtitulo": {
+      "type": "string",
+      "required": true
+    },
+    "boton": {
+      "type": "component",
+      "component": "shared.accion",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}

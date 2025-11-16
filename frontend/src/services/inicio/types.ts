@@ -116,8 +116,24 @@ export interface TestimonialComponent {
   testimonio: Testimonio[];
 }
 
+export interface Resaltar {
+  id: number;
+  resalto: string;
+  titulo: string;
+  subtitulo: string;
+  boton: Boton;
+}
+
+export interface PerspectivesComponent {
+  __component: 'inicio.perspectivas';
+  id: number;
+  titulo: string;
+  subtitulo: string;
+  resaltar: Resaltar[];
+}
+
 // Union type para todos los tipos de secciones
-export type SeccionInicio = HeroComponent | BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent | SupportSystemComponent | StatisticsComponent | TestimonialComponent;
+export type SeccionInicio = HeroComponent | BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent | SupportSystemComponent | StatisticsComponent | TestimonialComponent | PerspectivesComponent;
 
 export interface InicioData {
   id: number;

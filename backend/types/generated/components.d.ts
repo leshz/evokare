@@ -166,6 +166,25 @@ export interface InicioHero extends Struct.ComponentSchema {
   };
 }
 
+export interface InicioPerspectivas extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_perspectivas';
+  info: {
+    displayName: 'perspectivas';
+  };
+  attributes: {
+    resaltar: Schema.Attribute.Component<'shared.perspectiva', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 3;
+          min: 1;
+        },
+        number
+      >;
+    subtitulo: Schema.Attribute.String & Schema.Attribute.Required;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface InicioPuntos extends Struct.ComponentSchema {
   collectionName: 'components_inicio_puntos';
   info: {
@@ -351,6 +370,19 @@ export interface SharedOpenGraph extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedPerspectiva extends Struct.ComponentSchema {
+  collectionName: 'components_shared_perspectivas';
+  info: {
+    displayName: 'perspectiva';
+  };
+  attributes: {
+    boton: Schema.Attribute.Component<'shared.accion', false>;
+    resalto: Schema.Attribute.String & Schema.Attribute.Required;
+    subtitulo: Schema.Attribute.String & Schema.Attribute.Required;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedSeo extends Struct.ComponentSchema {
   collectionName: 'components_shared_seos';
   info: {
@@ -394,6 +426,7 @@ declare module '@strapi/strapi' {
       'inicio.destacados': InicioDestacados;
       'inicio.entendiendo': InicioEntendiendo;
       'inicio.hero': InicioHero;
+      'inicio.perspectivas': InicioPerspectivas;
       'inicio.puntos': InicioPuntos;
       'inicio.que-dicen': InicioQueDicen;
       'inicio.sistemaintegral': InicioSistemaintegral;
@@ -406,6 +439,7 @@ declare module '@strapi/strapi' {
       'shared.banner-comp': SharedBannerComp;
       'shared.items': SharedItems;
       'shared.open-graph': SharedOpenGraph;
+      'shared.perspectiva': SharedPerspectiva;
       'shared.seo': SharedSeo;
     }
   }
