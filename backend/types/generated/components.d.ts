@@ -110,6 +110,23 @@ export interface InicioBanner extends Struct.ComponentSchema {
   };
 }
 
+export interface InicioDatos extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_datos';
+  info: {
+    displayName: 'datos';
+  };
+  attributes: {
+    datos: Schema.Attribute.Component<'shared.items', true> &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 4;
+          min: 1;
+        },
+        number
+      >;
+  };
+}
+
 export interface InicioDestacados extends Struct.ComponentSchema {
   collectionName: 'components_inicio_destacados';
   info: {
@@ -124,7 +141,7 @@ export interface InicioDestacados extends Struct.ComponentSchema {
 export interface InicioEntendiendo extends Struct.ComponentSchema {
   collectionName: 'components_inicio_entendiendos';
   info: {
-    displayName: 'Entendiendo';
+    displayName: 'entendiendo';
   };
   attributes: {
     punto: Schema.Attribute.Component<'inicio.puntos', true> &
@@ -339,6 +356,7 @@ declare module '@strapi/strapi' {
       'inicio.acerca': InicioAcerca;
       'inicio.apoyo': InicioApoyo;
       'inicio.banner': InicioBanner;
+      'inicio.datos': InicioDatos;
       'inicio.destacados': InicioDestacados;
       'inicio.entendiendo': InicioEntendiendo;
       'inicio.puntos': InicioPuntos;

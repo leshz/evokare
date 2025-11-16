@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_inicio_datos",
+  "info": {
+    "displayName": "datos"
+  },
+  "options": {},
+  "attributes": {
+    "datos": {
+      "type": "component",
+      "component": "shared.items",
+      "repeatable": true,
+      "min": 1,
+      "max": 4
+    }
+  },
+  "config": {}
+}

@@ -1,24 +1,32 @@
-export function StatisticsSection() {
+import { StatisticsComponent } from '@/services/inicio/types';
+
+interface StatisticsSectionProps {
+  data: StatisticsComponent;
+}
+
+export function StatisticsSection({ data }: StatisticsSectionProps) {
+  if (!data) {
+    console.error('StatisticsSection: data is undefined');
+    return null;
+  }
+
+  const { datos = [] } = data;
+
+  if (datos.length === 0) {
+    console.warn('StatisticsSection: Missing required data (datos array is empty)');
+    return null;
+  }
+
   return (
-    <section className="from-secundario to-terciario bg-gradient-to-br py-20">
+    <section className="from-secundario to-terciario bg-linear-to-br py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 text-center md:grid-cols-4">
-          <div>
-            <div className="mb-2 text-4xl font-bold text-white">500+</div>
-            <div className="text-principal">Pacientes Satisfechos</div>
-          </div>
-          <div>
-            <div className="mb-2 text-4xl font-bold text-white">95%</div>
-            <div className="text-principal">Tasa de Éxito</div>
-          </div>
-          <div>
-            <div className="mb-2 text-4xl font-bold text-white">24/7</div>
-            <div className="text-principal">Apoyo</div>
-          </div>
-          <div>
-            <div className="mb-2 text-4xl font-bold text-white">5+</div>
-            <div className="text-principal">Años de Experiencia</div>
-          </div>
+          {datos.map(({ id, titulo, contenido }) => (
+            <div key={id}>
+              <div className="mb-2 text-4xl font-bold text-white">{titulo}</div>
+              <div className="text-principal">{contenido}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

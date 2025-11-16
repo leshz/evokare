@@ -22,7 +22,7 @@ export function SupportSystemSection({ data }: SupportSystemSectionProps) {
   }
 
   return (
-    <section className="from-principal to-principal bg-gradient-to-br py-20">
+    <section className="from-principal to-principal bg-linear-to-br py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-4xl font-bold text-gray-900">

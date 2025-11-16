@@ -78,8 +78,20 @@ export interface SupportSystemComponent {
   contenido: BlocksContent;
 }
 
+export interface Dato {
+  id: number;
+  titulo: string;
+  contenido: string;
+}
+
+export interface StatisticsComponent {
+  __component: 'inicio.datos';
+  id: number;
+  datos: Dato[];
+}
+
 // Union type para todos los tipos de secciones
-export type SeccionInicio = BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent | SupportSystemComponent;
+export type SeccionInicio = BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent | SupportSystemComponent | StatisticsComponent;
 
 export interface InicioData {
   id: number;
