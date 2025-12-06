@@ -1,4 +1,4 @@
-import { BlocksRendererCustom } from "@/components/commons/BlocksRendererCustom";
+import { BlocksRendererCustom } from "@/components/shared/BlocksRendererCustom";
 
 import { FooterProps } from "./types";
 

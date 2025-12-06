@@ -7,13 +7,18 @@ import { StatisticsSection } from '@/components/home/StatisticsSection';
 import { TestimonialSection } from '@/components/home/TestimonialSection';
 import { FreshPerspectivesSection } from '@/components/home/FreshPerspectivesSection';
 import { DailyQuotesSection } from '@/components/home/DailyQuotesSection';
+import { AboutBio } from '@/components/about/AboutBio';
+import { AboutCredentials } from '@/components/about/AboutCredentials';
+import { AboutMethodologies } from '@/components/about/AboutMethodologies';
 import { SeccionInicio } from '@/services/inicio/types';
+import { NosotrosSection } from '@/services/nosotros/types';
 
 type ComponentMap = {
   [key: string]: React.ComponentType<any>;
 };
 
 const COMPONENT_MAP: ComponentMap = {
+  // Componentes de Inicio
   'inicio.hero': HeroSection,
   'shared.banner-comp': HeroSection,
   'inicio.acerca': AboutSection,
@@ -24,10 +29,17 @@ const COMPONENT_MAP: ComponentMap = {
   'inicio.que-dicen': TestimonialSection,
   'inicio.perspectivas': FreshPerspectivesSection,
   'inicio.reflexiones': DailyQuotesSection,
+  // Componentes de Nosotros
+  'nosotros.bio': AboutBio,
+  'nosotros.credenciales': AboutCredentials,
+  'nosotros.metodologias': AboutMethodologies,
   // Futuros componentes se agregarán aquí
 };
 
-export function renderSection(section: SeccionInicio, index: number) {
+export function renderSection(
+  section: SeccionInicio | NosotrosSection,
+  index: number
+) {
   const Component = COMPONENT_MAP[section.__component];
 
   if (!Component) {
@@ -135,6 +147,38 @@ export function renderSection(section: SeccionInicio, index: number) {
     return <Component key={`${section.__component}-${index}`} data={section} />;
   }
 
+  // Para nosotros.bio, validamos que tenga los datos requeridos
+  if (section.__component === 'nosotros.bio') {
+    if (!section.biografia || section.biografia.length === 0) {
+      console.warn('nosotros.bio: No biografia content found');
+      return null;
+    }
+    return <Component key={`${section.__component}-${index}`} data={section} />;
+  }
+
+  // Para nosotros.credenciales, validamos que tenga los datos requeridos
+  if (section.__component === 'nosotros.credenciales') {
+    if (!section.Credenciales || section.Credenciales.length === 0) {
+      console.warn('nosotros.credenciales: No Credenciales array found');
+      return null;
+    }
+    return <Component key={`${section.__component}-${index}`} data={section} />;
+  }
+
+  // Para nosotros.metodologias, validamos que tenga los datos requeridos
+  if (section.__component === 'nosotros.metodologias') {
+    if (!section.Metodologias || section.Metodologias.length === 0) {
+      console.warn('nosotros.metodologias: No Metodologias array found');
+      return null;
+    }
+    return <Component key={`${section.__component}-${index}`} data={section} />;
+  }
+
   // Fallback genérico para futuros componentes
-  return <Component key={`${(section as SeccionInicio).__component}-${index}`} data={section} />;
+  return (
+    <Component
+      key={`${(section as SeccionInicio | NosotrosSection).__component}-${index}`}
+      data={section}
+    />
+  );
 }

@@ -28,11 +28,11 @@ export interface SEO {
   id: number;
   metaTitle: string;
   metaDescription: string;
-  keywords: string;
-  metaRobots: string;
+  keywords: string | null;
+  metaRobots: string | null;
   metaViewport: string | null;
-  canonicalURL: string;
-  structuredData: Record<string, any>;
-  metaImage: StrapiImage;
-  openGraph: OpenGraph;
+  canonicalURL: string | null;
+  structuredData: Record<string, any> | null;
+  metaImage: StrapiImage | null;
+  openGraph: OpenGraph | null;
 }

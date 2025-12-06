@@ -26,7 +26,8 @@
         "ms-vscode.vscode-typescript-next",
         "bradlc.vscode-tailwindcss",
         "usernamehw.errorlens",
-        "Anthropic.claude-code"
+        "Anthropic.claude-code",
+        "YoavBls.pretty-ts-errors"
       ],
       "settings": {
         "terminal.integrated.profiles.linux": {

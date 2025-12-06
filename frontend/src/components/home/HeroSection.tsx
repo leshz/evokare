@@ -15,7 +15,8 @@ export function HeroSection({ data }: HeroSectionProps) {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   // Flatten the nested banners structure
-  const banners = data?.banners?.flatMap((bannerGroup) => bannerGroup.bannersa || []) || [];
+  const banners =
+    data?.banners?.flatMap((bannerGroup) => bannerGroup.bannersa ?? []) ?? [];
 
   const scrollTo = useCallback(
     (index: number) => emblaApi && emblaApi.scrollTo(index),
@@ -105,7 +106,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                           <Image
                             src={url}
                             className="w-full overflow-hidden rounded-2xl"
-                            alt={alternativeText || titulo}
+                            alt={alternativeText ?? titulo}
                             width={width}
                             height={height}
                           />

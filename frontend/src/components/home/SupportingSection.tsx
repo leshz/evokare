@@ -54,18 +54,18 @@ export function SupportingSection({ data }: SupportingSectionProps) {
               <div className="bg-principal flex aspect-square items-center justify-center overflow-hidden rounded-2xl">
                 <Image
                   src={imagen.url}
-                  alt={imagen.alternativeText || titulo}
-                  width={imagen.width || 500}
-                  height={imagen.height || 500}
+                  alt={imagen.alternativeText ?? titulo}
+                  width={imagen.width ?? 500}
+                  height={imagen.height ?? 500}
                   className="h-full w-full object-cover"
                 />
               </div>
               <div className="bg-principal flex aspect-square items-center justify-center overflow-hidden rounded-2xl">
                 <Image
                   src={imagen.url}
-                  alt={imagen.alternativeText || titulo}
-                  width={imagen.width || 500}
-                  height={imagen.height || 500}
+                  alt={imagen.alternativeText ?? titulo}
+                  width={imagen.width ?? 500}
+                  height={imagen.height ?? 500}
                   className="h-full w-full object-cover"
                 />
               </div>

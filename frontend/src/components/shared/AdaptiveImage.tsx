@@ -22,7 +22,7 @@ export function AdaptiveImage({
     return (
       <Image
         src={image}
-        alt={alt || 'Image'}
+        alt={alt ?? 'Image'}
         sizes={customSizes}
         {...props}
       />
@@ -33,16 +33,13 @@ export function AdaptiveImage({
   const selectedFormat = image.formats?.[format];
 
   // Use selected format if available, otherwise fallback to original URL
-  const imageSrc = selectedFormat?.url || image.url;
-  const imageWidth = selectedFormat?.width || image.width;
-  const imageHeight = selectedFormat?.height || image.height;
+  const imageSrc = selectedFormat?.url ?? image.url;
+  const imageWidth = selectedFormat?.width ?? image.width;
+  const imageHeight = selectedFormat?.height ?? image.height;
 
   // Auto-generate alt text from Strapi metadata
-  const autoAlt = alt ||
-    image.alternativeText ||
-    image.caption ||
-    image.name ||
-    'Image';
+  const autoAlt =
+    alt ?? image.alternativeText ?? image.caption ?? image.name ?? 'Image';
 
   // Auto-generate sizes attribute based on available formats
   // const autoSizes = customSizes || generateResponsiveSizes(image, format);

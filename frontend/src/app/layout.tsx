@@ -3,9 +3,10 @@ import type { Metadata } from 'next';
 import { Hind, Josefin_Sans, Spectral, Montserrat } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import './globals.css';
 import { getGeneralService } from '@/services/general';
 import { generateMetadataFromSEO } from '../services/seo';
+
+import './globals.css';
 
 const primary = Montserrat({
   variable: '--font-primary',

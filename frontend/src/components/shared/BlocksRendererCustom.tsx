@@ -95,7 +95,7 @@ export const BlocksRendererCustom: React.FC<BlocksRendererCustomProps> = ({
 }) => {
   // Combine color and className for a given element
   const getClassString = (colorClass?: string, customClass?: string): string => {
-    const baseColor = colors.text || ''
+    const baseColor = colors.text ?? ''
     const classes = [baseColor, colorClass, customClass].filter(Boolean).join(' ')
     return classes
   }
@@ -172,9 +172,9 @@ export const BlocksRendererCustom: React.FC<BlocksRendererCustomProps> = ({
         image: ({ image }) => (
           <Image
             src={image.url}
-            alt={image.alternativeText || ''}
-            width={image.width || 800}
-            height={image.height || 600}
+            alt={image.alternativeText ?? ''}
+            width={image.width ?? 800}
+            height={image.height ?? 600}
             className={classNames.image}
           />
         ),
