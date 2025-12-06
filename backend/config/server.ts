@@ -4,5 +4,5 @@ export default ({ env }) => ({
   app: {
     keys: env.array('APP_KEYS'),
   },
-  url: env('WEBSITE', 'http://127.0.0.1:1337'),
+  url: env('PUBLIC_DOMAIN', ''),
 });
