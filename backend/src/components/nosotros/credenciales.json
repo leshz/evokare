@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_nosotros_credenciales",
+  "info": {
+    "displayName": "Credenciales"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "Credenciales": {
+      "type": "component",
+      "component": "nosotros.certificaciones",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

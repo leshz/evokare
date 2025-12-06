@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_nosotros_metodologias",
+  "info": {
+    "displayName": "Metodologías"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "subtitulo": {
+      "type": "string"
+    },
+    "Metodologias": {
+      "type": "component",
+      "component": "nosotros.certificaciones",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

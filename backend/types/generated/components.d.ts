@@ -307,6 +307,52 @@ export interface MercadopagoPromotion extends Struct.ComponentSchema {
   };
 }
 
+export interface NosotrosBio extends Struct.ComponentSchema {
+  collectionName: 'components_nosotros_bios';
+  info: {
+    displayName: 'Bio';
+  };
+  attributes: {
+    biografia: Schema.Attribute.Blocks & Schema.Attribute.Required;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface NosotrosCertificaciones extends Struct.ComponentSchema {
+  collectionName: 'components_nosotros_certificaciones';
+  info: {
+    displayName: 'Certificaciones';
+  };
+  attributes: {
+    certificado: Schema.Attribute.String & Schema.Attribute.Required;
+    contenido: Schema.Attribute.Text & Schema.Attribute.Required;
+  };
+}
+
+export interface NosotrosCredenciales extends Struct.ComponentSchema {
+  collectionName: 'components_nosotros_credenciales';
+  info: {
+    displayName: 'Credenciales';
+  };
+  attributes: {
+    Credenciales: Schema.Attribute.Component<'nosotros.certificaciones', true>;
+    imagen: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface NosotrosMetodologias extends Struct.ComponentSchema {
+  collectionName: 'components_nosotros_metodologias';
+  info: {
+    displayName: 'Metodolog\u00EDas';
+  };
+  attributes: {
+    Metodologias: Schema.Attribute.Component<'nosotros.certificaciones', true>;
+    subtitulo: Schema.Attribute.String;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedAccion extends Struct.ComponentSchema {
   collectionName: 'components_shared_accions';
   info: {
@@ -461,6 +507,10 @@ declare module '@strapi/strapi' {
       'mercadopago.fulfillment': MercadopagoFulfillment;
       'mercadopago.information': MercadopagoInformation;
       'mercadopago.promotion': MercadopagoPromotion;
+      'nosotros.bio': NosotrosBio;
+      'nosotros.certificaciones': NosotrosCertificaciones;
+      'nosotros.credenciales': NosotrosCredenciales;
+      'nosotros.metodologias': NosotrosMetodologias;
       'shared.accion': SharedAccion;
       'shared.banner-comp': SharedBannerComp;
       'shared.contenido': SharedContenido;

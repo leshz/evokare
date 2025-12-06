@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_nosotros_certificaciones",
+  "info": {
+    "displayName": "Certificaciones"
+  },
+  "options": {},
+  "attributes": {
+    "certificado": {
+      "type": "string",
+      "required": true
+    },
+    "contenido": {
+      "type": "text",
+      "required": true
+    }
+  },
+  "config": {}
+}

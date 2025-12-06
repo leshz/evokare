@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_nosotros_bios",
+  "info": {
+    "displayName": "Bio"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "biografia": {
+      "type": "blocks",
+      "required": true
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "nosotros",
+  "info": {
+    "singularName": "acerca",
+    "pluralName": "nosotros",
+    "displayName": "Nosotros"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "secciones": {
+      "type": "dynamiczone",
+      "components": [
+        "nosotros.bio",
+        "nosotros.credenciales",
+        "nosotros.metodologias"
+      ]
+    },
+    "seo": {
+      "type": "component",
+      "component": "shared.seo",
+      "repeatable": false
+    }
+  }
+}

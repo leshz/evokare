@@ -430,6 +430,37 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiAcercaAcerca extends Struct.SingleTypeSchema {
+  collectionName: 'nosotros';
+  info: {
+    displayName: 'Nosotros';
+    pluralName: 'nosotros';
+    singularName: 'acerca';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::acerca.acerca'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    secciones: Schema.Attribute.DynamicZone<
+      ['nosotros.bio', 'nosotros.credenciales', 'nosotros.metodologias']
+    >;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiGeneralGeneral extends Struct.SingleTypeSchema {
   collectionName: 'generales';
   info: {
@@ -1283,6 +1314,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::acerca.acerca': ApiAcercaAcerca;
       'api::general.general': ApiGeneralGeneral;
       'api::inicio.inicio': ApiInicioInicio;
       'plugin::content-releases.release': PluginContentReleasesRelease;
