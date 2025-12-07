@@ -1,8 +1,17 @@
 import { Metadata } from 'next';
 import { SEO } from './types';
 
-export const generateMetadataFromSEO = (seo: SEO): Metadata => {
+export const generateMetadataFromSEO = (seo: SEO | null): Metadata => {
   try {
+    // Return fallback metadata if seo is null
+    if (!seo) {
+      return {
+        title: 'Elisa Horta - Apoyo en Salud Mental y Bienestar',
+        description:
+          'Te ayudamos a reconectar con tu verdadero ser a través de apoyo profesional en salud mental y sesiones de terapia personalizadas.',
+      };
+    }
+
     const metadata: Metadata = {
       title: seo.metaTitle,
       description: seo.metaDescription,
