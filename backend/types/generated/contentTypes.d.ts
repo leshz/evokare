@@ -496,11 +496,10 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
       }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::blog.blog'>;
-    media: Schema.Attribute.Media<'videos' | 'images', true> &
-      Schema.Attribute.Required &
+    media: Schema.Attribute.Media<'images', true> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
-          localized: true;
+          localized: false;
         };
       }>;
     publishedAt: Schema.Attribute.DateTime;

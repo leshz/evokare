@@ -22,7 +22,7 @@ export default async function BlogsPage({ searchParams }: BlogsPageProps) {
     <main className="bg-principal min-h-screen pb-20">
       <BlogHero />
       <section className="mx-auto max-w-7xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
-        <div className="opacity-50 transition-opacity">
+        <div className="transition-opacity">
           <BlogGrid blogs={data} />
         </div>
         <div className="mt-12">

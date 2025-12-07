@@ -55,13 +55,12 @@
       "type": "media",
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       },
       "multiple": true,
-      "required": true,
+      "required": false,
       "allowedTypes": [
-        "videos",
         "images"
       ]
     },
