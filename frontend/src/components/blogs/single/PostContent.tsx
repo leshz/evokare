@@ -1,21 +1,21 @@
-import Image from 'next/image';
+import { BlocksRendererCustom } from '@/components/shared/BlocksRendererCustom';
+import { BlocksContent } from '@strapi/blocks-react-renderer';
+
+
 interface PostContentProps {
-  title: string;
-  image: string;
-  content?: string;
+  articulo: BlocksContent;
 }
 
-export const PostContent = ({ title, image, content }: PostContentProps) => {
+export const PostContent = ({ articulo }: PostContentProps) => {
   return (
     <div className="md:col-span-2">
-      {content && (
-        <div
-          className="prose max-w-none text-gray-700"
-          style={{ whiteSpace: 'pre-line' }}
-        >
-          {content}
-        </div>
-      )}
+      <div
+        className="prose max-w-none text-gray-700"
+        style={{ whiteSpace: 'pre-line' }}
+      >
+        <BlocksRendererCustom content={articulo} />
+      </div>
+
     </div>
   );
 };

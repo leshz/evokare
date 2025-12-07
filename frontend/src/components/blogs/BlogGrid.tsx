@@ -1,14 +1,9 @@
 import { BlogCard } from './BlogCard';
 
-interface Blog {
-  slug: string;
-  title: string;
-  description: string;
-  image: string;
-}
+import { BlogData } from '@/services/blogs/types';
 
 interface BlogGridProps {
-  blogs: Blog[];
+  blogs: BlogData[];
 }
 
 export const BlogGrid = ({ blogs }: BlogGridProps) => {
