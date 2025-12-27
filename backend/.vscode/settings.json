@@ -3,24 +3,5 @@
     "mercadopago",
     "tobemodified"
   ],
-  "workbench.colorCustomizations": {
-    "activityBar.activeBackground": "#613a6b",
-    "activityBar.background": "#613a6b",
-    "activityBar.foreground": "#e7e7e7",
-    "activityBar.inactiveForeground": "#e7e7e799",
-    "activityBarBadge.background": "#15130b",
-    "activityBarBadge.foreground": "#e7e7e7",
-    "commandCenter.border": "#e7e7e799",
-    "sash.hoverBorder": "#613a6b",
-    "statusBar.background": "#43284a",
-    "statusBar.foreground": "#e7e7e7",
-    "statusBarItem.hoverBackground": "#613a6b",
-    "statusBarItem.remoteBackground": "#43284a",
-    "statusBarItem.remoteForeground": "#e7e7e7",
-    "titleBar.activeBackground": "#43284a",
-    "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveBackground": "#43284a99",
-    "titleBar.inactiveForeground": "#e7e7e799"
-  },
   "peacock.remoteColor": "#43284A"
 }
