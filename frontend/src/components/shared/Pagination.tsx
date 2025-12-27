@@ -4,10 +4,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 
-import type { pagination } from '@/services/restclient/types';
+import type { Pagination as Paginator } from '@/services/restclient/types';
 
 interface PaginationProps {
-  meta?: pagination;
+  meta?: Paginator;
   pageParamName?: string;
 }
 
