@@ -7,4 +7,4 @@
 .env.development
 .env.test
 .env.production
-frontend/.claude/settings.local.json
+*/.claude/
