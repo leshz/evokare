@@ -1,5 +1,6 @@
 import { getCollections, get } from '../restclient';
 import { BlogsResponse, BlogResponse } from './types';
+import { STRAPI_API_PATHS } from '@/constants';
 
 interface GetBlogsParams {
   page?: number;
@@ -8,7 +9,7 @@ interface GetBlogsParams {
 
 export const getBlogsService = async (params?: GetBlogsParams) => {
   try {
-    let url = `/blogs`;
+    let url = STRAPI_API_PATHS.BLOGS;
 
     if (params) {
       const queryParams = new URLSearchParams();
@@ -36,7 +37,9 @@ export const getBlogsService = async (params?: GetBlogsParams) => {
 
 export const getBlogBySlugService = async (slug: string) => {
   try {
-    const blogResponse = await get<BlogResponse['data']>(`/blogs/${slug}`);
+    const blogResponse = await get<BlogResponse['data']>(
+      `${STRAPI_API_PATHS.BLOGS}/${slug}`
+    );
     return blogResponse;
   } catch (error) {
     throw error;
