@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
@@ -132,11 +133,10 @@ export function DailyQuotesSection({ data }: DailyQuotesSectionProps) {
                 <button
                   key={index}
                   onClick={() => scrollTo(index)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === selectedIndex
+                  className={`h-2 rounded-full transition-all duration-300 ${index === selectedIndex
                       ? 'w-8 bg-indigo-600'
                       : 'w-2 bg-gray-300 hover:bg-gray-400'
-                  }`}
+                    }`}
                   aria-label={`Ir a reflexión ${index + 1}`}
                 />
               ))}

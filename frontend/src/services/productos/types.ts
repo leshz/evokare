@@ -90,3 +90,26 @@ export interface ProductsResponse {
   data: Product[];
   meta: object;
 }
+
+export interface Category {
+  id: number;
+  documentId: string;
+  name: string;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+}
+
+export interface CategoriesResponse {
+  data: Category[];
+  meta: {
+    pagination: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    };
+  };
+}

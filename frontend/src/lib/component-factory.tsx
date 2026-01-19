@@ -14,7 +14,12 @@ import { ProductsBanner } from '@/components/products/ProductsBanner';
 import { ProductsCategories } from '@/components/products/ProductsCategories';
 import { SeccionInicio } from '@/services/inicio/types';
 import { NosotrosSection } from '@/services/nosotros/types';
-import { ProductosSection } from '@/services/productos/types';
+import { ProductosSection, Category, Product } from '@/services/productos/types';
+
+interface RenderSectionOptions {
+  categories?: Category[];
+  products?: Product[];
+}
 
 type ComponentMap = {
   [key: string]: React.ComponentType<any>;
@@ -43,7 +48,8 @@ const COMPONENT_MAP: ComponentMap = {
 
 export function renderSection(
   section: SeccionInicio | NosotrosSection | ProductosSection,
-  index: number
+  index: number,
+  options?: RenderSectionOptions
 ) {
   const Component = COMPONENT_MAP[section.__component];
 
@@ -188,13 +194,20 @@ export function renderSection(
     return <Component key={`${section.__component}-${index}`} data={section} />;
   }
 
-  // Para productos.categorias, validamos que tenga el titulo
+  // Para productos.categorias, validamos que tenga el titulo y pasamos props adicionales
   if (section.__component === 'productos.categorias') {
     if (!section.titulo) {
       console.warn('productos.categorias: Missing titulo');
       return null;
     }
-    return <Component key={`${section.__component}-${index}`} data={section} />;
+    return (
+      <Component
+        key={`${section.__component}-${index}`}
+        data={section}
+        categories={options?.categories || []}
+        products={options?.products || []}
+      />
+    );
   }
 
   // Fallback genérico para futuros componentes

@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation';
 import { PostHero } from '@/components/blogs/single/PostHero';
 import { PostContent } from '@/components/blogs/single/PostContent';
 import { PostSidebar } from '@/components/blogs/single/PostSidebar';

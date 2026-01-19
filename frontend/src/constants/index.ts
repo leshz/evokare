@@ -9,6 +9,7 @@ export const STRAPI_API_PATHS = {
   BLOGS: '/blogs',
   PRODUCTO: '/producto',
   MERCADOPAGO_PRODUCTS: '/strapi-mercadopago/products',
+  MERCADOPAGO_CATEGORIES: '/strapi-mercadopago/categories',
 } as const;
 
 export const DEFAULT_PAGINATION = {

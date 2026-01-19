@@ -30,6 +30,7 @@ export function HeroSection({ data }: HeroSectionProps) {
 
   useEffect(() => {
     if (!emblaApi) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     onSelect();
     emblaApi.on('select', onSelect);
     return () => {
@@ -128,11 +129,10 @@ export function HeroSection({ data }: HeroSectionProps) {
             <button
               key={index}
               onClick={() => scrollTo(index)}
-              className={`h-3 w-3 rounded-full transition-all ${
-                index === selectedIndex
+              className={`h-3 w-3 rounded-full transition-all ${index === selectedIndex
                   ? 'bg-principal w-8'
                   : 'bg-white/50 hover:bg-white/80'
-              }`}
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}

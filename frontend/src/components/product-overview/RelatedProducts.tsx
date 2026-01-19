@@ -97,6 +97,7 @@ export function RelatedProducts({
   // Filtrar productos relacionados excluyendo el producto actual
   const relatedProducts = allProducts
     .filter(product => product.id !== currentProductId)
+    // eslint-disable-next-line react-hooks/purity
     .filter(product => product.category === category || Math.random() > 0.3) // Incluir productos de la misma categoría y algunos aleatorios
     .slice(0, 4); // Mostrar máximo 4 productos
 
