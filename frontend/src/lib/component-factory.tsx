@@ -10,8 +10,11 @@ import { DailyQuotesSection } from '@/components/home/DailyQuotesSection';
 import { AboutBio } from '@/components/about/AboutBio';
 import { AboutCredentials } from '@/components/about/AboutCredentials';
 import { AboutMethodologies } from '@/components/about/AboutMethodologies';
+import { ProductsBanner } from '@/components/products/ProductsBanner';
+import { ProductsCategories } from '@/components/products/ProductsCategories';
 import { SeccionInicio } from '@/services/inicio/types';
 import { NosotrosSection } from '@/services/nosotros/types';
+import { ProductosSection } from '@/services/productos/types';
 
 type ComponentMap = {
   [key: string]: React.ComponentType<any>;
@@ -33,11 +36,13 @@ const COMPONENT_MAP: ComponentMap = {
   'nosotros.bio': AboutBio,
   'nosotros.credenciales': AboutCredentials,
   'nosotros.metodologias': AboutMethodologies,
-  // Futuros componentes se agregarán aquí
+  // Componentes de Productos
+  'productos.banner': ProductsBanner,
+  'productos.categorias': ProductsCategories,
 };
 
 export function renderSection(
-  section: SeccionInicio | NosotrosSection,
+  section: SeccionInicio | NosotrosSection | ProductosSection,
   index: number
 ) {
   const Component = COMPONENT_MAP[section.__component];
@@ -174,10 +179,28 @@ export function renderSection(
     return <Component key={`${section.__component}-${index}`} data={section} />;
   }
 
+  // Para productos.banner, validamos que tenga los datos requeridos
+  if (section.__component === 'productos.banner') {
+    if (!section.titulo || !section.introduccion) {
+      console.warn('productos.banner: Missing titulo or introduccion');
+      return null;
+    }
+    return <Component key={`${section.__component}-${index}`} data={section} />;
+  }
+
+  // Para productos.categorias, validamos que tenga el titulo
+  if (section.__component === 'productos.categorias') {
+    if (!section.titulo) {
+      console.warn('productos.categorias: Missing titulo');
+      return null;
+    }
+    return <Component key={`${section.__component}-${index}`} data={section} />;
+  }
+
   // Fallback genérico para futuros componentes
   return (
     <Component
-      key={`${(section as SeccionInicio | NosotrosSection).__component}-${index}`}
+      key={`${(section as SeccionInicio | NosotrosSection | ProductosSection).__component}-${index}`}
       data={section}
     />
   );

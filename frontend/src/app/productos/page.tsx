@@ -1,9 +1,8 @@
-'use client';
-
 import { ProductCard } from '@/components/products/ProductCard';
 import { ProductFilter } from '@/components/products/ProductFilter';
-import { ProductHero } from '@/components/products/ProductHero';
 import { ShoppingCart } from '@/components/products/ShoppingCart';
+import { getProductosContentService } from '@/services/productos';
+import { renderSection } from '@/lib/component-factory';
 
 const productos = [
   {
@@ -108,13 +107,16 @@ const productos = [
   },
 ];
 
-export default function ProductosPage() {
+export default async function ProductosPage() {
+  const response = await getProductosContentService();
+  const { secciones = [] } = response.data;
+
   return (
     <div className="bg-principal min-h-screen">
-      <ProductHero />
+      {secciones.map((section, index) => renderSection(section, index))}
+
       <ProductFilter />
 
-      {/* Sección de productos */}
       <section className="py-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -125,98 +127,6 @@ export default function ProductosPage() {
         </div>
       </section>
 
-      {/* Sección de información adicional */}
-      <section className="bg-gray-50 py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-gray-900">
-              ¿Por qué elegir nuestros productos?
-            </h2>
-            <p className="mx-auto max-w-2xl text-gray-600">
-              Cada producto está cuidadosamente seleccionado para apoyar tu
-              bienestar holístico
-            </p>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="text-center">
-              <div className="bg-secundario mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
-                <svg
-                  className="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
-              </div>
-              <h3 className="mb-2 text-xl font-semibold text-gray-900">
-                100% Natural
-              </h3>
-              <p className="text-gray-600">
-                Productos elaborados con ingredientes naturales y procesos
-                orgánicos
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-terciario mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
-                <svg
-                  className="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-              <h3 className="mb-2 text-xl font-semibold text-gray-900">
-                Calidad Garantizada
-              </h3>
-              <p className="text-gray-600">
-                Rigurosos estándares de calidad para asegurar la efectividad de
-                cada producto
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-secundario mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
-                <svg
-                  className="h-8 w-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                  />
-                </svg>
-              </div>
-              <h3 className="mb-2 text-xl font-semibold text-gray-900">
-                Guía Especializada
-              </h3>
-              <p className="text-gray-600">
-                Información detallada y consejos de uso para cada producto
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Carrito de compras flotante */}
       <ShoppingCart />
     </div>
   );
