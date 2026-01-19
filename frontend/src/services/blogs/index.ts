@@ -9,7 +9,7 @@ interface GetBlogsParams {
 
 export const getBlogsService = async (params?: GetBlogsParams) => {
   try {
-    let url = STRAPI_API_PATHS.BLOGS;
+    let url: string = STRAPI_API_PATHS.BLOGS;
 
     if (params) {
       const queryParams = new URLSearchParams();
