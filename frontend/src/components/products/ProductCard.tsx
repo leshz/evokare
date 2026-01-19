@@ -1,84 +1,82 @@
-import Image from 'next/image';
 import Link from 'next/link';
+import { Product } from '@/services/productos/types';
+import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
 
 interface ProductCardProps {
-  producto: {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    originalPrice?: number;
-    image: string;
-    category: string;
-    isNew?: boolean;
-    isPermanent?: boolean;
-    colors: string[];
-  };
+  producto: Product;
 }
 
 export function ProductCard({ producto }: ProductCardProps) {
+  const image = producto.pictures[0];
+  const category = producto.categories[0]?.name || '';
+
   return (
-    <Link href={`/productos/${producto.id}`}>
+    <Link href={`/productos/${producto.slug}`}>
       <div className="group cursor-pointer rounded-2xl bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-md">
-        {/* Imagen del producto */}
         <div className="mb-4 aspect-square overflow-hidden rounded-xl bg-gray-100">
-          <Image
-            src={producto.image}
-            alt={producto.name}
-            width={300}
-            height={300}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          />
+          {image ? (
+            <AdaptiveImage
+              image={image}
+              format="medium"
+              alt={producto.name}
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-gray-200">
+              <span className="text-gray-400">Sin imagen</span>
+            </div>
+          )}
         </div>
 
-        {/* Etiqueta de categoria o estado */}
-        <div className="mb-3">
-          {producto.isNew && (
+        <div className="mb-3 flex gap-2">
+          {producto.promotion?.new && (
             <span className="bg-secundario rounded-full px-3 py-1 text-sm font-medium text-white">
               Nuevo
             </span>
           )}
-          {producto.isPermanent && (
+          {producto.promotion?.best_seller && (
             <span className="bg-terciario rounded-full px-3 py-1 text-sm font-medium text-white">
-              Colección Permanente
+              Más Vendido
+            </span>
+          )}
+          {producto.promotion?.recommended && (
+            <span className="bg-terciario rounded-full px-3 py-1 text-sm font-medium text-white">
+              Recomendado
             </span>
           )}
         </div>
 
-        {/* Nombre del producto */}
         <h3 className="group-hover:text-secundario mb-2 text-xl font-semibold text-gray-900 transition-colors">
           {producto.name}
         </h3>
 
-        {/* Descripción */}
         <p className="mb-4 leading-relaxed text-gray-600">
-          {producto.description}
+          {producto.short_description}
         </p>
 
-        {/* Colores disponibles */}
-        <div className="mb-4 flex items-center gap-2">
-          {producto.colors.map((color, index) => (
-            <div
-              key={index}
-              className="h-6 w-6 rounded-full border-2 border-gray-200 shadow-sm"
-              style={{ backgroundColor: color }}
-            />
-          ))}
-        </div>
+        {category && (
+          <div className="mb-4">
+            <span className="text-sm text-gray-500">{category}</span>
+          </div>
+        )}
 
-        {/* Precio */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {producto.originalPrice && (
-              <span className="text-lg text-red-500 line-through">
-                ${producto.originalPrice}
-              </span>
-            )}
+            {producto.promotion?.with_discount &&
+              producto.promotion?.price_with_discount && (
+                <span className="text-lg text-red-500 line-through">
+                  ${producto.price}
+                </span>
+              )}
             <span className="text-2xl font-bold text-gray-900">
-              ${producto.price}
+              $
+              {producto.promotion?.with_discount &&
+              producto.promotion?.price_with_discount
+                ? producto.promotion.price_with_discount
+                : producto.price}
             </span>
           </div>
-          <button className="from-secundario to-terciario hover:from-terciario hover:to-secundario rounded-full bg-gradient-to-br px-6 py-2 font-medium text-white transition-all hover:bg-gradient-to-br">
+          <button className="from-secundario to-terciario hover:from-terciario hover:to-secundario rounded-full bg-linear-to-br px-6 py-2 font-medium text-white transition-all">
             Agregar
           </button>
         </div>

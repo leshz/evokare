@@ -1,5 +1,6 @@
 import { SEO } from '../seo/types';
 import { Boton, UnderstandingComponent } from '../inicio/types';
+import { StrapiImage } from '../general/types';
 
 export interface ProductosBannerComponent {
   __component: 'productos.banner';
@@ -35,5 +36,57 @@ export interface ProductosData {
 
 export interface ProductosResponse {
   data: ProductosData;
+  meta: object;
+}
+
+export interface ProductPromotion {
+  id: number;
+  with_discount: boolean;
+  price_with_discount: number | null;
+  recommended: boolean;
+  best_seller: boolean;
+  new: boolean;
+  discount_tag: string | null;
+}
+
+export interface ProductCategory {
+  id: number;
+  documentId: string;
+  name: string;
+  slug: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+}
+
+export interface Product {
+  id: number;
+  documentId: string;
+  name: string;
+  slug: string;
+  price: number;
+  short_description: string;
+  stock: number;
+  middle_description: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+  sku: string;
+  pictures: StrapiImage[];
+  promotion: ProductPromotion;
+  categories: ProductCategory[];
+  information: unknown[];
+  localizations: unknown[];
+}
+
+export interface ProductResponse {
+  data: Product;
+  meta: object;
+}
+
+export interface ProductsResponse {
+  data: Product[];
   meta: object;
 }
