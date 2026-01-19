@@ -1039,7 +1039,6 @@ export interface PluginStrapiMercadopagoOrder
     > &
       Schema.Attribute.Private;
     paid_with: Schema.Attribute.String;
-    payment_id: Schema.Attribute.String;
     payment_link: Schema.Attribute.String;
     payment_status: Schema.Attribute.Enumeration<
       [

@@ -1,14 +1,27 @@
+'use client';
+
 import Link from 'next/link';
 import { Product } from '@/services/productos/types';
 import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
+import { useCartStore } from '@/store';
 
 interface ProductCardProps {
   producto: Product;
 }
 
 export function ProductCard({ producto }: ProductCardProps) {
+  const addItem = useCartStore((state) => state.addItem);
+  const setIsOpen = useCartStore((state) => state.setIsOpen);
+
   const image = producto.pictures[0];
   const category = producto.categories[0]?.name || '';
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem(producto);
+    setIsOpen(true);
+  };
 
   return (
     <Link href={`/productos/${producto.slug}`}>
@@ -76,7 +89,10 @@ export function ProductCard({ producto }: ProductCardProps) {
                 : producto.price}
             </span>
           </div>
-          <button className="from-secundario to-terciario hover:from-terciario hover:to-secundario rounded-full bg-linear-to-br px-6 py-2 font-medium text-white transition-all">
+          <button
+            onClick={handleAddToCart}
+            className="from-secundario to-terciario hover:from-terciario hover:to-secundario rounded-full bg-linear-to-br px-6 py-2 font-medium text-white transition-all"
+          >
             Agregar
           </button>
         </div>
