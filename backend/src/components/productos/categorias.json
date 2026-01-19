@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_productos_categorias",
+  "info": {
+    "displayName": "categorías"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "subtitulo": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}

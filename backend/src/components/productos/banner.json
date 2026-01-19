@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_productos_banners",
+  "info": {
+    "displayName": "banner"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "introduccion": {
+      "type": "string",
+      "required": true
+    },
+    "acciones": {
+      "type": "component",
+      "component": "shared.accion",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

@@ -691,6 +691,45 @@ export interface ApiInicioInicio extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiProductoProducto extends Struct.SingleTypeSchema {
+  collectionName: 'productos';
+  info: {
+    displayName: 'Producto';
+    pluralName: 'productos';
+    singularName: 'producto';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::producto.producto'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    secciones: Schema.Attribute.DynamicZone<
+      ['inicio.entendiendo', 'productos.banner', 'productos.categorias']
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1000,6 +1039,7 @@ export interface PluginStrapiMercadopagoOrder
     > &
       Schema.Attribute.Private;
     paid_with: Schema.Attribute.String;
+    payment_id: Schema.Attribute.String;
     payment_link: Schema.Attribute.String;
     payment_status: Schema.Attribute.Enumeration<
       [
@@ -1124,9 +1164,20 @@ export interface PluginStrapiMercadopagoProduct
           localized: true;
         };
       }>;
-    sku: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique &
+    sku: Schema.Attribute.UID<
+      undefined,
+      {
+        'disable-regenerate': true;
+        'uuid-format': '^EHWP-\\d{5}$';
+      }
+    > &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-advanced-uuid.uuid',
+        {
+          'disable-regenerate': true;
+          'uuid-format': '^EHWP-\\d{5}$';
+        }
+      > &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: false;
@@ -1431,6 +1482,7 @@ declare module '@strapi/strapi' {
       'api::etiqueta.etiqueta': ApiEtiquetaEtiqueta;
       'api::general.general': ApiGeneralGeneral;
       'api::inicio.inicio': ApiInicioInicio;
+      'api::producto.producto': ApiProductoProducto;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

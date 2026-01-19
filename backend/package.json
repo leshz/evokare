@@ -24,6 +24,7 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.0.0",
     "strapi-5-plugin-responsive-backend": "^0.0.4",
+    "strapi-advanced-uuid": "^2.1.1",
     "strapi-mercadopago": "https://github.com/leshz/mercadopago-strapi.git#main",
     "strapi-plugin-populate-all": "^1.2.3",
     "styled-components": "^6.0.0"

@@ -353,6 +353,29 @@ export interface NosotrosMetodologias extends Struct.ComponentSchema {
   };
 }
 
+export interface ProductosBanner extends Struct.ComponentSchema {
+  collectionName: 'components_productos_banners';
+  info: {
+    displayName: 'banner';
+  };
+  attributes: {
+    acciones: Schema.Attribute.Component<'shared.accion', true>;
+    introduccion: Schema.Attribute.String & Schema.Attribute.Required;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ProductosCategorias extends Struct.ComponentSchema {
+  collectionName: 'components_productos_categorias';
+  info: {
+    displayName: 'categor\u00EDas';
+  };
+  attributes: {
+    subtitulo: Schema.Attribute.String & Schema.Attribute.Required;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedAccion extends Struct.ComponentSchema {
   collectionName: 'components_shared_accions';
   info: {
@@ -511,6 +534,8 @@ declare module '@strapi/strapi' {
       'nosotros.certificaciones': NosotrosCertificaciones;
       'nosotros.credenciales': NosotrosCredenciales;
       'nosotros.metodologias': NosotrosMetodologias;
+      'productos.banner': ProductosBanner;
+      'productos.categorias': ProductosCategorias;
       'shared.accion': SharedAccion;
       'shared.banner-comp': SharedBannerComp;
       'shared.contenido': SharedContenido;
