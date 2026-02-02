@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Product } from '@/services/productos/types';
 import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
 import { useCartStore } from '@/store';
+import { formatCOP } from '@/helpers/currency';
 
 interface ProductCardProps {
   producto: Product;
@@ -78,15 +79,16 @@ export function ProductCard({ producto }: ProductCardProps) {
             {producto.promotion?.with_discount &&
               producto.promotion?.price_with_discount && (
                 <span className="text-lg text-red-500 line-through">
-                  ${producto.price}
+                  {formatCOP(producto.price)}
                 </span>
               )}
             <span className="text-2xl font-bold text-gray-900">
-              $
-              {producto.promotion?.with_discount &&
-              producto.promotion?.price_with_discount
-                ? producto.promotion.price_with_discount
-                : producto.price}
+              {formatCOP(
+                producto.promotion?.with_discount &&
+                  producto.promotion?.price_with_discount
+                  ? producto.promotion.price_with_discount
+                  : producto.price
+              )}
             </span>
           </div>
           <button

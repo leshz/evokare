@@ -29,20 +29,27 @@ export function AdaptiveImage({
     );
   }
 
-  // Case 2: image is a StrapiImage object
   const selectedFormat = image.formats?.[format];
 
-  // Use selected format if available, otherwise fallback to original URL
   const imageSrc = selectedFormat?.url ?? image.url;
   const imageWidth = selectedFormat?.width ?? image.width;
   const imageHeight = selectedFormat?.height ?? image.height;
 
-  // Auto-generate alt text from Strapi metadata
   const autoAlt =
     alt ?? image.alternativeText ?? image.caption ?? image.name ?? 'Image';
 
-  // Auto-generate sizes attribute based on available formats
-  // const autoSizes = customSizes || generateResponsiveSizes(image, format);
+  const hasFill = 'fill' in props && props.fill === true;
+
+  if (hasFill) {
+    return (
+      <Image
+        src={imageSrc}
+        alt={autoAlt}
+        sizes={customSizes}
+        {...props}
+      />
+    );
+  }
 
   return (
     <Image
@@ -50,7 +57,7 @@ export function AdaptiveImage({
       alt={autoAlt}
       width={imageWidth}
       height={imageHeight}
-      // sizes={autoSizes}
+      sizes={customSizes}
       {...props}
     />
   );

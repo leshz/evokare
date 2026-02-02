@@ -1,16 +1,27 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
+import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
+import { StrapiImage } from '@/services/general/types';
 
 interface ProductGalleryProps {
-  images: string[];
+  images: StrapiImage[];
   productName: string;
 }
 
 export function ProductGallery({ images, productName }: ProductGalleryProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
+
+  if (!images || images.length === 0) {
+    return (
+      <div className="space-y-4">
+        <div className="flex aspect-square items-center justify-center rounded-2xl bg-gray-100">
+          <span className="text-gray-400">Sin imagen disponible</span>
+        </div>
+      </div>
+    );
+  }
 
   const handleImageClick = (index: number) => {
     setSelectedImage(index);
@@ -30,20 +41,19 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
 
   return (
     <div className="space-y-4">
-      {/* Imagen principal */}
       <div className="group relative aspect-square overflow-hidden rounded-2xl bg-gray-100">
-        <Image
-          src={images[selectedImage]}
+        <AdaptiveImage
+          image={images[selectedImage]}
+          format="large"
           alt={`${productName} - Imagen ${selectedImage + 1}`}
-          width={600}
-          height={600}
           className={`h-full w-full cursor-zoom-in object-cover transition-transform duration-300 ${
             isZoomed ? 'scale-150' : 'scale-100'
           }`}
           onClick={handleZoomToggle}
+          fill
+          sizes="(max-width: 1024px) 100vw, 50vw"
         />
 
-        {/* Botones de navegación */}
         {images.length > 1 && (
           <>
             <button
@@ -85,18 +95,16 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
           </>
         )}
 
-        {/* Indicador de zoom */}
         <div className="bg-opacity-80 absolute top-4 right-4 rounded-full bg-white px-3 py-1 text-sm text-gray-600 opacity-0 transition-opacity group-hover:opacity-100">
           {isZoomed ? 'Click para alejar' : 'Click para acercar'}
         </div>
       </div>
 
-      {/* Thumbnails */}
       {images.length > 1 && (
         <div className="flex space-x-2 overflow-x-auto">
           {images.map((image, index) => (
             <button
-              key={index}
+              key={image.id}
               onClick={() => handleImageClick(index)}
               className={`relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border-2 bg-gray-100 transition-all ${
                 selectedImage === index
@@ -104,19 +112,19 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                   : 'border-gray-200 hover:border-gray-300'
               }`}
             >
-              <Image
-                src={image}
+              <AdaptiveImage
+                image={image}
+                format="thumbnail"
                 alt={`${productName} - Thumbnail ${index + 1}`}
-                width={80}
-                height={80}
                 className="h-full w-full object-cover"
+                fill
+                sizes="80px"
               />
             </button>
           ))}
         </div>
       )}
 
-      {/* Información adicional */}
       <div className="rounded-lg bg-white p-4 shadow-sm">
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div className="flex items-center space-x-2">

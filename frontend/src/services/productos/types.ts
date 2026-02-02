@@ -60,6 +60,14 @@ export interface ProductCategory {
   locale: string;
 }
 
+import { BlocksContent } from '@strapi/blocks-react-renderer';
+
+export interface ProductInformation {
+  id: number;
+  title: string;
+  information: BlocksContent;
+}
+
 export interface Product {
   id: number;
   documentId: string;
@@ -77,7 +85,7 @@ export interface Product {
   pictures: StrapiImage[];
   promotion: ProductPromotion;
   categories: ProductCategory[];
-  information: unknown[];
+  information: ProductInformation[];
   localizations: unknown[];
 }
 

@@ -1,28 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  fullDescription: string;
-  price: number;
-  originalPrice?: number;
-  category: string;
-  isNew?: boolean;
-  isPermanent?: boolean;
-  colors: string[];
-  benefits: string[];
-  howToUse: string;
-  ingredients: string[];
-  inStock: boolean;
-  rating: number;
-  reviewCount: number;
-  isTherapyProduct: boolean;
-  duration?: string;
-  therapist?: string;
-}
+import { Product } from '@/services/productos/types';
+import { formatCOP } from '@/helpers/currency';
+import { BlocksRendererCustom } from '@/components/shared/BlocksRendererCustom';
+import { useCartStore } from '@/store';
 
 interface ProductInfoProps {
   product: Product;
@@ -30,8 +12,10 @@ interface ProductInfoProps {
 
 export function ProductInfo({ product }: ProductInfoProps) {
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState(0);
-  const [activeTab, setActiveTab] = useState('description');
+  const [activeTab, setActiveTab] = useState(0);
+
+  const addItem = useCartStore(state => state.addItem);
+  const setIsOpen = useCartStore(state => state.setIsOpen);
 
   const handleQuantityChange = (increment: boolean) => {
     if (increment) {
@@ -42,126 +26,96 @@ export function ProductInfo({ product }: ProductInfoProps) {
   };
 
   const handleAddToCart = () => {
-    console.log(
-      `Agregando ${quantity} unidades del producto ${product.name} al carrito`
-    );
-    // Aquí iría la lógica para agregar al carrito
+    addItem(product, quantity);
+    setIsOpen(true);
+    setQuantity(1);
   };
 
-  const renderStars = (rating: number) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <svg
-          key={i}
-          className={`h-5 w-5 ${i <= rating ? 'text-yellow-400' : 'text-gray-300'}`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-      );
-    }
-    return stars;
-  };
+  const hasDiscount =
+    product.promotion?.with_discount && product.promotion?.price_with_discount;
+  const displayPrice = hasDiscount
+    ? product.promotion.price_with_discount
+    : product.price;
+  const originalPrice = hasDiscount ? product.price : null;
+
+  const inStock = product.stock > 0;
+
+  const primaryCategory = product.categories?.[0]?.name;
+
+  const hasInformation = product.information && product.information.length > 0;
+
+  const tabs = [
+    ...(product.middle_description ? [{ id: 'description', title: 'Descripción' }] : []),
+    ...(product.information?.map((info, index) => ({
+      id: `info-${index}`,
+      title: info.title,
+    })) || []),
+  ];
 
   return (
     <div className="space-y-6">
-      {/* Etiquetas */}
       <div className="flex flex-wrap gap-2">
-        {product.isNew && (
+        {product.promotion?.new && (
           <span className="bg-secundario rounded-full px-3 py-1 text-sm font-medium text-white">
             Nuevo
           </span>
         )}
-        {product.isPermanent && (
+        {product.promotion?.best_seller && (
           <span className="bg-terciario rounded-full px-3 py-1 text-sm font-medium text-white">
-            Colección Permanente
+            Más Vendido
           </span>
         )}
-        <span className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700">
-          {product.category}
-        </span>
+        {product.promotion?.recommended && (
+          <span className="rounded-full bg-green-500 px-3 py-1 text-sm font-medium text-white">
+            Recomendado
+          </span>
+        )}
+        {primaryCategory && (
+          <span className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700">
+            {primaryCategory}
+          </span>
+        )}
       </div>
 
-      {/* Nombre del producto */}
       <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
 
-      {/* Rating y reseñas */}
-      <div className="flex items-center space-x-2">
-        <div className="flex items-center">
-          {renderStars(Math.floor(product.rating))}
-        </div>
-        <span className="text-sm text-gray-600">
-          {product.rating} ({product.reviewCount} reseñas)
-        </span>
-      </div>
+      {product.short_description && (
+        <p className="text-lg text-gray-600">{product.short_description}</p>
+      )}
 
-      {/* Precio */}
       <div className="flex items-center space-x-3">
-        {product.originalPrice && (
+        {originalPrice && (
           <span className="text-2xl text-red-500 line-through">
-            ${product.originalPrice}
+            {formatCOP(originalPrice)}
           </span>
         )}
-        <span className="text-4xl font-bold text-gray-900">
-          ${product.price}
-        </span>
-        {product.originalPrice && (
+        <span className="text-4xl font-bold text-gray-900">{formatCOP(displayPrice)}</span>
+        {originalPrice && product.promotion?.discount_tag && (
+          <span className="rounded bg-red-100 px-2 py-1 text-sm font-medium text-red-600">
+            {product.promotion.discount_tag}
+          </span>
+        )}
+        {originalPrice && !product.promotion?.discount_tag && (
           <span className="rounded bg-red-100 px-2 py-1 text-sm font-medium text-red-600">
             -
             {Math.round(
-              ((product.originalPrice - product.price) /
-                product.originalPrice) *
-                100
+              ((originalPrice - (displayPrice ?? 0)) / originalPrice) * 100
             )}
             %
           </span>
         )}
       </div>
 
-      {/* Información adicional para terapias */}
-      {product.isTherapyProduct && (
-        <div className="from-secundario to-terciario rounded-lg bg-gradient-to-r p-4 text-white">
-          <h3 className="mb-2 font-semibold">Información de la Sesión</h3>
-          <div className="space-y-1 text-sm">
-            <p>
-              <strong>Duración:</strong> {product.duration}
-            </p>
-            <p>
-              <strong>Terapeuta:</strong> {product.therapist}
-            </p>
-          </div>
-        </div>
+      {product.sku && (
+        <p className="text-sm text-gray-500">SKU: {product.sku}</p>
       )}
 
-      {/* Colores disponibles */}
-      {product.colors.length > 1 && (
-        <div>
-          <h3 className="mb-3 text-lg font-semibold">Colores disponibles</h3>
-          <div className="flex space-x-2">
-            {product.colors.map((color, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedColor(index)}
-                className={`h-10 w-10 rounded-full border-2 transition-all ${
-                  selectedColor === index
-                    ? 'border-secundario ring-secundario ring-opacity-50 ring-2'
-                    : 'border-gray-300 hover:border-gray-400'
-                }`}
-                style={{ backgroundColor: color }}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Cantidad y botón de agregar */}
       <div className="flex items-center space-x-4">
         <div className="flex items-center rounded-lg border border-gray-300">
           <button
             onClick={() => handleQuantityChange(false)}
             className="px-4 py-2 transition-colors hover:bg-gray-100"
+            disabled={!inStock}
           >
             -
           </button>
@@ -169,6 +123,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
           <button
             onClick={() => handleQuantityChange(true)}
             className="px-4 py-2 transition-colors hover:bg-gray-100"
+            disabled={!inStock}
           >
             +
           </button>
@@ -176,117 +131,133 @@ export function ProductInfo({ product }: ProductInfoProps) {
 
         <button
           onClick={handleAddToCart}
-          className="from-secundario to-terciario hover:from-terciario hover:to-secundario flex-1 rounded-full bg-gradient-to-br py-3 font-medium text-white transition-all hover:bg-gradient-to-br"
+          disabled={!inStock}
+          className={`flex-1 rounded-full py-3 font-medium text-white transition-all ${
+            inStock
+              ? 'from-secundario to-terciario hover:from-terciario hover:to-secundario bg-gradient-to-br hover:bg-gradient-to-br'
+              : 'cursor-not-allowed bg-gray-400'
+          }`}
         >
-          {product.isTherapyProduct ? 'Reservar Sesión' : 'Agregar al Carrito'}
+          {inStock ? 'Agregar al Carrito' : 'Agotado'}
         </button>
       </div>
 
-      {/* Disponibilidad */}
       <div className="flex items-center space-x-2">
         <div
-          className={`h-3 w-3 rounded-full ${product.inStock ? 'bg-green-500' : 'bg-red-500'}`}
+          className={`h-3 w-3 rounded-full ${inStock ? 'bg-green-500' : 'bg-red-500'}`}
         ></div>
-        <span
-          className={`text-sm ${product.inStock ? 'text-green-600' : 'text-red-600'}`}
-        >
-          {product.inStock ? 'Disponible' : 'Agotado'}
+        <span className={`text-sm ${inStock ? 'text-green-600' : 'text-red-600'}`}>
+          {inStock ? `Disponible (${product.stock} en stock)` : 'Agotado'}
         </span>
       </div>
 
-      {/* Tabs de información */}
-      <div className="border-t pt-6">
-        <div className="mb-4 flex space-x-6">
-          <button
-            onClick={() => setActiveTab('description')}
-            className={`border-b-2 pb-2 text-sm font-medium transition-colors ${
-              activeTab === 'description'
-                ? 'border-secundario text-secundario'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            Descripción
-          </button>
-          <button
-            onClick={() => setActiveTab('benefits')}
-            className={`border-b-2 pb-2 text-sm font-medium transition-colors ${
-              activeTab === 'benefits'
-                ? 'border-secundario text-secundario'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            Beneficios
-          </button>
-          <button
-            onClick={() => setActiveTab('usage')}
-            className={`border-b-2 pb-2 text-sm font-medium transition-colors ${
-              activeTab === 'usage'
-                ? 'border-secundario text-secundario'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            Uso
-          </button>
-          <button
-            onClick={() => setActiveTab('ingredients')}
-            className={`border-b-2 pb-2 text-sm font-medium transition-colors ${
-              activeTab === 'ingredients'
-                ? 'border-secundario text-secundario'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            Ingredientes
-          </button>
-        </div>
-
-        {/* Contenido de tabs */}
-        <div className="min-h-[120px]">
-          {activeTab === 'description' && (
-            <div className="leading-relaxed text-gray-700">
-              {product.fullDescription}
-            </div>
-          )}
-
-          {activeTab === 'benefits' && (
-            <ul className="space-y-2">
-              {product.benefits.map((benefit, index) => (
-                <li key={index} className="flex items-start space-x-2">
-                  <svg
-                    className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-500"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+      {(product.middle_description || hasInformation) && (
+        <div className="border-t pt-6">
+          {tabs.length > 1 ? (
+            <>
+              <div className="mb-4 flex space-x-4 overflow-x-auto border-b">
+                {tabs.map((tab, index) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(index)}
+                    className={`whitespace-nowrap border-b-2 pb-3 text-sm font-medium transition-colors ${
+                      activeTab === index
+                        ? 'border-secundario text-secundario'
+                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  <span className="text-gray-700">{benefit}</span>
-                </li>
-              ))}
-            </ul>
-          )}
+                    {tab.title}
+                  </button>
+                ))}
+              </div>
 
-          {activeTab === 'usage' && (
-            <div className="leading-relaxed text-gray-700">
-              {product.howToUse}
-            </div>
-          )}
-
-          {activeTab === 'ingredients' && (
-            <ul className="space-y-1">
-              {product.ingredients.map((ingredient, index) => (
-                <li key={index} className="text-gray-700">
-                  • {ingredient}
-                </li>
-              ))}
-            </ul>
+              <div className="min-h-[120px]">
+                {activeTab === 0 && product.middle_description && (
+                  <p className="leading-relaxed text-gray-700">
+                    {product.middle_description}
+                  </p>
+                )}
+                {product.information?.map((info, index) => {
+                  const tabIndex = product.middle_description ? index + 1 : index;
+                  return (
+                    activeTab === tabIndex && (
+                      <div key={info.id} className="prose prose-gray max-w-none">
+                        <BlocksRendererCustom
+                          content={info.information}
+                          classNames={{
+                            paragraph: 'leading-relaxed text-gray-700 mb-4',
+                            heading: {
+                              h1: 'text-2xl font-bold text-gray-900 mb-4',
+                              h2: 'text-xl font-bold text-gray-900 mb-3',
+                              h3: 'text-lg font-semibold text-gray-900 mb-2',
+                              h4: 'text-base font-semibold text-gray-900 mb-2',
+                              h5: 'text-sm font-semibold text-gray-900 mb-2',
+                              h6: 'text-sm font-medium text-gray-900 mb-2',
+                            },
+                            list: {
+                              ordered: 'list-decimal list-inside mb-4 space-y-2',
+                              unordered: 'list-disc list-inside mb-4 space-y-2',
+                            },
+                          }}
+                        />
+                      </div>
+                    )
+                  );
+                })}
+              </div>
+            </>
+          ) : (
+            <>
+              <h3 className="mb-4 text-lg font-semibold text-gray-900">
+                {tabs[0]?.title || 'Descripción'}
+              </h3>
+              {product.middle_description && (
+                <p className="leading-relaxed text-gray-700">
+                  {product.middle_description}
+                </p>
+              )}
+              {!product.middle_description && product.information?.[0] && (
+                <div className="prose prose-gray max-w-none">
+                  <BlocksRendererCustom
+                    content={product.information[0].information}
+                    classNames={{
+                      paragraph: 'leading-relaxed text-gray-700 mb-4',
+                      heading: {
+                        h1: 'text-2xl font-bold text-gray-900 mb-4',
+                        h2: 'text-xl font-bold text-gray-900 mb-3',
+                        h3: 'text-lg font-semibold text-gray-900 mb-2',
+                        h4: 'text-base font-semibold text-gray-900 mb-2',
+                        h5: 'text-sm font-semibold text-gray-900 mb-2',
+                        h6: 'text-sm font-medium text-gray-900 mb-2',
+                      },
+                      list: {
+                        ordered: 'list-decimal list-inside mb-4 space-y-2',
+                        unordered: 'list-disc list-inside mb-4 space-y-2',
+                      },
+                    }}
+                  />
+                </div>
+              )}
+            </>
           )}
         </div>
-      </div>
+      )}
+
+      {product.categories && product.categories.length > 1 && (
+        <div className="border-t pt-6">
+          <h3 className="mb-3 text-sm font-medium text-gray-900">Categorías</h3>
+          <div className="flex flex-wrap gap-2">
+            {product.categories.map(category => (
+              <span
+                key={category.id}
+                className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-600"
+              >
+                {category.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

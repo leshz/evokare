@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { formatCOP } from '@/helpers/currency';
 
 interface RelatedProduct {
   id: number;
@@ -179,15 +180,14 @@ export function RelatedProducts({
                 </span>
               </div>
 
-              {/* Precio */}
               <div className="flex items-center space-x-2">
                 {product.originalPrice && (
                   <span className="text-sm text-red-500 line-through">
-                    ${product.originalPrice}
+                    {formatCOP(product.originalPrice)}
                   </span>
                 )}
                 <span className="text-xl font-bold text-gray-900">
-                  ${product.price}
+                  {formatCOP(product.price)}
                 </span>
               </div>
 

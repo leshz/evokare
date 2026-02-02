@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { formatCOP } from '@/helpers/currency';
 
 export interface TherapyProduct {
   id: number;
@@ -139,7 +140,7 @@ export function TherapyBooking({ product }: TherapyBookingProps) {
                 <div className="text-principal text-sm">Duración</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold">${product.price}</div>
+                <div className="text-2xl font-bold">{formatCOP(product.price)}</div>
                 <div className="text-principal text-sm">Precio</div>
               </div>
               <div className="text-center">
@@ -261,10 +262,11 @@ export function TherapyBooking({ product }: TherapyBookingProps) {
               <div className="flex justify-between font-bold">
                 <span>Total:</span>
                 <span>
-                  $
-                  {selectedType === 'domicilio'
-                    ? product.price + 30
-                    : product.price}
+                  {formatCOP(
+                    selectedType === 'domicilio'
+                      ? product.price + 30
+                      : product.price
+                  )}
                 </span>
               </div>
             </div>
