@@ -75,6 +75,7 @@ export interface Product {
   slug: string;
   price: number;
   short_description: string;
+  description: string;
   stock: number;
   middle_description: string;
   createdAt: string;

@@ -44,13 +44,11 @@ export function ProductInfo({ product }: ProductInfoProps) {
 
   const hasInformation = product.information && product.information.length > 0;
 
-  const tabs = [
-    ...(product.middle_description ? [{ id: 'description', title: 'Descripción' }] : []),
-    ...(product.information?.map((info, index) => ({
+  const tabs =
+    product.information?.map((info, index) => ({
       id: `info-${index}`,
       title: info.title,
-    })) || []),
-  ];
+    })) || [];
 
   return (
     <div className="space-y-6">
@@ -79,8 +77,8 @@ export function ProductInfo({ product }: ProductInfoProps) {
 
       <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
 
-      {product.short_description && (
-        <p className="text-lg text-gray-600">{product.short_description}</p>
+      {product.middle_description && (
+        <p className="text-lg text-gray-600">{product.middle_description}</p>
       )}
 
       <div className="flex items-center space-x-3">
@@ -89,7 +87,9 @@ export function ProductInfo({ product }: ProductInfoProps) {
             {formatCOP(originalPrice)}
           </span>
         )}
-        <span className="text-4xl font-bold text-gray-900">{formatCOP(displayPrice)}</span>
+        <span className="text-4xl font-bold text-gray-900">
+          {formatCOP(displayPrice)}
+        </span>
         {originalPrice && product.promotion?.discount_tag && (
           <span className="rounded bg-red-100 px-2 py-1 text-sm font-medium text-red-600">
             {product.promotion.discount_tag}
@@ -132,11 +132,10 @@ export function ProductInfo({ product }: ProductInfoProps) {
         <button
           onClick={handleAddToCart}
           disabled={!inStock}
-          className={`flex-1 rounded-full py-3 font-medium text-white transition-all ${
-            inStock
-              ? 'from-secundario to-terciario hover:from-terciario hover:to-secundario bg-gradient-to-br hover:bg-gradient-to-br'
-              : 'cursor-not-allowed bg-gray-400'
-          }`}
+          className={`flex-1 rounded-full py-3 font-medium text-white transition-all ${inStock
+            ? 'from-secundario to-terciario hover:from-terciario hover:to-secundario bg-gradient-to-br hover:bg-gradient-to-br'
+            : 'cursor-not-allowed bg-gray-400'
+            }`}
         >
           {inStock ? 'Agregar al Carrito' : 'Agotado'}
         </button>
@@ -146,111 +145,78 @@ export function ProductInfo({ product }: ProductInfoProps) {
         <div
           className={`h-3 w-3 rounded-full ${inStock ? 'bg-green-500' : 'bg-red-500'}`}
         ></div>
-        <span className={`text-sm ${inStock ? 'text-green-600' : 'text-red-600'}`}>
+        <span
+          className={`text-sm ${inStock ? 'text-green-600' : 'text-red-600'}`}
+        >
           {inStock ? `Disponible (${product.stock} en stock)` : 'Agotado'}
         </span>
       </div>
 
-      {(product.middle_description || hasInformation) && (
-        <div className="border-t pt-6">
-          {tabs.length > 1 ? (
-            <>
-              <div className="mb-4 flex space-x-4 overflow-x-auto border-b">
-                {tabs.map((tab, index) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(index)}
-                    className={`whitespace-nowrap border-b-2 pb-3 text-sm font-medium transition-colors ${
-                      activeTab === index
-                        ? 'border-secundario text-secundario'
-                        : 'border-transparent text-gray-500 hover:text-gray-700'
+      {hasInformation && (
+        <div className="mt-8">
+          <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
+            <div className="from-secundario/5 to-terciario/5 flex gap-1 overflow-x-auto bg-gradient-to-r p-2">
+              {tabs.map((tab, index) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(index)}
+                  className={`group relative flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-3 text-sm font-medium transition-all duration-300 ${activeTab === index
+                    ? 'from-secundario to-terciario bg-gradient-to-r text-white shadow-md'
+                    : 'text-gray-600 hover:bg-white hover:text-gray-900 hover:shadow-sm'
                     }`}
-                  >
-                    {tab.title}
-                  </button>
-                ))}
-              </div>
+                >
+                  <span>{tab.title}</span>
 
-              <div className="min-h-[120px]">
-                {activeTab === 0 && product.middle_description && (
-                  <p className="leading-relaxed text-gray-700">
-                    {product.middle_description}
-                  </p>
-                )}
-                {product.information?.map((info, index) => {
-                  const tabIndex = product.middle_description ? index + 1 : index;
-                  return (
-                    activeTab === tabIndex && (
-                      <div key={info.id} className="prose prose-gray max-w-none">
-                        <BlocksRendererCustom
-                          content={info.information}
-                          classNames={{
-                            paragraph: 'leading-relaxed text-gray-700 mb-4',
-                            heading: {
-                              h1: 'text-2xl font-bold text-gray-900 mb-4',
-                              h2: 'text-xl font-bold text-gray-900 mb-3',
-                              h3: 'text-lg font-semibold text-gray-900 mb-2',
-                              h4: 'text-base font-semibold text-gray-900 mb-2',
-                              h5: 'text-sm font-semibold text-gray-900 mb-2',
-                              h6: 'text-sm font-medium text-gray-900 mb-2',
-                            },
-                            list: {
-                              ordered: 'list-decimal list-inside mb-4 space-y-2',
-                              unordered: 'list-disc list-inside mb-4 space-y-2',
-                            },
-                          }}
-                        />
-                      </div>
-                    )
-                  );
-                })}
-              </div>
-            </>
-          ) : (
-            <>
-              <h3 className="mb-4 text-lg font-semibold text-gray-900">
-                {tabs[0]?.title || 'Descripción'}
-              </h3>
-              {product.middle_description && (
-                <p className="leading-relaxed text-gray-700">
-                  {product.middle_description}
-                </p>
-              )}
-              {!product.middle_description && product.information?.[0] && (
-                <div className="prose prose-gray max-w-none">
-                  <BlocksRendererCustom
-                    content={product.information[0].information}
-                    classNames={{
-                      paragraph: 'leading-relaxed text-gray-700 mb-4',
-                      heading: {
-                        h1: 'text-2xl font-bold text-gray-900 mb-4',
-                        h2: 'text-xl font-bold text-gray-900 mb-3',
-                        h3: 'text-lg font-semibold text-gray-900 mb-2',
-                        h4: 'text-base font-semibold text-gray-900 mb-2',
-                        h5: 'text-sm font-semibold text-gray-900 mb-2',
-                        h6: 'text-sm font-medium text-gray-900 mb-2',
-                      },
-                      list: {
-                        ordered: 'list-decimal list-inside mb-4 space-y-2',
-                        unordered: 'list-disc list-inside mb-4 space-y-2',
-                      },
-                    }}
-                  />
-                </div>
-              )}
-            </>
-          )}
+                </button>
+              ))}
+            </div>
+
+            <div className="p-6">
+              {product.information?.map((info, index) => (
+                activeTab === index && (
+                  <div
+                    key={info.id}
+                    className="animate-in fade-in prose prose-gray max-w-none duration-300"
+                  >
+                    <BlocksRendererCustom
+                      content={info.information}
+                      classNames={{
+                        paragraph: 'leading-relaxed text-gray-700 mb-4',
+                        heading: {
+                          h1: 'text-2xl font-bold text-gray-900 mb-4',
+                          h2: 'text-xl font-bold text-gray-900 mb-3',
+                          h3: 'text-lg font-semibold text-gray-900 mb-2',
+                          h4: 'text-base font-semibold text-gray-900 mb-2',
+                          h5: 'text-sm font-semibold text-gray-900 mb-2',
+                          h6: 'text-sm font-medium text-gray-900 mb-2',
+                        },
+                        list: {
+                          ordered:
+                            'list-decimal list-inside mb-4 space-y-2 text-gray-700',
+                          unordered:
+                            'list-disc list-inside mb-4 space-y-2 text-gray-700',
+                        },
+                      }}
+                      colors={{
+                        link: 'text-secundario hover:text-terciario',
+                      }}
+                    />
+                  </div>
+                )
+              ))}
+            </div>
+          </div>
         </div>
       )}
 
       {product.categories && product.categories.length > 1 && (
-        <div className="border-t pt-6">
+        <div className="pt-4">
           <h3 className="mb-3 text-sm font-medium text-gray-900">Categorías</h3>
           <div className="flex flex-wrap gap-2">
             {product.categories.map(category => (
               <span
                 key={category.id}
-                className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-600"
+                className="border-secundario/20 text-secundario rounded-full border bg-white px-3 py-1 text-sm"
               >
                 {category.name}
               </span>
