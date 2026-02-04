@@ -132,10 +132,11 @@ export function ProductInfo({ product }: ProductInfoProps) {
         <button
           onClick={handleAddToCart}
           disabled={!inStock}
-          className={`flex-1 rounded-full py-3 font-medium text-white transition-all ${inStock
-            ? 'from-secundario to-terciario hover:from-terciario hover:to-secundario bg-gradient-to-br hover:bg-gradient-to-br'
-            : 'cursor-not-allowed bg-gray-400'
-            }`}
+          className={`flex-1 rounded-full py-3 font-medium text-white transition-all ${
+            inStock
+              ? 'from-secundario to-terciario hover:from-terciario hover:to-secundario bg-gradient-to-br hover:bg-gradient-to-br'
+              : 'cursor-not-allowed bg-gray-400'
+          }`}
         >
           {inStock ? 'Agregar al Carrito' : 'Agotado'}
         </button>
@@ -160,50 +161,51 @@ export function ProductInfo({ product }: ProductInfoProps) {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(index)}
-                  className={`group relative flex items-center gap-2 whitespace-nowrap rounded-xl px-5 py-3 text-sm font-medium transition-all duration-300 ${activeTab === index
-                    ? 'from-secundario to-terciario bg-gradient-to-r text-white shadow-md'
-                    : 'text-gray-600 hover:bg-white hover:text-gray-900 hover:shadow-sm'
-                    }`}
+                  className={`group relative flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-medium whitespace-nowrap transition-all duration-300 ${
+                    activeTab === index
+                      ? 'from-secundario to-terciario bg-gradient-to-r text-white shadow-md'
+                      : 'text-gray-600 hover:bg-white hover:text-gray-900 hover:shadow-sm'
+                  }`}
                 >
                   <span>{tab.title}</span>
-
                 </button>
               ))}
             </div>
 
             <div className="p-6">
-              {product.information?.map((info, index) => (
-                activeTab === index && (
-                  <div
-                    key={info.id}
-                    className="animate-in fade-in prose prose-gray max-w-none duration-300"
-                  >
-                    <BlocksRendererCustom
-                      content={info.information}
-                      classNames={{
-                        paragraph: 'leading-relaxed text-gray-700 mb-4',
-                        heading: {
-                          h1: 'text-2xl font-bold text-gray-900 mb-4',
-                          h2: 'text-xl font-bold text-gray-900 mb-3',
-                          h3: 'text-lg font-semibold text-gray-900 mb-2',
-                          h4: 'text-base font-semibold text-gray-900 mb-2',
-                          h5: 'text-sm font-semibold text-gray-900 mb-2',
-                          h6: 'text-sm font-medium text-gray-900 mb-2',
-                        },
-                        list: {
-                          ordered:
-                            'list-decimal list-inside mb-4 space-y-2 text-gray-700',
-                          unordered:
-                            'list-disc list-inside mb-4 space-y-2 text-gray-700',
-                        },
-                      }}
-                      colors={{
-                        link: 'text-secundario hover:text-terciario',
-                      }}
-                    />
-                  </div>
-                )
-              ))}
+              {product.information?.map(
+                (info, index) =>
+                  activeTab === index && (
+                    <div
+                      key={info.id}
+                      className="animate-in fade-in prose prose-gray max-w-none duration-300"
+                    >
+                      <BlocksRendererCustom
+                        content={info.information}
+                        classNames={{
+                          paragraph: 'leading-relaxed text-gray-700 mb-4',
+                          heading: {
+                            h1: 'text-2xl font-bold text-gray-900 mb-4',
+                            h2: 'text-xl font-bold text-gray-900 mb-3',
+                            h3: 'text-lg font-semibold text-gray-900 mb-2',
+                            h4: 'text-base font-semibold text-gray-900 mb-2',
+                            h5: 'text-sm font-semibold text-gray-900 mb-2',
+                            h6: 'text-sm font-medium text-gray-900 mb-2',
+                          },
+                          list: {
+                            ordered:
+                              'list-decimal list-inside mb-4 space-y-2 text-gray-700',
+                            unordered:
+                              'list-disc list-inside mb-4 space-y-2 text-gray-700',
+                          },
+                        }}
+                        colors={{
+                          link: 'text-secundario hover:text-terciario',
+                        }}
+                      />
+                    </div>
+                  )
+              )}
             </div>
           </div>
         </div>

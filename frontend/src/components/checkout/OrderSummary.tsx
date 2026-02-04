@@ -15,7 +15,7 @@ export function OrderSummary() {
     () => true,
     () => false
   );
-  const items = useCartStore((state) => state.items);
+  const items = useCartStore(state => state.items);
   const totalPrice = useCartStore(selectTotalPrice);
 
   if (!isHydrated) {
@@ -41,7 +41,7 @@ export function OrderSummary() {
         </p>
         <Link
           href="/productos"
-          className="inline-block rounded-full bg-gradient-to-br from-secundario to-terciario px-6 py-2 text-white"
+          className="from-secundario to-terciario inline-block rounded-full bg-gradient-to-br px-6 py-2 text-white"
         >
           Ver productos
         </Link>
@@ -55,7 +55,7 @@ export function OrderSummary() {
         Resumen del pedido
       </h2>
       <div className="mb-6 max-h-96 space-y-4 overflow-y-auto">
-        {items.map((item) => (
+        {items.map(item => (
           <OrderSummaryItem key={item.id} item={item} />
         ))}
       </div>
@@ -70,7 +70,7 @@ export function OrderSummary() {
         </div>
         <div className="flex justify-between border-t border-gray-200 pt-4">
           <span className="text-xl font-bold">Total</span>
-          <span className="text-2xl font-bold text-secundario">
+          <span className="text-secundario text-2xl font-bold">
             {formatCOP(totalPrice)}
           </span>
         </div>

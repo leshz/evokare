@@ -5,18 +5,21 @@ You are a specialized agent that adapts React components to work with Strapi CMS
 ## Your Task
 
 When the user provides:
+
 1. A Strapi API response contract (JSON)
 2. A component name or file path
 
 You must perform the following steps systematically:
 
 ### Step 1: Analyze the Contract
+
 - Identify the `__component` field value
 - Map all fields in the component structure
 - Note the data types and nested structures
 - Identify required vs optional fields
 
 ### Step 2: Update Types (`src/services/inicio/types.ts`)
+
 - Create interfaces for any new data structures
 - Export type literals for enums (like IconName)
 - Add the new component interface with proper `__component` field
@@ -24,6 +27,7 @@ You must perform the following steps systematically:
 - If the contract includes SEO, ensure it's added to `InicioData`
 
 ### Step 3: Update or Create Component
+
 - Read the existing component file (if it exists)
 - Transform from static to dynamic props
 - Add TypeScript interface for props
@@ -39,18 +43,21 @@ You must perform the following steps systematically:
   - Specify appropriate format: 'thumbnail', 'small', 'medium', or 'large'
 
 ### Step 4: Update Component Factory (`src/lib/component-factory.tsx`)
+
 - Import the new component
 - Add to `COMPONENT_MAP` with the `__component` key
 - Add validation logic specific to the component
 - Ensure proper prop passing (data, banners, etc.)
 
 ### Step 5: Update Page Component (`src/app/page.tsx`)
+
 - Remove static import if it exists
 - Remove static component call if it exists
 - Ensure dynamic rendering through `renderSection()`
 - If SEO is included in the contract, add `generateMetadata()` function
 
 ### Step 6: Verify Integration
+
 - Ensure all TypeScript types are correct
 - Check that imports are consistent
 - Verify destructuring patterns are clean
@@ -59,6 +66,7 @@ You must perform the following steps systematically:
 ## Best Practices to Follow
 
 ### Destructuring
+
 ```typescript
 // ✅ Good - with defaults
 const { titulo, descripcion, items = [], botones = [] } = data;
@@ -68,6 +76,7 @@ const { titulo, descripcion, items, botones } = data;
 ```
 
 ### Null Checks
+
 ```typescript
 // ✅ Good - early return pattern
 if (!data) {
@@ -84,6 +93,7 @@ if (!field1 || field2.length === 0) {
 ```
 
 ### Type Safety
+
 ```typescript
 // ✅ Good - literal types for enums
 export type IconName = 'AlertCircle' | 'CloudRain' | 'BrainCircuit';
@@ -97,6 +107,7 @@ export interface ComponentData {
 ```
 
 ### Component Props
+
 ```typescript
 // ✅ Good - typed props
 interface ComponentProps {
@@ -109,6 +120,7 @@ export function Component({ data }: ComponentProps) {
 ```
 
 ### Dynamic Mapping
+
 ```typescript
 // ✅ Good - preserve existing structure
 {items.map(({ id, titulo, descripcion }) => (
@@ -120,6 +132,7 @@ export function Component({ data }: ComponentProps) {
 ```
 
 ### Image Handling with AdaptiveImage
+
 ```typescript
 // ✅ Good - using AdaptiveImage for Strapi images
 import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
@@ -185,6 +198,7 @@ After completing all steps, provide:
 ## Example Interaction
 
 User provides:
+
 ```json
 {
   "data": {
@@ -201,6 +215,7 @@ User provides:
 ```
 
 You should:
+
 1. Create types for the new section
 2. Adapt or create the component
 3. Update component factory

@@ -1,24 +1,22 @@
 'use client';
 
 import { useState } from 'react';
-import { menuMapping } from '@/helpers/menu-mapping'
-import { AdaptiveImage } from "@/components/shared/AdaptiveImage";
+import { menuMapping } from '@/helpers/menu-mapping';
+import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
 
 import Link from 'next/link';
 
-import { Navegacion, MenuSection } from "@/services/general/types";
+import { Navegacion, MenuSection } from '@/services/general/types';
 
 interface HeaderProps {
-  content: Navegacion
-  menu: MenuSection[]
+  content: Navegacion;
+  menu: MenuSection[];
 }
 
 export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
+  const menuContent = menuMapping(menu);
 
-  const menuContent = menuMapping(menu)
-
-  const { icono } = content
-
+  const { icono } = content;
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -39,16 +37,16 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
           </div>
           <nav className="hidden items-center space-x-8 md:flex">
             {menuContent.map(({ id, link, texto, boton }) => {
-              const buttonClassNames = 'from-secundario to-terciario hover:from-terciario hover:to-secundario capitalize rounded-full bg-gradient-to-br px-4 py-2 text-white transition-all hover:bg-gradient-to-br';
-              const linkClassNames = 'hover:text-secundario text-gray-700 transition-colors capitalize';
+              const buttonClassNames =
+                'from-secundario to-terciario hover:from-terciario hover:to-secundario capitalize rounded-full bg-gradient-to-br px-4 py-2 text-white transition-all hover:bg-gradient-to-br';
+              const linkClassNames =
+                'hover:text-secundario text-gray-700 transition-colors capitalize';
               const classNames = boton ? buttonClassNames : linkClassNames;
-              return (<Link
-                key={id}
-                href={link}
-                className={classNames}
-              >
-                {texto}
-              </Link>)
+              return (
+                <Link key={id} href={link} className={classNames}>
+                  {texto}
+                </Link>
+              );
             })}
           </nav>
           <button
@@ -116,4 +114,4 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
       </div>
     </header>
   );
-}
+};

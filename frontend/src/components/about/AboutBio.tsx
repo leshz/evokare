@@ -22,7 +22,8 @@ export function AboutBio({ data }: AboutBioProps) {
           <BlocksRendererCustom
             content={data.biografia}
             classNames={{
-              paragraph: 'text-center text-gray-600 first:font-medium first:text-gray-700',
+              paragraph:
+                'text-center text-gray-600 first:font-medium first:text-gray-700',
             }}
           />
         </div>

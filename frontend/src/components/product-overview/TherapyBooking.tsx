@@ -140,7 +140,9 @@ export function TherapyBooking({ product }: TherapyBookingProps) {
                 <div className="text-principal text-sm">Duración</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold">{formatCOP(product.price)}</div>
+                <div className="text-2xl font-bold">
+                  {formatCOP(product.price)}
+                </div>
                 <div className="text-principal text-sm">Precio</div>
               </div>
               <div className="text-center">

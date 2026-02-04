@@ -17,11 +17,11 @@ export function ShoppingCart() {
     () => false
   );
 
-  const isOpen = useCartStore((state) => state.isOpen);
-  const items = useCartStore((state) => state.items);
-  const toggleCart = useCartStore((state) => state.toggleCart);
-  const removeItem = useCartStore((state) => state.removeItem);
-  const updateQuantity = useCartStore((state) => state.updateQuantity);
+  const isOpen = useCartStore(state => state.isOpen);
+  const items = useCartStore(state => state.items);
+  const toggleCart = useCartStore(state => state.toggleCart);
+  const removeItem = useCartStore(state => state.removeItem);
+  const updateQuantity = useCartStore(state => state.updateQuantity);
   const totalPrice = useCartStore(selectTotalPrice);
   const totalItems = useCartStore(selectTotalItems);
 
@@ -30,7 +30,9 @@ export function ShoppingCart() {
       {/* Overlay con transición */}
       <div
         className={`fixed inset-0 z-[9998] bg-black/30 transition-opacity duration-300 ease-in-out ${
-          isOpen ? 'opacity-100 visible' : 'pointer-events-none invisible opacity-0'
+          isOpen
+            ? 'visible opacity-100'
+            : 'pointer-events-none invisible opacity-0'
         }`}
         onClick={toggleCart}
         aria-hidden={!isOpen}
@@ -39,7 +41,9 @@ export function ShoppingCart() {
       {/* Drawer con animación de deslizamiento */}
       <div
         className={`fixed top-0 right-0 z-[9999] flex h-full w-96 max-w-full flex-col bg-white shadow-xl transition-[transform,visibility] duration-300 ease-in-out ${
-          isOpen ? 'visible translate-x-0' : 'pointer-events-none invisible translate-x-full'
+          isOpen
+            ? 'visible translate-x-0'
+            : 'pointer-events-none invisible translate-x-full'
         }`}
         aria-hidden={!isOpen}
       >
@@ -71,7 +75,7 @@ export function ShoppingCart() {
             </div>
           ) : (
             <div className="space-y-4">
-              {items.map((item) => (
+              {items.map(item => (
                 <div
                   key={item.id}
                   className="flex items-center rounded-lg bg-gray-50 p-4"
@@ -91,7 +95,9 @@ export function ShoppingCart() {
                   )}
                   <div className="flex-1">
                     <h4 className="font-medium text-gray-900">{item.name}</h4>
-                    <p className="text-secundario font-bold">{formatCOP(item.price)}</p>
+                    <p className="text-secundario font-bold">
+                      {formatCOP(item.price)}
+                    </p>
                     <div className="mt-2 flex items-center">
                       <button
                         onClick={() =>
@@ -136,7 +142,7 @@ export function ShoppingCart() {
             <Link
               href="/tienda/checkout"
               onClick={toggleCart}
-              className="block w-full rounded-full bg-gradient-to-br from-secundario to-terciario py-3 text-center font-medium text-white transition-all hover:from-terciario hover:to-secundario"
+              className="from-secundario to-terciario hover:from-terciario hover:to-secundario block w-full rounded-full bg-gradient-to-br py-3 text-center font-medium text-white transition-all"
             >
               Proceder al Pago
             </Link>

@@ -21,7 +21,9 @@ const secondary = Spectral({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { data: { seo } } = await getGeneralService();
+  const {
+    data: { seo },
+  } = await getGeneralService();
   return generateMetadataFromSEO(seo);
 }
 
@@ -30,8 +32,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  const { data: { pie_de_pagina: footer, navegacion: topbar, menu } } = await getGeneralService();
+  const {
+    data: { pie_de_pagina: footer, navegacion: topbar, menu },
+  } = await getGeneralService();
 
   return (
     <html lang="es">

@@ -4,12 +4,14 @@ import { renderSection } from '@/lib/component-factory';
 import { generateMetadataFromSEO } from '@/services/seo';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { data: { seo } } = await getInicioService();
+  const {
+    data: { seo },
+  } = await getInicioService();
 
   if (!seo) {
     return {
       title: 'Inicio',
-      description: 'Bienvenido a nuestra plataforma de bienestar mental'
+      description: 'Bienvenido a nuestra plataforma de bienestar mental',
     };
   }
 

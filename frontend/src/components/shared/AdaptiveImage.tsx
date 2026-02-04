@@ -9,7 +9,6 @@ export interface AdaptiveImageProps extends Omit<ImageProps, 'src' | 'alt'> {
   alt?: string;
 }
 
-
 export function AdaptiveImage({
   image,
   format = 'medium',
@@ -20,12 +19,7 @@ export function AdaptiveImage({
   // Case 1: image is a string URL
   if (typeof image === 'string') {
     return (
-      <Image
-        src={image}
-        alt={alt ?? 'Image'}
-        sizes={customSizes}
-        {...props}
-      />
+      <Image src={image} alt={alt ?? 'Image'} sizes={customSizes} {...props} />
     );
   }
 
@@ -42,12 +36,7 @@ export function AdaptiveImage({
 
   if (hasFill) {
     return (
-      <Image
-        src={imageSrc}
-        alt={autoAlt}
-        sizes={customSizes}
-        {...props}
-      />
+      <Image src={imageSrc} alt={autoAlt} sizes={customSizes} {...props} />
     );
   }
 

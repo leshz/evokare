@@ -23,13 +23,13 @@ export function FormField({ label, name, required, ...props }: FormFieldProps) {
       <Field
         id={name}
         name={name}
-        className={`w-full rounded-lg border bg-white px-4 py-3 text-gray-900 focus:border-secundario focus:outline-none ${
+        className={`focus:border-secundario w-full rounded-lg border bg-white px-4 py-3 text-gray-900 focus:outline-none ${
           hasError ? 'border-red-500' : 'border-gray-200'
         }`}
         {...props}
       />
       <ErrorMessage name={name}>
-        {(msg) => <p className="mt-1 text-sm text-red-500">{msg}</p>}
+        {msg => <p className="mt-1 text-sm text-red-500">{msg}</p>}
       </ErrorMessage>
     </div>
   );

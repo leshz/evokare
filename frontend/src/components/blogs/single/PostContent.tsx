@@ -1,7 +1,6 @@
 import { BlocksRendererCustom } from '@/components/shared/BlocksRendererCustom';
 import { BlocksContent } from '@strapi/blocks-react-renderer';
 
-
 interface PostContentProps {
   articulo: BlocksContent;
 }
@@ -13,7 +12,8 @@ export const PostContent = ({ articulo }: PostContentProps) => {
         className="prose max-w-none text-gray-700"
         style={{ whiteSpace: 'pre-line' }}
       >
-        <BlocksRendererCustom content={articulo}
+        <BlocksRendererCustom
+          content={articulo}
           classNames={{
             paragraph: 'text-lg leading-relaxed',
             heading: {
@@ -30,10 +30,8 @@ export const PostContent = ({ articulo }: PostContentProps) => {
             image: 'my-6 rounded',
             link: 'text-blue-600 underline hover:text-blue-800',
           }}
-
         />
       </div>
-
     </div>
   );
 };

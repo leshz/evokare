@@ -27,13 +27,13 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
   const currentTestimonio = testimonio[currentIndex];
 
   const handlePrevious = () => {
-    setCurrentIndex((prevIndex) =>
+    setCurrentIndex(prevIndex =>
       prevIndex === 0 ? testimonio.length - 1 : prevIndex - 1
     );
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
+    setCurrentIndex(prevIndex =>
       prevIndex === testimonio.length - 1 ? 0 : prevIndex + 1
     );
   };
@@ -42,9 +42,7 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
     <section className="py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-gray-900">
-            {titulo}
-          </h2>
+          <h2 className="mb-4 text-4xl font-bold text-gray-900">{titulo}</h2>
         </div>
 
         <div className="relative">
@@ -74,7 +72,9 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
                   <div className="font-semibold text-gray-900">
                     {currentTestimonio.nombre}
                   </div>
-                  <div className="text-gray-600">{currentTestimonio.descripcion}</div>
+                  <div className="text-gray-600">
+                    {currentTestimonio.descripcion}
+                  </div>
                 </div>
               </div>
             </div>
@@ -85,7 +85,7 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
             <>
               <button
                 onClick={handlePrevious}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 rounded-full bg-white p-2 shadow-lg transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-secundario"
+                className="focus:ring-secundario absolute top-1/2 left-0 -translate-x-4 -translate-y-1/2 rounded-full bg-white p-2 shadow-lg transition-all hover:bg-gray-50 focus:ring-2 focus:outline-none"
                 aria-label="Testimonio anterior"
               >
                 <ChevronLeft className="h-6 w-6 text-gray-700" />
@@ -93,7 +93,7 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
 
               <button
                 onClick={handleNext}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 rounded-full bg-white p-2 shadow-lg transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-secundario"
+                className="focus:ring-secundario absolute top-1/2 right-0 translate-x-4 -translate-y-1/2 rounded-full bg-white p-2 shadow-lg transition-all hover:bg-gray-50 focus:ring-2 focus:outline-none"
                 aria-label="Siguiente testimonio"
               >
                 <ChevronRight className="h-6 w-6 text-gray-700" />

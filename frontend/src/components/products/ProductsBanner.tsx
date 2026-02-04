@@ -14,7 +14,9 @@ export function ProductsBanner({ data }: ProductsBannerProps) {
   const { titulo, introduccion, acciones = [] } = data;
 
   if (!titulo || !introduccion) {
-    console.warn('ProductsBanner: Missing required data (titulo or introduccion)');
+    console.warn(
+      'ProductsBanner: Missing required data (titulo or introduccion)'
+    );
     return null;
   }
 

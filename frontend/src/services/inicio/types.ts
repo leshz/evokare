@@ -49,7 +49,13 @@ export interface AboutComponent {
   botones: Boton[];
 }
 
-export type IconName = 'AlertCircle' | 'CloudRain' | 'BrainCircuit' | 'Heart' | 'Zap' | 'Shield';
+export type IconName =
+  | 'AlertCircle'
+  | 'CloudRain'
+  | 'BrainCircuit'
+  | 'Heart'
+  | 'Zap'
+  | 'Shield';
 
 export interface Punto {
   id: number;
@@ -149,7 +155,17 @@ export interface ReflexionesComponent {
 }
 
 // Union type para todos los tipos de secciones
-export type SeccionInicio = HeroComponent | BannerComponent | AboutComponent | UnderstandingComponent | SupportingComponent | SupportSystemComponent | StatisticsComponent | TestimonialComponent | PerspectivesComponent | ReflexionesComponent;
+export type SeccionInicio =
+  | HeroComponent
+  | BannerComponent
+  | AboutComponent
+  | UnderstandingComponent
+  | SupportingComponent
+  | SupportSystemComponent
+  | StatisticsComponent
+  | TestimonialComponent
+  | PerspectivesComponent
+  | ReflexionesComponent;
 
 export interface InicioData {
   id: number;

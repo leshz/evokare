@@ -143,4 +143,4 @@ export const CITIES: City[] = [
 ];
 
 export const getCitiesByDepartment = (departmentCode: string): City[] =>
-  CITIES.filter((city) => city.departmentCode === departmentCode);
+  CITIES.filter(city => city.departmentCode === departmentCode);

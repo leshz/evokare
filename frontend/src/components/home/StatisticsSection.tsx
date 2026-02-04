@@ -13,7 +13,9 @@ export function StatisticsSection({ data }: StatisticsSectionProps) {
   const { datos = [] } = data;
 
   if (datos.length === 0) {
-    console.warn('StatisticsSection: Missing required data (datos array is empty)');
+    console.warn(
+      'StatisticsSection: Missing required data (datos array is empty)'
+    );
     return null;
   }
 

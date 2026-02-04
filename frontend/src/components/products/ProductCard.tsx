@@ -11,8 +11,8 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ producto }: ProductCardProps) {
-  const addItem = useCartStore((state) => state.addItem);
-  const setIsOpen = useCartStore((state) => state.setIsOpen);
+  const addItem = useCartStore(state => state.addItem);
+  const setIsOpen = useCartStore(state => state.setIsOpen);
 
   const image = producto.pictures[0];
   const category = producto.categories[0]?.name || '';

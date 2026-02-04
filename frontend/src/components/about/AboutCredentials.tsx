@@ -34,8 +34,11 @@ export function AboutCredentials({ data }: AboutCredentialsProps) {
             </div>
 
             <div className="space-y-6">
-              {data.Credenciales.map((credencial) => (
-                <div key={credencial.id} className="rounded-xl bg-white p-6 shadow-md">
+              {data.Credenciales.map(credencial => (
+                <div
+                  key={credencial.id}
+                  className="rounded-xl bg-white p-6 shadow-md"
+                >
                   <h3 className="text-secundario mb-3 text-xl font-semibold">
                     {credencial.certificado}
                   </h3>

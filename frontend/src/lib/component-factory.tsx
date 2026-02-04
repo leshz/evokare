@@ -14,7 +14,11 @@ import { ProductsBanner } from '@/components/products/ProductsBanner';
 import { ProductsCategories } from '@/components/products/ProductsCategories';
 import { SeccionInicio } from '@/services/inicio/types';
 import { NosotrosSection } from '@/services/nosotros/types';
-import { ProductosSection, Category, Product } from '@/services/productos/types';
+import {
+  ProductosSection,
+  Category,
+  Product,
+} from '@/services/productos/types';
 
 interface RenderSectionOptions {
   categories?: Category[];
@@ -68,7 +72,7 @@ export function renderSection(
     }
     // Verificar que al menos un bannerGroup tenga bannersa
     const hasValidBanners = section.banners.some(
-      (bannerGroup) => bannerGroup.bannersa && bannerGroup.bannersa.length > 0
+      bannerGroup => bannerGroup.bannersa && bannerGroup.bannersa.length > 0
     );
     if (!hasValidBanners) {
       console.warn('inicio.hero: No valid bannersa found in banner groups');
@@ -83,7 +87,12 @@ export function renderSection(
       console.warn('banner-comp: No banners found');
       return null;
     }
-    return <Component key={`${section.__component}-${index}`} banners={section.banners} />;
+    return (
+      <Component
+        key={`${section.__component}-${index}`}
+        banners={section.banners}
+      />
+    );
   }
 
   // Para inicio.acerca, validamos que tenga los datos requeridos

@@ -1,7 +1,6 @@
 import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
 import { StrapiImage } from '@/services/general/types';
 
-
 interface PostHeroProps {
   media: StrapiImage[];
   title: string;
@@ -26,7 +25,7 @@ export const PostHero = ({ media, title }: PostHeroProps) => {
         </nav>
       </div>
       <div className="flex flex-col gap-4 md:w-1/2">
-        {media.length > 0 ?
+        {media.length > 0 ? (
           <AdaptiveImage
             image={media[0]}
             width={400}
@@ -34,17 +33,18 @@ export const PostHero = ({ media, title }: PostHeroProps) => {
             alt="Main"
             className="h-40 w-full rounded-2xl object-cover"
           />
-          : null}
+        ) : null}
         <div className="flex gap-4">
-          {media.length > 1 ?
+          {media.length > 1 ? (
             <AdaptiveImage
               image={media[1]}
               width={400}
               height={80}
               alt="Session"
               className="h-20 w-1/2 rounded-2xl object-cover"
-            /> : null}
-          {media.length > 2 ?
+            />
+          ) : null}
+          {media.length > 2 ? (
             <AdaptiveImage
               image={media[2]}
               width={400}
@@ -52,7 +52,7 @@ export const PostHero = ({ media, title }: PostHeroProps) => {
               alt="Session"
               className="h-20 w-1/2 rounded-2xl object-cover"
             />
-            : null}
+          ) : null}
         </div>
       </div>
     </div>

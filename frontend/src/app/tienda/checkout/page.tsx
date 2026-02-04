@@ -4,17 +4,17 @@ import { ShoppingCart } from '@/components/products/ShoppingCart';
 
 export default function CheckoutPage() {
   return (
-    <div className="min-h-screen bg-principal">
+    <div className="bg-principal min-h-screen">
       <nav className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center space-x-2 text-sm">
-            <Link href="/" className="text-gray-500 hover:text-secundario">
+            <Link href="/" className="hover:text-secundario text-gray-500">
               Inicio
             </Link>
             <span className="text-gray-400">/</span>
             <Link
               href="/productos"
-              className="text-gray-500 hover:text-secundario"
+              className="hover:text-secundario text-gray-500"
             >
               Tienda
             </Link>

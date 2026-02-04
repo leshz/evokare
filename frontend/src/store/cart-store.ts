@@ -45,7 +45,7 @@ export const useCartStore = create<CartState & CartActions>()(
 
       addItem: (product: Product, quantity = 1) => {
         const { items } = get();
-        const existingItem = items.find((item) => item.id === product.id);
+        const existingItem = items.find(item => item.id === product.id);
 
         const effectivePrice =
           product.promotion?.with_discount &&
@@ -55,7 +55,7 @@ export const useCartStore = create<CartState & CartActions>()(
 
         if (existingItem) {
           set({
-            items: items.map((item) =>
+            items: items.map(item =>
               item.id === product.id
                 ? { ...item, quantity: item.quantity + quantity }
                 : item
@@ -90,7 +90,7 @@ export const useCartStore = create<CartState & CartActions>()(
       },
 
       removeItem: (id: number) => {
-        set({ items: get().items.filter((item) => item.id !== id) });
+        set({ items: get().items.filter(item => item.id !== id) });
       },
 
       updateQuantity: (id: number, quantity: number) => {
@@ -99,7 +99,7 @@ export const useCartStore = create<CartState & CartActions>()(
           return;
         }
         set({
-          items: get().items.map((item) =>
+          items: get().items.map(item =>
             item.id === id ? { ...item, quantity } : item
           ),
         });
@@ -113,7 +113,7 @@ export const useCartStore = create<CartState & CartActions>()(
     }),
     {
       name: 'evokare-cart-storage',
-      partialize: (state) => ({ items: state.items }),
+      partialize: state => ({ items: state.items }),
     }
   )
 );

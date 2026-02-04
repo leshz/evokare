@@ -19,7 +19,7 @@ export function AboutMethodologies({ data }: AboutMethodologiesProps) {
         </div>
 
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {data.Metodologias.map((metodologia) => (
+          {data.Metodologias.map(metodologia => (
             <div
               key={metodologia.id}
               className="rounded-xl bg-gray-50 p-6 shadow-md transition-shadow hover:shadow-lg"

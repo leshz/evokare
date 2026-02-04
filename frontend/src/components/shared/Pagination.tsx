@@ -133,10 +133,11 @@ export const Pagination = ({
           <button
             key={pageNumber}
             onClick={() => updatePage(pageNumber)}
-            className={`h-10 w-10 rounded-full font-medium transition-colors ${isActive
-              ? 'bg-secundario text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
+            className={`h-10 w-10 rounded-full font-medium transition-colors ${
+              isActive
+                ? 'bg-secundario text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
             aria-label={`Página ${pageNumber}`}
             aria-current={isActive ? 'page' : undefined}
           >

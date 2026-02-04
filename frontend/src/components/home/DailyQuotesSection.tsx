@@ -62,7 +62,9 @@ export function DailyQuotesSection({ data }: DailyQuotesSectionProps) {
   }
 
   if (!titulo || reflexion.length === 0) {
-    console.warn('DailyQuotesSection: Missing required data (titulo or reflexion)');
+    console.warn(
+      'DailyQuotesSection: Missing required data (titulo or reflexion)'
+    );
     return null;
   }
 
@@ -70,9 +72,7 @@ export function DailyQuotesSection({ data }: DailyQuotesSectionProps) {
     <section className="py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-gray-900">
-            {titulo}
-          </h2>
+          <h2 className="mb-4 text-4xl font-bold text-gray-900">{titulo}</h2>
         </div>
 
         <div className="relative mx-auto max-w-4xl">
@@ -81,7 +81,7 @@ export function DailyQuotesSection({ data }: DailyQuotesSectionProps) {
             <>
               <button
                 onClick={scrollPrev}
-                className="absolute left-0 top-1/2 z-10 -translate-x-4 -translate-y-1/2 rounded-full bg-white p-3 shadow-lg transition-all hover:scale-110 hover:bg-gray-50 md:-translate-x-12"
+                className="absolute top-1/2 left-0 z-10 -translate-x-4 -translate-y-1/2 rounded-full bg-white p-3 shadow-lg transition-all hover:scale-110 hover:bg-gray-50 md:-translate-x-12"
                 aria-label="Reflexión anterior"
               >
                 <ChevronLeft className="h-6 w-6 text-gray-700" />
@@ -89,7 +89,7 @@ export function DailyQuotesSection({ data }: DailyQuotesSectionProps) {
 
               <button
                 onClick={scrollNext}
-                className="absolute right-0 top-1/2 z-10 -translate-y-1/2 translate-x-4 rounded-full bg-white p-3 shadow-lg transition-all hover:scale-110 hover:bg-gray-50 md:translate-x-12"
+                className="absolute top-1/2 right-0 z-10 translate-x-4 -translate-y-1/2 rounded-full bg-white p-3 shadow-lg transition-all hover:scale-110 hover:bg-gray-50 md:translate-x-12"
                 aria-label="Siguiente reflexión"
               >
                 <ChevronRight className="h-6 w-6 text-gray-700" />
@@ -100,8 +100,9 @@ export function DailyQuotesSection({ data }: DailyQuotesSectionProps) {
           {/* Embla Carousel */}
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex">
-              {reflexion.map((item) => {
-                const { id, contenido, consejo, nombre, descripcion, emoji } = item;
+              {reflexion.map(item => {
+                const { id, contenido, consejo, nombre, descripcion, emoji } =
+                  item;
 
                 return (
                   <div key={id} className="min-w-0 flex-[0_0_100%]">
@@ -111,9 +112,7 @@ export function DailyQuotesSection({ data }: DailyQuotesSectionProps) {
                         <blockquote className="mb-6 text-2xl font-medium">
                           &quot;{contenido}&quot;
                         </blockquote>
-                        <p className="mb-6 text-lg text-gray-600">
-                          {consejo}
-                        </p>
+                        <p className="mb-6 text-lg text-gray-600">{consejo}</p>
                         <div className="text-gray-600">
                           <div className="font-semibold">{nombre}</div>
                           <div className="text-gray-600">{descripcion}</div>
@@ -133,10 +132,11 @@ export function DailyQuotesSection({ data }: DailyQuotesSectionProps) {
                 <button
                   key={index}
                   onClick={() => scrollTo(index)}
-                  className={`h-2 rounded-full transition-all duration-300 ${index === selectedIndex
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    index === selectedIndex
                       ? 'w-8 bg-indigo-600'
                       : 'w-2 bg-gray-300 hover:bg-gray-400'
-                    }`}
+                  }`}
                   aria-label={`Ir a reflexión ${index + 1}`}
                 />
               ))}

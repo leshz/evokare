@@ -22,14 +22,8 @@ export function SupportingSection({ data }: SupportingSectionProps) {
     <section className="py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-gray-900">
-            {titulo}
-          </h2>
-          {subtitulo && (
-            <p className="text-xl text-gray-600">
-              {subtitulo}
-            </p>
-          )}
+          <h2 className="mb-4 text-4xl font-bold text-gray-900">{titulo}</h2>
+          {subtitulo && <p className="text-xl text-gray-600">{subtitulo}</p>}
         </div>
 
         <div className="mb-16 grid gap-12 md:grid-cols-2">
@@ -41,9 +35,7 @@ export function SupportingSection({ data }: SupportingSectionProps) {
                   <h3 className="mb-2 text-lg font-semibold text-gray-900">
                     {itemTitulo}
                   </h3>
-                  <p className="text-gray-600">
-                    {contenido}
-                  </p>
+                  <p className="text-gray-600">{contenido}</p>
                 </div>
               </div>
             ))}

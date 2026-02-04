@@ -14,7 +14,8 @@ export function ShippingFields() {
     useFormikContext<CheckoutFormValues>();
 
   const cities = useMemo(
-    () => (values.departamento ? getCitiesByDepartment(values.departamento) : []),
+    () =>
+      values.departamento ? getCitiesByDepartment(values.departamento) : [],
     [values.departamento]
   );
 
@@ -51,21 +52,21 @@ export function ShippingFields() {
             id="departamento"
             name="departamento"
             onChange={handleDepartmentChange}
-            className={`w-full rounded-lg border bg-white px-4 py-3 focus:border-secundario focus:outline-none ${
+            className={`focus:border-secundario w-full rounded-lg border bg-white px-4 py-3 focus:outline-none ${
               touched.departamento && errors.departamento
                 ? 'border-red-500'
                 : 'border-gray-200'
             }`}
           >
             <option value="">Elige una opción</option>
-            {DEPARTMENTS.map((d) => (
+            {DEPARTMENTS.map(d => (
               <option key={d.code} value={d.code}>
                 {d.name}
               </option>
             ))}
           </Field>
           <ErrorMessage name="departamento">
-            {(msg) => <p className="mt-1 text-sm text-red-500">{msg}</p>}
+            {msg => <p className="mt-1 text-sm text-red-500">{msg}</p>}
           </ErrorMessage>
         </div>
 
@@ -81,21 +82,21 @@ export function ShippingFields() {
             id="ciudad"
             name="ciudad"
             disabled={!values.departamento}
-            className={`w-full rounded-lg border bg-white px-4 py-3 focus:border-secundario focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 ${
+            className={`focus:border-secundario w-full rounded-lg border bg-white px-4 py-3 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 ${
               touched.ciudad && errors.ciudad
                 ? 'border-red-500'
                 : 'border-gray-200'
             }`}
           >
             <option value="">Elige una opción</option>
-            {cities.map((c) => (
+            {cities.map(c => (
               <option key={c.name} value={c.name}>
                 {c.name}
               </option>
             ))}
           </Field>
           <ErrorMessage name="ciudad">
-            {(msg) => <p className="mt-1 text-sm text-red-500">{msg}</p>}
+            {msg => <p className="mt-1 text-sm text-red-500">{msg}</p>}
           </ErrorMessage>
         </div>
       </div>
@@ -127,7 +128,7 @@ export function ShippingFields() {
           name="notas"
           rows={3}
           placeholder="Notas Sobre El Pedido, Por Ejemplo, Notas Especiales Para La Entrega."
-          className="w-full resize-none rounded-lg border border-gray-200 bg-white px-4 py-3 focus:border-secundario focus:outline-none"
+          className="focus:border-secundario w-full resize-none rounded-lg border border-gray-200 bg-white px-4 py-3 focus:outline-none"
         />
       </div>
     </div>

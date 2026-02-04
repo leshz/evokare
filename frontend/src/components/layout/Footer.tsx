@@ -1,15 +1,11 @@
-import { BlocksRendererCustom } from "@/components/shared/BlocksRendererCustom";
+import { BlocksRendererCustom } from '@/components/shared/BlocksRendererCustom';
 
-import { FooterProps } from "./types";
-
+import { FooterProps } from './types';
 
 export const Footer = ({ footer }: FooterProps) => {
-  const { autor, invitacion: callToAction } = footer
-  const { titulo: title, contenido: content } = callToAction
-  const { columnas } = footer
-
-
-
+  const { autor, invitacion: callToAction } = footer;
+  const { titulo: title, contenido: content } = callToAction;
+  const { columnas } = footer;
 
   return (
     <footer className="from-secundario to-terciario m-4 rounded-2xl bg-gradient-to-r py-16 text-white">
@@ -17,43 +13,39 @@ export const Footer = ({ footer }: FooterProps) => {
         <div className="grid gap-8 md:grid-cols-4">
           <div className="md:col-span-2">
             <div className="mb-4 text-3xl font-bold">{title}</div>
-            <BlocksRendererCustom content={content}
-              classNames={
-                {
-                  paragraph: 'mb-6 text-gray-100 paragraph',
-                  link: 'text-secundario rounded-full bg-white px-6 py-3 font-medium transition-colors hover:bg-gray-100 inline-block'
-                }
-              }
+            <BlocksRendererCustom
+              content={content}
+              classNames={{
+                paragraph: 'mb-6 text-gray-100 paragraph',
+                link: 'text-secundario rounded-full bg-white px-6 py-3 font-medium transition-colors hover:bg-gray-100 inline-block',
+              }}
             />
           </div>
-          {columnas.map((columna) => (
+          {columnas.map(columna => (
             <div key={columna.id}>
               <h3 className="mb-4 text-lg font-semibold">{columna.titulo}</h3>
-              <BlocksRendererCustom content={columna.contenido}
-                classNames={
-                  {
-                    paragraph: 'text-gray-100 paragraph',
-                    list: { unordered: 'space-y-2 text-gray-100' }
-                  }
-                }
+              <BlocksRendererCustom
+                content={columna.contenido}
+                classNames={{
+                  paragraph: 'text-gray-100 paragraph',
+                  list: { unordered: 'space-y-2 text-gray-100' },
+                }}
               />
             </div>
           ))}
-
         </div>
 
         <div className="border-opacity-20 mt-12 border-t border-white pt-8 text-center">
           <div className="mb-4 flex flex-col justify-center space-x-6">
-            <BlocksRendererCustom content={autor}
-              classNames={
-                {
-                  paragraph: 'text-gray-100'
-                }
-              }
+            <BlocksRendererCustom
+              content={autor}
+              classNames={{
+                paragraph: 'text-gray-100',
+              }}
             />
           </div>
         </div>
       </div>
     </footer>
   );
-}
+};

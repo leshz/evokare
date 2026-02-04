@@ -10,8 +10,8 @@ interface Props {
 }
 
 export function OrderSummaryItem({ item }: Props) {
-  const updateQuantity = useCartStore((state) => state.updateQuantity);
-  const removeItem = useCartStore((state) => state.removeItem);
+  const updateQuantity = useCartStore(state => state.updateQuantity);
+  const removeItem = useCartStore(state => state.removeItem);
 
   return (
     <div className="flex items-start gap-3 rounded-lg bg-gray-50 p-3">
@@ -32,7 +32,7 @@ export function OrderSummaryItem({ item }: Props) {
         <h4 className="truncate text-sm font-medium text-gray-900">
           {item.name}
         </h4>
-        <p className="text-sm font-bold text-secundario">
+        <p className="text-secundario text-sm font-bold">
           {formatCOP(item.price)}
         </p>
         <div className="mt-2 flex items-center gap-2">

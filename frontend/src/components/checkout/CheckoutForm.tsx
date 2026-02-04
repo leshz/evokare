@@ -34,8 +34,8 @@ export function CheckoutForm() {
     () => true,
     () => false
   );
-  const items = useCartStore((state) => state.items);
-  const clearCart = useCartStore((state) => state.clearCart);
+  const items = useCartStore(state => state.items);
+  const clearCart = useCartStore(state => state.clearCart);
   const hasItems = useMemo(() => items.length > 0, [items]);
 
   const handleSubmit = async (values: CheckoutFormValues) => {
@@ -62,7 +62,7 @@ export function CheckoutForm() {
           postalCode: values.codigoPostal || undefined,
           message: values.notas || undefined,
         },
-        items: items.map((item) => ({ sku: item.sku, quantity: item.quantity })),
+        items: items.map(item => ({ sku: item.sku, quantity: item.quantity })),
       });
 
       clearCart();
@@ -118,7 +118,7 @@ export function CheckoutForm() {
           <button
             type="submit"
             disabled={isSubmitting || !hasItems}
-            className={`flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-br from-secundario to-terciario py-4 text-lg font-medium text-white transition-all hover:from-terciario hover:to-secundario ${
+            className={`from-secundario to-terciario hover:from-terciario hover:to-secundario flex w-full items-center justify-center gap-2 rounded-full bg-linear-to-br py-4 text-lg font-medium text-white transition-all ${
               (isSubmitting || !hasItems) && 'cursor-not-allowed opacity-50'
             }`}
           >
