@@ -3,6 +3,7 @@
 import { useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ShoppingCart as ShoppingCartIcon, X, Trash2 } from 'lucide-react';
 import { useCartStore, selectTotalPrice, selectTotalItems } from '@/store';
 import { formatCOP } from '@/helpers/currency';
@@ -132,9 +133,13 @@ export function ShoppingCart() {
                 {formatCOP(totalPrice)}
               </span>
             </div>
-            <button className="from-secundario to-terciario hover:from-terciario hover:to-secundario w-full rounded-full bg-gradient-to-br py-3 font-medium text-white transition-all hover:bg-gradient-to-br">
+            <Link
+              href="/tienda/checkout"
+              onClick={toggleCart}
+              className="block w-full rounded-full bg-gradient-to-br from-secundario to-terciario py-3 text-center font-medium text-white transition-all hover:from-terciario hover:to-secundario"
+            >
               Proceder al Pago
-            </button>
+            </Link>
           </div>
         )}
       </div>
