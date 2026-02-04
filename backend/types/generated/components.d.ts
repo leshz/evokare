@@ -273,7 +273,7 @@ export interface MercadopagoFulfillment extends Struct.ComponentSchema {
     city: Schema.Attribute.String & Schema.Attribute.Required;
     department: Schema.Attribute.String & Schema.Attribute.Required;
     message: Schema.Attribute.Text;
-    postal_code: Schema.Attribute.BigInteger;
+    postal_code: Schema.Attribute.String;
   };
 }
 

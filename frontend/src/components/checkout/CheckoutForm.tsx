@@ -47,23 +47,27 @@ export function CheckoutForm() {
     }
 
     try {
-      const response = await processCheckout({
+      const checkoutData = {
         customer: {
-          dni: parseInt(values.cedula, 10),
+          dni: parseInt(values.cedula.replace(/\./g, ''), 10),
           name: values.nombres,
           lastName: values.apellidos,
           email: values.email,
-          phone: parseInt(values.telefono, 10),
+          phone: parseInt(values.telefono.replace(/-/g, ''), 10),
         },
         fulfillment: {
           address: values.direccion,
           department: values.departamento,
           city: values.ciudad,
-          postalCode: values.codigoPostal || undefined,
-          message: values.notas || undefined,
+          postalCode: values.codigoPostal || '',
+          message: values.notas || '',
         },
         items: items.map(item => ({ sku: item.sku, quantity: item.quantity })),
-      });
+      };
+
+      console.log('Checkout data:', checkoutData);
+
+      const response = await processCheckout(checkoutData);
 
       clearCart();
       window.location.href = response.init_point;

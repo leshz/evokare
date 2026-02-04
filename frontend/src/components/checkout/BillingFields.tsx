@@ -26,7 +26,8 @@ export function BillingFields() {
           inputMode="numeric"
           required
           placeholder="Cédula de ciudadanía"
-          maxLength={12}
+          mask="numeric"
+          maxLength={14}
         />
         <FormField
           label="Email"
@@ -42,7 +43,9 @@ export function BillingFields() {
         type="tel"
         inputMode="numeric"
         required
-        placeholder="Número de teléfono"
+        placeholder="3xx-xxx-xxxx"
+        mask="phone"
+        maxLength={12}
       />
     </div>
   );
