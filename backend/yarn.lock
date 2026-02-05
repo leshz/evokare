@@ -11223,9 +11223,9 @@ semver@^6.0.0, semver@^6.3.1:
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
 semver@^7.3.2, semver@^7.3.5, semver@^7.3.8, semver@^7.5.3, semver@^7.5.4, semver@^7.6.3:
-  version "7.7.3"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.3.tgz#4b5f4143d007633a8dc671cd0a6ef9147b8bb946"
-  integrity sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==
+  version "7.7.4"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.4.tgz#28464e36060e991fa7a11d0279d2d3f3b57a7e8a"
+  integrity sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==
 
 sendmail@^1.6.1:
   version "1.6.1"
@@ -11589,7 +11589,7 @@ strapi-advanced-uuid@^2.1.1:
 
 "strapi-mercadopago@https://github.com/leshz/mercadopago-strapi.git#main":
   version "0.0.1"
-  resolved "https://github.com/leshz/mercadopago-strapi.git#c30d70de7729705c934d3ced729856983c0e45f9"
+  resolved "https://github.com/leshz/mercadopago-strapi.git#8452f317f2a3472b68aaef65fd47af290a80c869"
   dependencies:
     "@strapi/design-system" "^2.0.0-rc.29"
     "@strapi/icons" "^2.0.0-rc.29"
