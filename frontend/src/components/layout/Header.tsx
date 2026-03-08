@@ -29,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
   };
 
   return (
-    <header className="bg-principal relative shadow-sm">
+    <header className="bg-principal relative z-50 shadow-sm">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center">
@@ -67,9 +67,11 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
             </div>
           </button>
         </div>
-        <div
-          className={`bg-principal absolute top-full right-0 left-0 shadow-lg transition-all duration-300 ease-in-out md:hidden ${isMenuOpen ? 'visible opacity-100' : 'invisible opacity-0'}`}
-        >
+      </div>
+      {/* Mobile menu - positioned outside the max-w container for full width */}
+      <div
+        className={`bg-principal absolute top-full right-0 left-0 z-50 shadow-lg transition-all duration-300 ease-in-out md:hidden ${isMenuOpen ? 'visible opacity-100' : 'invisible opacity-0'}`}
+      >
           <nav className="flex flex-col px-4 py-4">
             <Link
               href="/"
@@ -111,7 +113,6 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
             </button>
           </nav>
         </div>
-      </div>
     </header>
   );
 };
