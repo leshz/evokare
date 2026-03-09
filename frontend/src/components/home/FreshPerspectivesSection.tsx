@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { PerspectivesComponent } from '@/services/inicio/types';
+import { SectionHeader } from '@/components/shared/SectionHeader';
 
 interface FreshPerspectivesSectionProps {
   data: PerspectivesComponent;
@@ -11,12 +12,9 @@ export function FreshPerspectivesSection({
   const { titulo, subtitulo, resaltar } = data;
 
   return (
-    <section className="bg-principal py-20">
+    <section className="bg-surface-soft py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <p className="text-secundario text-xl font-medium">{subtitulo}</p>
-          <h2 className="mt-2 text-4xl font-bold text-gray-900">{titulo}</h2>
-        </div>
+        <SectionHeader title={titulo} subtitle={subtitulo} decoration={false} />
 
         <div className="grid gap-8 md:grid-cols-3">
           {resaltar.map(item => {
@@ -30,19 +28,23 @@ export function FreshPerspectivesSection({
             const { texto, link } = boton;
 
             return (
-              <div key={id} className="text-center">
-                <div className="text-secundario mb-4 text-6xl font-bold">
+              <div
+                key={id}
+                className="rounded-2xl bg-white p-8 text-center shadow-sm transition-all hover:-translate-y-1 hover:shadow-md"
+              >
+                <div className="text-secundario/20 mb-4 text-5xl font-bold">
                   {resalto}
                 </div>
-                <h3 className="mb-4 text-xl font-semibold text-gray-900">
+                <h3 className="text-text-primary mb-4 text-xl font-semibold">
                   {itemTitulo}
                 </h3>
                 <p className="mb-6 text-gray-600">{itemSubtitulo}</p>
                 <Link
                   href={link}
-                  className="from-secundario to-terciario hover:from-terciario hover:to-secundario inline-block rounded-full bg-linear-to-br px-6 py-2 text-sm text-white transition-all hover:bg-linear-to-br"
+                  className="text-secundario hover:text-terciario inline-flex items-center font-medium transition-colors"
                 >
                   {texto}
+                  <span className="ml-1">&rarr;</span>
                 </Link>
               </div>
             );

@@ -1,3 +1,5 @@
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import { Blog } from '../BlogData';
 
 interface PostSidebarProps {
@@ -11,79 +13,45 @@ export const PostSidebar = ({ currentSlug, blogs }: PostSidebarProps) => {
   return (
     <aside className="space-y-8">
       <div className="rounded-2xl bg-white p-6 shadow-sm">
+        <h3 className="text-text-primary mb-4 text-sm font-semibold uppercase tracking-wide">
+          Artículos relacionados
+        </h3>
         <ol className="space-y-4">
           {related.map((b, i) => (
             <li
               key={b.slug}
-              className="flex items-center justify-between gap-2"
+              className="flex items-center justify-between gap-3"
             >
-              <span className="text-secundario text-lg font-bold">
+              <span className="text-secundario/40 text-lg font-bold">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <span className="flex-1 text-sm font-medium text-gray-900">
                 {b.title}
               </span>
-              <a
+              <Link
                 href={`/blogs/${b.slug}`}
-                className="text-secundario hover:text-terciario rounded-full p-2 transition-colors"
+                className="text-secundario hover:text-terciario shrink-0 rounded-full p-1.5 transition-colors"
               >
-                <svg
-                  width="20"
-                  height="20"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 12h14M12 5l7 7-7 7"
-                  />
-                </svg>
-              </a>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </li>
           ))}
         </ol>
       </div>
+
       <div className="bg-secundario flex flex-col items-center justify-center rounded-2xl p-6 text-center text-white">
-        <div className="mb-2">Reach Out Today</div>
-        <div className="mb-4 text-lg font-bold">
-          Start Your Healing Journey Today
+        <div className="mb-1 text-sm text-white/80">
+          Estamos para ayudarte
         </div>
-        <a
+        <div className="mb-4 text-lg font-bold">
+          Comienza tu camino de sanación
+        </div>
+        <Link
           href="/contacto"
-          className="bg-principal text-secundario rounded-full px-6 py-2 font-medium transition-colors hover:bg-white"
+          className="bg-principal text-secundario rounded-full px-6 py-2 text-sm font-medium transition-colors hover:bg-white"
         >
-          Contact Us
-        </a>
-      </div>
-      <div className="mt-4 flex justify-center gap-4">
-        <a
-          href="#"
-          className="border-secundario text-secundario hover:bg-secundario flex h-8 w-8 items-center justify-center rounded-full border transition-colors hover:text-white"
-        >
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M22.46 6c-.77.35-1.6.58-2.47.69a4.3 4.3 0 0 0 1.88-2.37 8.59 8.59 0 0 1-2.72 1.04A4.28 4.28 0 0 0 16.11 4c-2.37 0-4.29 1.92-4.29 4.29 0 .34.04.67.11.99C7.69 9.13 4.07 7.38 1.64 4.7c-.37.64-.58 1.38-.58 2.17 0 1.5.76 2.82 1.92 3.6-.7-.02-1.36-.21-1.94-.53v.05c0 2.1 1.5 3.85 3.5 4.25-.36.1-.74.16-1.13.16-.28 0-.54-.03-.8-.08.54 1.7 2.1 2.94 3.95 2.97A8.6 8.6 0 0 1 2 19.54c-.65 0-1.28-.04-1.9-.11A12.13 12.13 0 0 0 7.29 21.5c7.55 0 11.68-6.26 11.68-11.68 0-.18-.01-.36-.02-.54A8.18 8.18 0 0 0 22.46 6z" />
-          </svg>
-        </a>
-        <a
-          href="#"
-          className="border-secundario text-secundario hover:bg-secundario flex h-8 w-8 items-center justify-center rounded-full border transition-colors hover:text-white"
-        >
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" />
-            <circle cx="12" cy="12" r="4" fill="white" />
-          </svg>
-        </a>
-        <a
-          href="#"
-          className="border-secundario text-secundario hover:bg-secundario flex h-8 w-8 items-center justify-center rounded-full border transition-colors hover:text-white"
-        >
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-6 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4-10H8V6h8v2z" />
-          </svg>
-        </a>
+          Contáctanos
+        </Link>
       </div>
     </aside>
   );

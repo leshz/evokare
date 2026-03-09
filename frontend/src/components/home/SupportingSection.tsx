@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import { Check } from 'lucide-react';
 import { SupportingComponent } from '@/services/inicio/types';
+import { SectionHeader } from '@/components/shared/SectionHeader';
 
 interface SupportingSectionProps {
   data: SupportingComponent;
@@ -19,18 +21,17 @@ export function SupportingSection({ data }: SupportingSectionProps) {
   }
 
   return (
-    <section className="py-20">
+    <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-gray-900">{titulo}</h2>
-          {subtitulo && <p className="text-xl text-gray-600">{subtitulo}</p>}
-        </div>
+        <SectionHeader title={titulo} subtitle={subtitulo} />
 
         <div className="mb-16 grid gap-12 md:grid-cols-2">
           <div className="space-y-6">
             {item.map(({ id, titulo: itemTitulo, contenido }) => (
               <div key={id} className="flex items-start">
-                <div className="bg-secundario mt-1 h-6 w-6 shrink-0 rounded-full"></div>
+                <div className="bg-secundario mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+                  <Check className="h-3.5 w-3.5 text-white" />
+                </div>
                 <div className="ml-4">
                   <h3 className="mb-2 text-lg font-semibold text-gray-900">
                     {itemTitulo}
@@ -42,23 +43,14 @@ export function SupportingSection({ data }: SupportingSectionProps) {
           </div>
 
           {imagen && (
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-principal flex aspect-square items-center justify-center overflow-hidden rounded-2xl">
+            <div className="flex items-center justify-center">
+              <div className="overflow-hidden rounded-3xl shadow-lg">
                 <Image
                   src={imagen.url}
                   alt={imagen.alternativeText ?? titulo}
                   width={imagen.width ?? 500}
                   height={imagen.height ?? 500}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <div className="bg-principal flex aspect-square items-center justify-center overflow-hidden rounded-2xl">
-                <Image
-                  src={imagen.url}
-                  alt={imagen.alternativeText ?? titulo}
-                  width={imagen.width ?? 500}
-                  height={imagen.height ?? 500}
-                  className="h-full w-full object-cover"
+                  className="h-auto w-full object-cover"
                 />
               </div>
             </div>

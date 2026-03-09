@@ -93,7 +93,7 @@ export function ProductCard({ producto }: ProductCardProps) {
           </div>
           <button
             onClick={handleAddToCart}
-            className="from-secundario to-terciario hover:from-terciario hover:to-secundario rounded-full bg-linear-to-br px-6 py-2 font-medium text-white transition-all"
+            className="bg-secundario hover:bg-secundario-light rounded-full px-6 py-2 font-medium text-white transition-colors"
           >
             Agregar
           </button>

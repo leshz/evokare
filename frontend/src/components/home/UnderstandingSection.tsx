@@ -8,6 +8,7 @@ import {
   LucideIcon,
 } from 'lucide-react';
 import { UnderstandingComponent, IconName } from '@/services/inicio/types';
+import { SectionHeader } from '@/components/shared/SectionHeader';
 
 interface UnderstandingSectionProps {
   data: UnderstandingComponent;
@@ -21,42 +22,48 @@ interface IconConfig {
 }
 
 // Mapeo de nombres de iconos a componentes de Lucide con sus colores
+const iconColors: [string, string, string][] = [
+  ['bg-indigo-100', 'group-hover:bg-indigo-200', 'text-indigo-600'],
+  ['bg-purple-100', 'group-hover:bg-purple-200', 'text-purple-600'],
+  ['bg-indigo-50', 'group-hover:bg-indigo-100', 'text-indigo-500'],
+];
+
 const iconMap: Record<IconName, IconConfig> = {
   AlertCircle: {
     Icon: AlertCircle,
-    bgColor: 'bg-red-100',
-    hoverBgColor: 'group-hover:bg-red-200',
-    iconColor: 'text-red-500',
+    bgColor: iconColors[0][0],
+    hoverBgColor: iconColors[0][1],
+    iconColor: iconColors[0][2],
   },
   CloudRain: {
     Icon: CloudRain,
-    bgColor: 'bg-blue-100',
-    hoverBgColor: 'group-hover:bg-blue-200',
-    iconColor: 'text-blue-500',
+    bgColor: iconColors[1][0],
+    hoverBgColor: iconColors[1][1],
+    iconColor: iconColors[1][2],
   },
   BrainCircuit: {
     Icon: BrainCircuit,
-    bgColor: 'bg-purple-100',
-    hoverBgColor: 'group-hover:bg-purple-200',
-    iconColor: 'text-purple-500',
+    bgColor: iconColors[2][0],
+    hoverBgColor: iconColors[2][1],
+    iconColor: iconColors[2][2],
   },
   Heart: {
     Icon: Heart,
-    bgColor: 'bg-pink-100',
-    hoverBgColor: 'group-hover:bg-pink-200',
-    iconColor: 'text-pink-500',
+    bgColor: iconColors[0][0],
+    hoverBgColor: iconColors[0][1],
+    iconColor: iconColors[0][2],
   },
   Zap: {
     Icon: Zap,
-    bgColor: 'bg-yellow-100',
-    hoverBgColor: 'group-hover:bg-yellow-200',
-    iconColor: 'text-yellow-500',
+    bgColor: iconColors[1][0],
+    hoverBgColor: iconColors[1][1],
+    iconColor: iconColors[1][2],
   },
   Shield: {
     Icon: Shield,
-    bgColor: 'bg-green-100',
-    hoverBgColor: 'group-hover:bg-green-200',
-    iconColor: 'text-green-500',
+    bgColor: iconColors[2][0],
+    hoverBgColor: iconColors[2][1],
+    iconColor: iconColors[2][2],
   },
 };
 
@@ -76,12 +83,9 @@ export function UnderstandingSection({ data }: UnderstandingSectionProps) {
   }
 
   return (
-    <section className="bg-linear-to-br from-indigo-50 to-purple-50 py-20">
+    <section className="bg-surface-soft py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-black text-gray-900">{titulo}</h2>
-          <p className="text-xl font-medium text-gray-600">{subtitulo}</p>
-        </div>
+        <SectionHeader title={titulo} subtitle={subtitulo} />
         <div className="grid gap-8 md:grid-cols-3">
           {punto.map(
             ({ id, titulo: itemTitulo, subtitulo: itemSubtitulo, icono }) => {

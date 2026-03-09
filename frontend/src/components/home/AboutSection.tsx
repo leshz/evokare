@@ -1,5 +1,6 @@
-import Link from 'next/link';
 import { AboutComponent } from '@/services/inicio/types';
+import { SectionHeader } from '@/components/shared/SectionHeader';
+import { Button } from '@/components/shared/Button';
 
 interface AboutSectionProps {
   data: AboutComponent;
@@ -20,88 +21,62 @@ export function AboutSection({ data }: AboutSectionProps) {
     return null;
   }
 
-  const groupedHighlights = destacado.reduce<
-    Array<{ items: typeof destacado; isDark: boolean }>
-  >((groups, item, index) => {
-    const groupIndex = Math.floor(index / 3);
-
-    if (!groups[groupIndex]) {
-      groups[groupIndex] = {
-        items: [],
-        isDark: groupIndex % 2 === 1,
-      };
-    }
-
-    groups[groupIndex].items.push(item);
-    return groups;
-  }, []);
+  // Separate numeric stats from text-based items
+  const isNumericStat = (dato: string) => /^\d/.test(dato) || /[%+]/.test(dato);
+  const stats = destacado.filter(item => isNumericStat(item.dato));
+  const services = destacado.filter(item => !isNumericStat(item.dato));
 
   return (
-    <section className="bg-white py-20">
+    <section className="bg-white py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-gray-900">{titulo}</h2>
-          <div className="bg-secundario mx-auto mb-6 h-1 w-24"></div>
-          <p className="mx-auto max-w-3xl text-xl text-gray-600">
-            {descripcion}
-          </p>
-        </div>
+        <SectionHeader title={titulo} subtitle={descripcion} />
 
-        {groupedHighlights.map(({ items, isDark }, groupIndex) => {
-          const isLastGroup = groupIndex === groupedHighlights.length - 1;
+        {/* Stats row */}
+        {stats.length > 0 && (
+          <div className="mb-8 grid gap-6 sm:grid-cols-3">
+            {stats.map(({ id, dato, descripcion }) => (
+              <div
+                key={id}
+                className="rounded-2xl bg-surface-soft p-6 text-center transition-shadow hover:shadow-md"
+              >
+                <div className="text-secundario mb-1 text-3xl font-bold">
+                  {dato}
+                </div>
+                <p className="text-sm text-gray-600">{descripcion}</p>
+              </div>
+            ))}
+          </div>
+        )}
 
-          return (
-            <div
-              key={`group-${groupIndex}`}
-              className={`grid gap-8 md:grid-cols-3 ${!isLastGroup ? 'mb-16' : ''}`}
-            >
-              {items.map(({ id, dato, descripcion }, itemIndex) => {
-                const isEven = itemIndex % 2 === 0;
-                const darkClasses = `rounded-xl bg-gradient-to-br p-8 text-center shadow-lg transition-shadow hover:shadow-xl ${
-                  isEven
-                    ? 'from-secundario to-terciario'
-                    : 'from-terciario to-secundario'
-                }`;
-                const lightClasses =
-                  'from-principal rounded-xl bg-gradient-to-br to-gray-50 p-8 text-center shadow-md';
-
-                return (
-                  <div key={id} className={isDark ? darkClasses : lightClasses}>
-                    {isDark ? (
-                      <div className="text-white">
-                        <div className="mb-2 text-2xl font-bold">{dato}</div>
-                        <p className="text-principal opacity-90">
-                          {descripcion}
-                        </p>
-                      </div>
-                    ) : (
-                      <>
-                        <div className="text-secundario mb-2 text-4xl font-bold">
-                          {dato}
-                        </div>
-                        <p className="font-medium text-gray-600">
-                          {descripcion}
-                        </p>
-                      </>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+        {/* Service cards row */}
+        {services.length > 0 && (
+          <div className="grid gap-6 sm:grid-cols-3">
+            {services.map(({ id, dato, descripcion }) => (
+              <div
+                key={id}
+                className="rounded-2xl border border-gray-100 bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="text-text-primary mb-1 text-lg font-semibold">
+                  {dato}
+                </div>
+                <p className="text-sm text-gray-500">{descripcion}</p>
+              </div>
+            ))}
+          </div>
+        )}
 
         {botones.length > 0 && (
-          <div className="mt-16 text-center">
-            {botones.map(({ id, texto, link }) => {
-              const buttonClasses =
-                'from-secundario to-terciario hover:from-terciario hover:to-secundario inline-block rounded-full bg-gradient-to-br px-8 py-4 text-lg font-medium text-white shadow-lg transition-all hover:bg-gradient-to-br';
-              return (
-                <Link key={id} href={link} className={buttonClasses}>
-                  {texto}
-                </Link>
-              );
-            })}
+          <div className="mt-12 text-center">
+            {botones.map(({ id, texto, link }, index) => (
+              <Button
+                key={id}
+                href={link}
+                variant={index === 0 ? 'primary' : 'outline'}
+                size="md"
+              >
+                {texto}
+              </Button>
+            ))}
           </div>
         )}
       </div>

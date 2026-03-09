@@ -1,28 +1,29 @@
 import { MetodologiasSection } from '@/services/nosotros/types';
+import { SectionHeader } from '@/components/shared/SectionHeader';
 
 interface AboutMethodologiesProps {
   data: MetodologiasSection;
 }
 
 export function AboutMethodologies({ data }: AboutMethodologiesProps) {
-  return (
-    <section className="bg-white py-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 text-center">
-          <h2 className="mb-4 text-3xl font-bold text-gray-900">
-            {data.titulo}
-          </h2>
-          <div className="bg-secundario mx-auto mb-6 h-1 w-24"></div>
-          <p className="mx-auto max-w-3xl text-lg text-gray-600">
-            {data.subtitulo}
-          </p>
-        </div>
+  const colCount = Math.min(data.Metodologias.length, 3);
+  const gridClass =
+    colCount === 1
+      ? 'max-w-md mx-auto'
+      : colCount === 2
+        ? 'grid gap-8 md:grid-cols-2 max-w-3xl mx-auto'
+        : 'grid gap-8 md:grid-cols-2 lg:grid-cols-3';
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+  return (
+    <section className="bg-white py-16">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <SectionHeader title={data.titulo} subtitle={data.subtitulo} />
+
+        <div className={gridClass}>
           {data.Metodologias.map(metodologia => (
             <div
               key={metodologia.id}
-              className="rounded-xl bg-gray-50 p-6 shadow-md transition-shadow hover:shadow-lg"
+              className="rounded-2xl bg-surface-soft p-6 shadow-sm transition-shadow hover:shadow-md"
             >
               <h3 className="text-secundario mb-4 text-xl font-semibold">
                 {metodologia.certificado}

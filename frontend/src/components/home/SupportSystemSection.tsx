@@ -23,11 +23,13 @@ export function SupportSystemSection({ data }: SupportSystemSectionProps) {
   }
 
   return (
-    <section className="from-principal to-principal bg-linear-to-br py-20">
+    <section className="py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-gray-900">{titulo}</h2>
-          {subtitulo && <p className="text-xl text-gray-600">{subtitulo}</p>}
+        <div className="mb-12 text-center">
+          <h2 className="text-text-primary mb-4 text-3xl font-bold md:text-4xl">
+            {titulo}
+          </h2>
+          {subtitulo && <p className="text-lg text-gray-600">{subtitulo}</p>}
         </div>
 
         <div className="rounded-2xl bg-linear-to-br from-indigo-50 to-purple-50 p-8 md:p-12">

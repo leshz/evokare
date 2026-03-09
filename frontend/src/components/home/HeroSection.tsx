@@ -85,7 +85,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                             <Link
                               key={id}
                               href={link}
-                              className="bg-principal text-secundario rounded-full px-8 py-3 text-center font-medium transition-colors hover:bg-gray-800"
+                              className="bg-principal text-secundario rounded-full px-8 py-3 text-center font-semibold shadow-lg transition-all hover:shadow-xl hover:brightness-95"
                             >
                               {texto}
                             </Link>
@@ -93,7 +93,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                             <Link
                               key={id}
                               href={link}
-                              className="hover:text-secundario rounded-full border border-white px-8 py-3 text-center font-medium text-white transition-colors hover:bg-white"
+                              className="rounded-full border border-white/60 px-8 py-3 text-center font-medium text-white/90 transition-all hover:border-white hover:bg-white/10 hover:text-white"
                             >
                               {texto}
                             </Link>
@@ -102,11 +102,12 @@ export function HeroSection({ data }: HeroSectionProps) {
                       </div>
                     </div>
                     <div className="flex justify-center">
-                      <div className="flex aspect-square items-center justify-center rounded-3xl bg-white shadow-xl">
-                        <div className="bg-principal flex h-80 w-80 items-center justify-center rounded-2xl">
+                      <div className="relative max-w-md lg:max-w-lg">
+                        <div className="absolute -inset-3 rounded-[2rem] bg-white/10" />
+                        <div className="relative overflow-hidden rounded-3xl bg-white/20 p-2 shadow-xl backdrop-blur-sm">
                           <Image
                             src={url}
-                            className="w-full overflow-hidden rounded-2xl"
+                            className="h-auto w-full rounded-2xl object-cover"
                             alt={alternativeText ?? titulo}
                             width={width}
                             height={height}
@@ -129,10 +130,10 @@ export function HeroSection({ data }: HeroSectionProps) {
             <button
               key={index}
               onClick={() => scrollTo(index)}
-              className={`h-3 w-3 rounded-full transition-all ${
+              className={`h-3 rounded-full transition-all duration-300 ${
                 index === selectedIndex
-                  ? 'bg-principal w-8'
-                  : 'bg-white/50 hover:bg-white/80'
+                  ? 'bg-principal w-10'
+                  : 'w-3 bg-white/50 hover:bg-white/80'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

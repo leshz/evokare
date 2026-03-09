@@ -5,6 +5,7 @@ import { ShoppingCart } from '@/components/products/ShoppingCart';
 import { getProductBySlugService } from '@/services/productos';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { AlertCircle } from 'lucide-react';
 
 export default async function ProductOverview({
   params,
@@ -12,7 +13,34 @@ export default async function ProductOverview({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const { data: product } = await getProductBySlugService(slug);
+
+  let product;
+  try {
+    const response = await getProductBySlugService(slug);
+    product = response.data;
+  } catch (error) {
+    console.error('Error loading product:', error);
+    return (
+      <div className="bg-principal flex min-h-screen flex-col">
+        <div className="flex flex-1 flex-col items-center justify-center px-4 py-20">
+          <AlertCircle className="text-secundario mb-4 h-12 w-12" />
+          <h1 className="text-text-primary mb-2 text-2xl font-bold">
+            Producto no disponible
+          </h1>
+          <p className="mb-8 text-center text-gray-600">
+            No pudimos cargar este producto. Por favor intenta más tarde.
+          </p>
+          <Link
+            href="/productos"
+            className="bg-secundario hover:bg-secundario-light rounded-full px-6 py-3 font-medium text-white transition-all"
+          >
+            Ver todos los productos
+          </Link>
+        </div>
+        <ShoppingCart />
+      </div>
+    );
+  }
 
   if (!product) {
     notFound();

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { X } from 'lucide-react';
+import { X, Package } from 'lucide-react';
 import { useCartStore, CartItem } from '@/store';
 import { formatCOP } from '@/helpers/currency';
 
@@ -24,12 +24,12 @@ export function OrderSummaryItem({ item }: Props) {
           className="h-16 w-16 shrink-0 rounded-lg object-cover"
         />
       ) : (
-        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-gray-200">
-          <span className="text-xs text-gray-400">Sin imagen</span>
+        <div className="bg-surface-soft flex h-16 w-16 shrink-0 items-center justify-center rounded-lg">
+          <Package className="h-6 w-6 text-gray-300" />
         </div>
       )}
       <div className="min-w-0 flex-1">
-        <h4 className="truncate text-sm font-medium text-gray-900">
+        <h4 className="text-sm font-medium leading-snug text-gray-900">
           {item.name}
         </h4>
         <p className="text-secundario text-sm font-bold">
@@ -39,7 +39,7 @@ export function OrderSummaryItem({ item }: Props) {
           <button
             type="button"
             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-            className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300"
+            className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 text-sm hover:bg-gray-300"
           >
             -
           </button>
@@ -49,7 +49,7 @@ export function OrderSummaryItem({ item }: Props) {
           <button
             type="button"
             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-            className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 hover:bg-gray-300"
+            className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-200 text-sm hover:bg-gray-300"
           >
             +
           </button>

@@ -7,6 +7,7 @@ import { StatisticsSection } from '@/components/home/StatisticsSection';
 import { TestimonialSection } from '@/components/home/TestimonialSection';
 import { FreshPerspectivesSection } from '@/components/home/FreshPerspectivesSection';
 import { DailyQuotesSection } from '@/components/home/DailyQuotesSection';
+import { AboutHero } from '@/components/about/AboutHero';
 import { AboutBio } from '@/components/about/AboutBio';
 import { AboutCredentials } from '@/components/about/AboutCredentials';
 import { AboutMethodologies } from '@/components/about/AboutMethodologies';
@@ -42,6 +43,7 @@ const COMPONENT_MAP: ComponentMap = {
   'inicio.perspectivas': FreshPerspectivesSection,
   'inicio.reflexiones': DailyQuotesSection,
   // Componentes de Nosotros
+  'nosotros.hero': AboutHero,
   'nosotros.bio': AboutBio,
   'nosotros.credenciales': AboutCredentials,
   'nosotros.metodologias': AboutMethodologies,
@@ -164,6 +166,11 @@ export function renderSection(
       console.warn('inicio.reflexiones: No reflexion array found');
       return null;
     }
+    return <Component key={`${section.__component}-${index}`} data={section} />;
+  }
+
+  // Para nosotros.hero, pasamos directamente
+  if (section.__component === 'nosotros.hero') {
     return <Component key={`${section.__component}-${index}`} data={section} />;
   }
 

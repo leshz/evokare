@@ -8,7 +8,7 @@ export const Footer = ({ footer }: FooterProps) => {
   const { columnas } = footer;
 
   return (
-    <footer className="from-secundario to-terciario m-4 rounded-2xl bg-gradient-to-r py-16 text-white">
+    <footer className="from-secundario to-terciario mx-4 mb-4 rounded-2xl bg-linear-to-r py-16 text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-4">
           <div className="md:col-span-2">
@@ -16,7 +16,7 @@ export const Footer = ({ footer }: FooterProps) => {
             <BlocksRendererCustom
               content={content}
               classNames={{
-                paragraph: 'mb-6 text-gray-100 paragraph',
+                paragraph: 'mb-6 text-white/90 paragraph',
                 link: 'text-secundario rounded-full bg-white px-6 py-3 font-medium transition-colors hover:bg-gray-100 inline-block',
               }}
             />
@@ -27,20 +27,20 @@ export const Footer = ({ footer }: FooterProps) => {
               <BlocksRendererCustom
                 content={columna.contenido}
                 classNames={{
-                  paragraph: 'text-gray-100 paragraph',
-                  list: { unordered: 'space-y-2 text-gray-100' },
+                  paragraph: 'text-white/90 paragraph',
+                  list: { unordered: 'space-y-2 text-white/90' },
                 }}
               />
             </div>
           ))}
         </div>
 
-        <div className="border-opacity-20 mt-12 border-t border-white pt-8 text-center">
+        <div className="mt-12 border-t border-white/20 pt-8 text-center">
           <div className="mb-4 flex flex-col justify-center space-x-6">
             <BlocksRendererCustom
               content={autor}
               classNames={{
-                paragraph: 'text-gray-100',
+                paragraph: 'text-white/80',
               }}
             />
           </div>

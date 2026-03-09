@@ -37,7 +37,15 @@ export interface MetodologiasSection {
   Metodologias: Metodologia[];
 }
 
+export interface HeroSection {
+  __component: 'nosotros.hero';
+  id: number;
+  titulo?: string;
+  subtitulo?: string;
+}
+
 export type NosotrosSection =
+  | HeroSection
   | BioSection
   | CredencialesSection
   | MetodologiasSection;

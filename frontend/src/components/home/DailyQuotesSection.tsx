@@ -2,7 +2,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import type { ReflexionesComponent } from '@/services/inicio/types';
 
@@ -71,8 +71,11 @@ export function DailyQuotesSection({ data }: DailyQuotesSectionProps) {
   return (
     <section className="py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-bold text-gray-900">{titulo}</h2>
+        <div className="mb-12 text-center">
+          <h2 className="text-text-primary mb-4 text-3xl font-bold md:text-4xl">
+            {titulo}
+          </h2>
+          <div className="bg-secundario mx-auto h-1 w-24 rounded-full" />
         </div>
 
         <div className="relative mx-auto max-w-4xl">
@@ -101,15 +104,14 @@ export function DailyQuotesSection({ data }: DailyQuotesSectionProps) {
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex">
               {reflexion.map(item => {
-                const { id, contenido, consejo, nombre, descripcion, emoji } =
-                  item;
+                const { id, contenido, consejo, nombre, descripcion } = item;
 
                 return (
                   <div key={id} className="min-w-0 flex-[0_0_100%]">
-                    <div className="rounded-3xl bg-gradient-to-br from-indigo-50 to-purple-50 p-8 text-gray-800 md:p-12">
+                    <div className="rounded-3xl bg-surface-soft p-8 text-gray-800 shadow-sm md:p-12">
                       <div className="text-center">
-                        <div className="mb-6 text-6xl">{emoji}</div>
-                        <blockquote className="mb-6 text-2xl font-medium">
+                        <Quote className="text-secundario/30 mx-auto mb-6 h-12 w-12" />
+                        <blockquote className="text-text-primary mb-6 text-2xl font-medium">
                           &quot;{contenido}&quot;
                         </blockquote>
                         <p className="mb-6 text-lg text-gray-600">{consejo}</p>

@@ -8,27 +8,25 @@ interface PostContentProps {
 export const PostContent = ({ articulo }: PostContentProps) => {
   return (
     <div className="md:col-span-2">
-      <div
-        className="prose max-w-none text-gray-700"
-        style={{ whiteSpace: 'pre-line' }}
-      >
+      <div className="prose max-w-none text-gray-700">
         <BlocksRendererCustom
           content={articulo}
           classNames={{
-            paragraph: 'text-lg leading-relaxed',
+            paragraph: 'text-lg leading-relaxed mb-6',
             heading: {
-              h1: 'text-3xl font-bold mt-8 mb-4',
-              h2: 'text-2xl font-bold mt-6 mb-3',
-              h3: 'text-xl font-semibold mt-4 mb-2',
+              h1: 'text-3xl font-bold mt-10 mb-4 text-text-primary',
+              h2: 'text-2xl font-bold mt-8 mb-3 text-text-primary',
+              h3: 'text-xl font-semibold mt-6 mb-2 text-text-primary',
             },
             list: {
-              ordered: 'list-decimal list-inside',
-              unordered: 'list-disc list-inside',
+              ordered: 'list-decimal list-inside mb-6 space-y-2',
+              unordered: 'list-disc list-inside mb-6 space-y-2',
             },
-            quote: 'border-l-4 border-gray-300 pl-4 italic text-gray-600',
+            quote:
+              'border-l-4 border-secundario pl-6 py-2 my-6 italic text-gray-600 bg-surface-soft rounded-r-lg',
             code: 'bg-gray-100 p-1 rounded text-sm font-mono',
-            image: 'my-6 rounded',
-            link: 'text-blue-600 underline hover:text-blue-800',
+            image: 'my-8 rounded-xl',
+            link: 'text-secundario underline hover:text-terciario',
           }}
         />
       </div>

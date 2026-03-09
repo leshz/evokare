@@ -16,7 +16,7 @@ export default function CheckoutPage() {
               href="/productos"
               className="hover:text-secundario text-gray-500"
             >
-              Tienda
+              Productos
             </Link>
             <span className="text-gray-400">/</span>
             <span className="text-gray-900">Checkout</span>
@@ -26,11 +26,11 @@ export default function CheckoutPage() {
 
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <OrderSummary />
-          </div>
           <div className="lg:col-span-7">
             <CheckoutForm />
+          </div>
+          <div className="lg:col-span-5">
+            <OrderSummary />
           </div>
         </div>
       </div>

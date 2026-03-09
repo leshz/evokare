@@ -2,10 +2,15 @@
 
 :root {
   --background: #fbfcff;
-  --foreground: #171717;
+  --foreground: #1e1b4b;
   --color-principal: #fbfcff;
   --color-secundario: #9f97f0;
   --color-terciario: #5893f7;
+
+  /* Semantic tokens */
+  --color-surface-soft: #f5f3ff;
+  --color-secundario-light: #c4bff6;
+  --color-text-primary: #1e1b4b;
 
   /* Indigo colors */
   --color-indigo-50: #eef2ff;
@@ -38,6 +43,9 @@
   --color-principal: var(--color-principal);
   --color-secundario: var(--color-secundario);
   --color-terciario: var(--color-terciario);
+  --color-surface-soft: var(--color-surface-soft);
+  --color-secundario-light: var(--color-secundario-light);
+  --color-text-primary: var(--color-text-primary);
   --font-primary: var(--font-primary);
   --font-secondary: var(--font-secondary);
 
