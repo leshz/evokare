@@ -7,4 +7,7 @@
 .env.development
 .env.test
 .env.production
-*/.claude/
+.claude/*
+backend/scripts/*
+backend/.claude/settings.local.json
+frontend/.claude/settings.local.json
