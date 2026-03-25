@@ -8,7 +8,7 @@ export const BlogCard = ({ titulo, introduccion, media, slug }: BlogData) => {
     <div className="group overflow-hidden rounded-2xl bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
       <Link href={`/blogs/${slug}`} className="block aspect-video overflow-hidden">
         <AdaptiveImage
-          image={media[0]}
+          image={media?.[0]}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </Link>
