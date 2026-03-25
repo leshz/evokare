@@ -1,4 +1,3 @@
-import { ShoppingCart } from '@/components/products/ShoppingCart';
 import {
   getProductosContentService,
   getProductsService,
@@ -59,7 +58,7 @@ export default async function ProductosPage({
             Volver al inicio
           </Link>
         </div>
-        <ShoppingCart />
+  
       </div>
     );
   }
@@ -72,7 +71,7 @@ export default async function ProductosPage({
           products: productos,
         })
       )}
-      <ShoppingCart />
+
     </div>
   );
 }

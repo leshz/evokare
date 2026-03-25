@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Hind, Josefin_Sans, Spectral, Montserrat } from 'next/font/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { ShoppingCart } from '@/components/products/ShoppingCart';
 import { getGeneralService } from '@/services/general';
 import { generateMetadataFromSEO } from '../services/seo';
 
@@ -42,6 +43,7 @@ export default async function RootLayout({
         <Header content={topbar} menu={menu} />
         {children}
         <Footer footer={footer} />
+        <ShoppingCart />
       </body>
     </html>
   );

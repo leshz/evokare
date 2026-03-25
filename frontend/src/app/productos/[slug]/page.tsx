@@ -1,7 +1,6 @@
 import { ProductGallery } from '@/components/product-overview/ProductGallery';
 import { ProductInfo } from '@/components/product-overview/ProductInfo';
 import { RelatedProducts } from '@/components/product-overview/RelatedProducts';
-import { ShoppingCart } from '@/components/products/ShoppingCart';
 import { getProductBySlugService } from '@/services/productos';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -37,7 +36,6 @@ export default async function ProductOverview({
             Ver todos los productos
           </Link>
         </div>
-        <ShoppingCart />
       </div>
     );
   }
@@ -88,8 +86,6 @@ export default async function ProductOverview({
           </div>
         )}
       </div>
-
-      <ShoppingCart />
     </div>
   );
 }
