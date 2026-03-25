@@ -56,7 +56,7 @@ export const ContactForm = () => {
       <div className="text-text-primary mb-2 text-lg font-semibold">
         Contáctanos
       </div>
-      <div className="mb-4 flex gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row">
         <div className="flex-1">
           <input
             type="email"
@@ -71,14 +71,16 @@ export const ContactForm = () => {
             <p className="mt-1 text-sm text-red-500">{errors.email}</p>
           )}
         </div>
-        <input
-          type="tel"
-          name="telefono"
-          placeholder="Número de teléfono"
-          className="flex-1 rounded-lg border border-gray-200 px-4 py-3 text-gray-900 transition-colors focus:border-secundario focus:outline-none"
-        />
+        <div className="flex-1">
+          <input
+            type="tel"
+            name="telefono"
+            placeholder="Número de teléfono"
+            className="w-full rounded-lg border border-gray-200 px-4 py-3 text-gray-900 transition-colors focus:border-secundario focus:outline-none"
+          />
+        </div>
       </div>
-      <div className="mb-4">
+      <div>
         <input
           type="text"
           name="asunto"
@@ -92,7 +94,7 @@ export const ContactForm = () => {
           <p className="mt-1 text-sm text-red-500">{errors.asunto}</p>
         )}
       </div>
-      <div className="mb-4">
+      <div>
         <textarea
           name="mensaje"
           placeholder="Mensaje *"
