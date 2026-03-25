@@ -29,7 +29,7 @@ export const PostHero = ({ media, title }: PostHeroProps) => {
           <span className="text-secundario font-medium">Artículo</span>
         </nav>
       </div>
-      {media.length > 0 && (
+      {media?.length > 0 && (
         <div className="flex flex-col gap-3 md:w-1/2">
           <div className="overflow-hidden rounded-2xl">
             <AdaptiveImage
@@ -40,7 +40,7 @@ export const PostHero = ({ media, title }: PostHeroProps) => {
               className="h-52 w-full rounded-2xl object-cover md:h-64"
             />
           </div>
-          {media.length > 1 && (
+          {media?.length > 1 && (
             <div className="flex gap-3">
               {media.slice(1, 3).map((img, i) => (
                 <div
