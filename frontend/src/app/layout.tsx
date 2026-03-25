@@ -39,7 +39,7 @@ export default async function RootLayout({
 
   return (
     <html lang="es">
-      <body className={`${primary.variable} ${secondary.variable} antialiased`}>
+      <body className={`${primary.variable} ${secondary.variable} antialiased`} suppressHydrationWarning>
         <Header content={topbar} menu={menu} />
         {children}
         <Footer footer={footer} />
