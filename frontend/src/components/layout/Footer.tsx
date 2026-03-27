@@ -8,8 +8,8 @@ export const Footer = ({ footer }: FooterProps) => {
   const { columnas } = footer;
 
   return (
-    <footer className="from-secundario to-terciario mx-4 mb-4 rounded-2xl bg-linear-to-r py-16 text-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <footer className="from-secundario to-terciario rounded-1xl md-0 md:m-4 md:rounded-2xl bg-linear-to-r py-16 text-white">
+      <div className="mx-auto max-w-7xl px-6 sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-4">
           <div className="md:col-span-2">
             <div className="mb-4 text-3xl font-bold">{title}</div>
