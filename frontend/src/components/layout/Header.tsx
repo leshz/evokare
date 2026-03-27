@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, X, Menu } from 'lucide-react';
 import { menuMapping } from '@/helpers/menu-mapping';
 import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
 import { useCartStore } from '@/store';
@@ -114,20 +114,10 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
             </button>
             <button
               onClick={toggleMenu}
-              className="hover:text-secundario flex items-center p-2 text-gray-700 transition-colors"
+              className="hover:text-secundario flex items-center text-gray-700 transition-colors"
               aria-label="Toggle menu"
             >
-              <div className="flex h-6 w-6 flex-col items-center justify-center">
-                <span
-                  className={`block h-0.5 w-5 transform bg-current transition-all duration-300 ${isMenuOpen ? 'translate-y-1 rotate-45' : '-translate-y-1'}`}
-                ></span>
-                <span
-                  className={`block h-0.5 w-5 bg-current transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}
-                ></span>
-                <span
-                  className={`block h-0.5 w-5 transform bg-current transition-all duration-300 ${isMenuOpen ? '-translate-y-1 -rotate-45' : 'translate-y-1'}`}
-                ></span>
-              </div>
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
