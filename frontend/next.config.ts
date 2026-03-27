@@ -6,13 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
+        hostname: 'evokare-next-staging.up.railway.app',
         port: '',
         pathname: '/**',
       },
