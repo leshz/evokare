@@ -42,7 +42,9 @@ export default async function RootLayout({
       <body className={`${primary.variable} ${secondary.variable} antialiased`} suppressHydrationWarning>
         <Header content={topbar} menu={menu} />
         {children}
-        <Footer footer={footer} />
+        <div className="bg-surface-soft">
+          <Footer footer={footer} />
+        </div>
         <ShoppingCart />
       </body>
     </html>
