@@ -9,8 +9,6 @@ import { generateMetadataFromSEO } from '../services/seo';
 
 import './globals.css';
 
-export const dynamic = 'force-dynamic';
-
 const primary = Montserrat({
   variable: '--font-primary',
   subsets: ['latin'],

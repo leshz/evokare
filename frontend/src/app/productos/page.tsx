@@ -7,8 +7,6 @@ import { renderSection } from '@/lib/component-factory';
 import { AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
-export const dynamic = 'force-dynamic';
-
 interface ProductosPageProps {
   searchParams: Promise<{ categoria?: string }>;
 }
@@ -60,7 +58,7 @@ export default async function ProductosPage({
             Volver al inicio
           </Link>
         </div>
-  
+
       </div>
     );
   }
