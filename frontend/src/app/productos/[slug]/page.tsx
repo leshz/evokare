@@ -1,6 +1,7 @@
 import { ProductGallery } from '@/components/product-overview/ProductGallery';
 import { ProductInfo } from '@/components/product-overview/ProductInfo';
-import { RelatedProducts } from '@/components/product-overview/RelatedProducts';
+import { ProductInformation } from '@/components/product-overview/ProductInformation';
+// import { RelatedProducts } from '@/components/product-overview/RelatedProducts';
 import { getProductBySlugService } from '@/services/productos';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -50,19 +51,19 @@ export default async function ProductOverview({
     <div className="bg-principal min-h-screen">
       <nav className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center space-x-2 text-sm">
-            <Link href="/" className="hover:text-secundario text-gray-500">
+          <div className="flex min-w-0 items-center gap-2 text-sm">
+            <Link href="/" className="hover:text-secundario shrink-0 text-gray-500">
               Inicio
             </Link>
-            <span className="text-gray-400">/</span>
+            <span className="shrink-0 text-gray-400">/</span>
             <Link
               href="/productos"
-              className="hover:text-secundario text-gray-500"
+              className="hover:text-secundario shrink-0 text-gray-500"
             >
               Productos
             </Link>
-            <span className="text-gray-400">/</span>
-            <span className="text-gray-900">{product.name}</span>
+            <span className="shrink-0 text-gray-400">/</span>
+            <span className="truncate text-gray-900">{product.name}</span>
           </div>
         </div>
       </nav>
@@ -77,12 +78,16 @@ export default async function ProductOverview({
           <ProductInfo product={product} />
         </div>
 
+        {product.information && product.information.length > 0 && (
+          <ProductInformation information={product.information} />
+        )}
+
         {primaryCategory && (
           <div className="mt-16">
-            <RelatedProducts
+            {/* <RelatedProducts
               currentProductId={product.id}
               category={primaryCategory}
-            />
+            /> */}
           </div>
         )}
       </div>

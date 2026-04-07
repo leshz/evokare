@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Product } from '@/services/productos/types';
 import { formatCOP } from '@/helpers/currency';
-import { BlocksRendererCustom } from '@/components/shared/BlocksRendererCustom';
 import { useCartStore } from '@/store';
 
 interface ProductInfoProps {
@@ -12,7 +11,6 @@ interface ProductInfoProps {
 
 export function ProductInfo({ product }: ProductInfoProps) {
   const [quantity, setQuantity] = useState(1);
-  const [activeTab, setActiveTab] = useState(0);
 
   const addItem = useCartStore(state => state.addItem);
   const setIsOpen = useCartStore(state => state.setIsOpen);
@@ -41,14 +39,6 @@ export function ProductInfo({ product }: ProductInfoProps) {
   const inStock = product.stock > 0;
 
   const primaryCategory = product.categories?.[0]?.name;
-
-  const hasInformation = product.information && product.information.length > 0;
-
-  const tabs =
-    product.information?.map((info, index) => ({
-      id: `info-${index}`,
-      title: info.title,
-    })) || [];
 
   return (
     <div className="space-y-6">
@@ -134,7 +124,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
           disabled={!inStock}
           className={`flex-1 rounded-full py-3 font-medium text-white transition-all ${
             inStock
-              ? 'from-secundario to-terciario hover:from-terciario hover:to-secundario bg-gradient-to-br hover:bg-gradient-to-br'
+              ? 'from-secundario to-terciario hover:from-terciario hover:to-secundario bg-gradient-to-br font-semibold shadow-md hover:shadow-lg'
               : 'cursor-not-allowed bg-gray-400'
           }`}
         >
@@ -153,65 +143,8 @@ export function ProductInfo({ product }: ProductInfoProps) {
         </span>
       </div>
 
-      {hasInformation && (
-        <div className="mt-8">
-          <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-            <div className="from-secundario/5 to-terciario/5 flex gap-1 overflow-x-auto bg-gradient-to-r p-2">
-              {tabs.map((tab, index) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(index)}
-                  className={`group relative flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-medium whitespace-nowrap transition-all duration-300 ${
-                    activeTab === index
-                      ? 'from-secundario to-terciario bg-gradient-to-r text-white shadow-md'
-                      : 'text-gray-600 hover:bg-white hover:text-gray-900 hover:shadow-sm'
-                  }`}
-                >
-                  <span>{tab.title}</span>
-                </button>
-              ))}
-            </div>
 
-            <div className="p-6">
-              {product.information?.map(
-                (info, index) =>
-                  activeTab === index && (
-                    <div
-                      key={info.id}
-                      className="animate-in fade-in prose prose-gray max-w-none duration-300"
-                    >
-                      <BlocksRendererCustom
-                        content={info.information}
-                        classNames={{
-                          paragraph: 'leading-relaxed text-gray-700 mb-4',
-                          heading: {
-                            h1: 'text-2xl font-bold text-gray-900 mb-4',
-                            h2: 'text-xl font-bold text-gray-900 mb-3',
-                            h3: 'text-lg font-semibold text-gray-900 mb-2',
-                            h4: 'text-base font-semibold text-gray-900 mb-2',
-                            h5: 'text-sm font-semibold text-gray-900 mb-2',
-                            h6: 'text-sm font-medium text-gray-900 mb-2',
-                          },
-                          list: {
-                            ordered:
-                              'list-decimal list-inside mb-4 space-y-2 text-gray-700',
-                            unordered:
-                              'list-disc list-inside mb-4 space-y-2 text-gray-700',
-                          },
-                        }}
-                        colors={{
-                          link: 'text-secundario hover:text-terciario',
-                        }}
-                      />
-                    </div>
-                  )
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {product.categories && product.categories.length > 1 && (
+{product.categories && product.categories.length > 1 && (
         <div className="pt-4">
           <h3 className="mb-3 text-sm font-medium text-gray-900">Categorías</h3>
           <div className="flex flex-wrap gap-2">

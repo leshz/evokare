@@ -58,7 +58,7 @@ export function HeroSection({ data }: HeroSectionProps) {
   }
 
   return (
-    <section className="from-secundario to-terciario relative bg-linear-to-r py-20">
+    <section className="from-secundario to-terciario grainy relative bg-linear-to-r py-20">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
           {banners.map(banner => {

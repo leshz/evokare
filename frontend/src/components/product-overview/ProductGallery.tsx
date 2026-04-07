@@ -125,7 +125,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
         </div>
       )}
 
-      <div className="rounded-lg bg-white p-4 shadow-sm">
+      {false && <div className="rounded-lg bg-white p-4 shadow-sm">
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div className="flex items-center space-x-2">
             <svg
@@ -192,7 +192,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
             <span className="text-gray-600">Entrega 24-48h</span>
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   );
 }
