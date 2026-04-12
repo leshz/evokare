@@ -1,9 +1,9 @@
 export function ProductHero() {
   return (
     <section className="from-secundario to-terciario bg-gradient-to-r py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
         <div className="text-center">
-          <h1 className="mb-6 text-4xl font-bold text-white md:text-5xl">
+          <h1 className="mb-6 text-3xl font-bold text-white sm:text-4xl md:text-5xl">
             Productos Holísticos
           </h1>
           <p className="text-principal mx-auto mb-8 max-w-3xl text-xl">

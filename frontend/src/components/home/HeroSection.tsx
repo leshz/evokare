@@ -72,14 +72,16 @@ export function HeroSection({ data }: HeroSectionProps) {
 
             return (
               <div key={banner.id} className="min-w-0 flex-[0_0_100%]">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                  <div className="grid items-center gap-12 md:grid-cols-2">
-                    <div>
-                      <h1 className="mb-6 text-5xl font-bold text-white md:text-6xl">
+                <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
+                  <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:items-center md:gap-12">
+                    {/* Texto: siempre primero */}
+                    <div className="order-1">
+                      <h1 className="mb-4 text-4xl font-bold text-white sm:text-5xl md:mb-6 md:text-6xl">
                         {titulo}
                       </h1>
-                      <p className="mb-8 text-xl text-gray-100">{contenido}</p>
-                      <div className="flex flex-col gap-4 sm:flex-row">
+                      <p className="mb-0 text-lg text-gray-100 md:mb-8 md:text-xl">{contenido}</p>
+                      {/* Botones: hidden en mobile aquí, visibles en desktop */}
+                      <div className="mt-6 hidden flex-col gap-3 sm:flex-row sm:gap-4 md:flex md:flex-row">
                         {botones.map(({ id, texto, link }, index) =>
                           index === 0 ? (
                             <Link
@@ -101,8 +103,9 @@ export function HeroSection({ data }: HeroSectionProps) {
                         )}
                       </div>
                     </div>
-                    <div className="flex justify-center">
-                      <div className="relative max-w-md lg:max-w-lg">
+                    {/* Imagen: segundo en mobile */}
+                    <div className="order-2 flex justify-center md:order-2">
+                      <div className="relative w-full max-w-md lg:max-w-lg">
                         <div className="absolute -inset-3 rounded-[2rem] bg-white/10" />
                         <div className="relative overflow-hidden rounded-3xl bg-white/20 p-2 shadow-xl backdrop-blur-sm">
                           <Image
@@ -114,6 +117,28 @@ export function HeroSection({ data }: HeroSectionProps) {
                           />
                         </div>
                       </div>
+                    </div>
+                    {/* Botones: visibles solo en mobile, debajo de la imagen */}
+                    <div className="order-3 flex flex-col gap-3 md:hidden">
+                      {botones.map(({ id, texto, link }, index) =>
+                        index === 0 ? (
+                          <Link
+                            key={id}
+                            href={link}
+                            className="bg-principal text-secundario rounded-full px-8 py-3 text-center font-semibold shadow-lg transition-all hover:shadow-xl hover:brightness-95"
+                          >
+                            {texto}
+                          </Link>
+                        ) : (
+                          <Link
+                            key={id}
+                            href={link}
+                            className="rounded-full border border-white/60 px-8 py-3 text-center font-medium text-white/90 transition-all hover:border-white hover:bg-white/10 hover:text-white"
+                          >
+                            {texto}
+                          </Link>
+                        )
+                      )}
                     </div>
                   </div>
                 </div>

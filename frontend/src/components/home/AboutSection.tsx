@@ -28,7 +28,7 @@ export function AboutSection({ data }: AboutSectionProps) {
 
   return (
     <section className="bg-white py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <SectionHeader title={titulo} subtitle={descripcion} />
 
         {/* Stats row */}
@@ -66,7 +66,7 @@ export function AboutSection({ data }: AboutSectionProps) {
         )}
 
         {botones.length > 0 && (
-          <div className="mt-12 text-center">
+          <div className="mt-12 flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
             {botones.map(({ id, texto, link }, index) => (
               <Button
                 key={id}

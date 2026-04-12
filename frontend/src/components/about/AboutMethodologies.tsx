@@ -16,7 +16,7 @@ export function AboutMethodologies({ data }: AboutMethodologiesProps) {
 
   return (
     <section className="bg-white py-16">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
         <SectionHeader title={data.titulo} subtitle={data.subtitulo} />
 
         <div className={gridClass}>

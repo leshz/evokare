@@ -21,7 +21,7 @@ export function StatisticsSection({ data }: StatisticsSectionProps) {
 
   return (
     <section className="from-secundario to-terciario bg-linear-to-br py-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-4">
           {datos.map(({ id, titulo, contenido }) => (
             <div key={id}>

@@ -28,7 +28,7 @@ export function ShoppingCart() {
     <>
       {/* Overlay */}
       <div
-        className={`fixed inset-0 z-[9998] bg-indigo-950/20 transition-opacity duration-300 ease-in-out ${
+        className={`fixed inset-0 z-[9998] bg-indigo-950/30 transition-opacity duration-300 ease-in-out ${
           isOpen
             ? 'visible opacity-100'
             : 'pointer-events-none invisible opacity-0'
@@ -37,15 +37,23 @@ export function ShoppingCart() {
         aria-hidden={!isOpen}
       />
 
-      {/* Drawer */}
+      {/* Drawer — bottom sheet en mobile, sidebar en desktop */}
       <div
-        className={`fixed top-0 right-0 z-[9999] flex h-full w-96 max-w-full flex-col bg-principal shadow-2xl transition-[transform,visibility] duration-300 ease-in-out ${
-          isOpen
-            ? 'visible translate-x-0'
-            : 'pointer-events-none invisible translate-x-full'
-        }`}
+        className={`fixed z-[9999] flex flex-col bg-principal shadow-2xl transition-[transform,visibility] duration-300 ease-in-out
+          bottom-0 left-0 right-0 max-h-[80vh] rounded-t-2xl
+          md:bottom-auto md:left-auto md:top-0 md:right-0 md:h-full md:max-h-none md:w-96 md:rounded-none
+          ${
+            isOpen
+              ? 'visible translate-y-0 md:translate-x-0'
+              : 'pointer-events-none invisible translate-y-full md:translate-y-0 md:translate-x-full'
+          }`}
         aria-hidden={!isOpen}
       >
+        {/* Handle — solo visible en mobile */}
+        <div className="flex shrink-0 justify-center pt-3 pb-1 md:hidden">
+          <div className="h-1 w-10 rounded-full bg-gray-300" />
+        </div>
+
         {/* Header */}
         <div className="shrink-0 p-6">
           <div className="flex items-center justify-between">

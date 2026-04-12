@@ -70,7 +70,7 @@ export function DailyQuotesSection({ data }: DailyQuotesSectionProps) {
 
   return (
     <section className="py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
           <h2 className="text-text-primary mb-4 text-3xl font-bold md:text-4xl">
             {titulo}
