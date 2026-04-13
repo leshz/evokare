@@ -11328,7 +11328,7 @@ strapi-advanced-uuid@^2.1.1:
 
 "strapi-mercadopago@https://github.com/leshz/mercadopago-strapi.git#main":
   version "1.0.0"
-  resolved "https://github.com/leshz/mercadopago-strapi.git#3f9c6e283ef3f180bd108af3483a70c20d22151b"
+  resolved "https://github.com/leshz/mercadopago-strapi.git#2e459122803acbff66ed95dd12e1d0fdf4eeb57d"
   dependencies:
     "@strapi/design-system" "^2.0.0-rc.29"
     "@strapi/icons" "^2.0.0-rc.29"
