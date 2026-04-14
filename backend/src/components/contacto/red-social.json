@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_contacto_red_socials",
+  "info": {
+    "displayName": "Red Social"
+  },
+  "options": {},
+  "attributes": {
+    "red": {
+      "type": "enumeration",
+      "enum": ["twitter", "instagram", "linkedin", "facebook", "whatsapp"],
+      "required": true
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -8,6 +8,8 @@ export const STRAPI_API_PATHS = {
   ACERCA: '/acerca',
   BLOGS: '/blogs',
   PRODUCTO: '/producto',
+  CONTACTO: '/contacto',
+  MENSAJE_CONTACTOS: '/mensaje-contactos',
   MERCADOPAGO_PRODUCTS: '/strapi-mercadopago/products',
   MERCADOPAGO_CATEGORIES: '/strapi-mercadopago/categories',
   MERCADOPAGO_CHECKOUT: '/strapi-mercadopago/checkout',
