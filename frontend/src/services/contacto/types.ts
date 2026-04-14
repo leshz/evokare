@@ -31,3 +31,11 @@ export interface ContactoResponse {
   data: ContactoData;
   meta: object;
 }
+
+export interface ContactFormPayload {
+  nombre?: string;
+  email: string;
+  telefono?: string;
+  asunto: string;
+  mensaje: string;
+}

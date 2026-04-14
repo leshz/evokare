@@ -529,6 +529,41 @@ export interface ApiBlogBlog extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiContactoContacto extends Struct.SingleTypeSchema {
+  collectionName: 'contactos';
+  info: {
+    displayName: 'Contacto';
+    pluralName: 'contactos';
+    singularName: 'contacto';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    informacion_contacto: Schema.Attribute.Blocks;
+    latitud: Schema.Attribute.Decimal;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::contacto.contacto'
+    > &
+      Schema.Attribute.Private;
+    longitud: Schema.Attribute.Decimal;
+    mapa: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    publishedAt: Schema.Attribute.DateTime;
+    redes_sociales: Schema.Attribute.Component<'contacto.red-social', true>;
+    seo: Schema.Attribute.Component<'shared.seo', false>;
+    subtitulo: Schema.Attribute.String;
+    titulo: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiEtiquetaEtiqueta extends Struct.CollectionTypeSchema {
   collectionName: 'etiquetas';
   info: {
@@ -685,6 +720,39 @@ export interface ApiInicioInicio extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMensajeContactoMensajeContacto
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'mensaje_contactos';
+  info: {
+    displayName: 'Mensaje Contacto';
+    pluralName: 'mensaje-contactos';
+    singularName: 'mensaje-contacto';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    asunto: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::mensaje-contacto.mensaje-contacto'
+    > &
+      Schema.Attribute.Private;
+    mensaje: Schema.Attribute.Text & Schema.Attribute.Required;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    telefono: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1481,9 +1549,11 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::acerca.acerca': ApiAcercaAcerca;
       'api::blog.blog': ApiBlogBlog;
+      'api::contacto.contacto': ApiContactoContacto;
       'api::etiqueta.etiqueta': ApiEtiquetaEtiqueta;
       'api::general.general': ApiGeneralGeneral;
       'api::inicio.inicio': ApiInicioInicio;
+      'api::mensaje-contacto.mensaje-contacto': ApiMensajeContactoMensajeContacto;
       'api::producto.producto': ApiProductoProducto;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

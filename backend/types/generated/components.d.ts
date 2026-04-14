@@ -1,5 +1,19 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ContactoRedSocial extends Struct.ComponentSchema {
+  collectionName: 'components_contacto_red_socials';
+  info: {
+    displayName: 'Red Social';
+  };
+  attributes: {
+    link: Schema.Attribute.String & Schema.Attribute.Required;
+    red: Schema.Attribute.Enumeration<
+      ['twitter', 'instagram', 'linkedin', 'facebook', 'whatsapp']
+    > &
+      Schema.Attribute.Required;
+  };
+}
+
 export interface GeneralBarraDeNavegacion extends Struct.ComponentSchema {
   collectionName: 'components_general_barra_de_navegacions';
   info: {
@@ -508,6 +522,7 @@ export interface SharedSeo extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'contacto.red-social': ContactoRedSocial;
       'general.barra-de-navegacion': GeneralBarraDeNavegacion;
       'general.columna': GeneralColumna;
       'general.derechos-de-autor': GeneralDerechosDeAutor;

@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { Send } from 'lucide-react';
 import { SocialLinks } from './SocialLinks';
 import { Button } from '@/components/shared/Button';
+import { submitContactForm } from '@/services/contacto';
 import type { RedSocial } from '@/services/contacto/types';
 
 interface ContactFormProps {
@@ -16,9 +17,14 @@ interface FormErrors {
   mensaje?: string;
 }
 
+const inputBase =
+  'w-full rounded-lg border px-4 py-3 text-gray-900 transition-colors focus:border-secundario focus:outline-none';
+
 export const ContactForm = ({ redesSociales }: ContactFormProps) => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,13 +33,26 @@ export const ContactForm = ({ redesSociales }: ContactFormProps) => {
 
     if (!formData.get('email')) newErrors.email = 'El correo es requerido';
     if (!formData.get('asunto')) newErrors.asunto = 'El asunto es requerido';
-    if (!formData.get('mensaje'))
-      newErrors.mensaje = 'El mensaje es requerido';
+    if (!formData.get('mensaje')) newErrors.mensaje = 'El mensaje es requerido';
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
-    setSubmitted(true);
+    setServerError(null);
+    startTransition(async () => {
+      try {
+        await submitContactForm({
+          nombre: formData.get('nombre') as string | undefined,
+          email: formData.get('email') as string,
+          telefono: formData.get('telefono') as string | undefined,
+          asunto: formData.get('asunto') as string,
+          mensaje: formData.get('mensaje') as string,
+        });
+        setSubmitted(true);
+      } catch {
+        setServerError('Hubo un problema al enviar tu mensaje. Por favor intenta de nuevo.');
+      }
+    });
   };
 
   if (submitted) {
@@ -61,15 +80,21 @@ export const ContactForm = ({ redesSociales }: ContactFormProps) => {
       <div className="text-text-primary mb-2 text-lg font-semibold">
         Contáctanos
       </div>
+      <div>
+        <input
+          type="text"
+          name="nombre"
+          placeholder="Nombre completo"
+          className={`${inputBase} border-gray-200`}
+        />
+      </div>
       <div className="flex flex-col gap-4 sm:flex-row">
         <div className="flex-1">
           <input
             type="email"
             name="email"
             placeholder="Correo electrónico *"
-            className={`w-full rounded-lg border px-4 py-3 text-gray-900 transition-colors focus:border-secundario focus:outline-none ${
-              errors.email ? 'border-red-400' : 'border-gray-200'
-            }`}
+            className={`${inputBase} ${errors.email ? 'border-red-400' : 'border-gray-200'}`}
             required
           />
           {errors.email && (
@@ -81,7 +106,7 @@ export const ContactForm = ({ redesSociales }: ContactFormProps) => {
             type="tel"
             name="telefono"
             placeholder="Número de teléfono"
-            className="w-full rounded-lg border border-gray-200 px-4 py-3 text-gray-900 transition-colors focus:border-secundario focus:outline-none"
+            className={`${inputBase} border-gray-200`}
           />
         </div>
       </div>
@@ -90,9 +115,7 @@ export const ContactForm = ({ redesSociales }: ContactFormProps) => {
           type="text"
           name="asunto"
           placeholder="Asunto *"
-          className={`w-full rounded-lg border px-4 py-3 text-gray-900 transition-colors focus:border-secundario focus:outline-none ${
-            errors.asunto ? 'border-red-400' : 'border-gray-200'
-          }`}
+          className={`${inputBase} ${errors.asunto ? 'border-red-400' : 'border-gray-200'}`}
           required
         />
         {errors.asunto && (
@@ -103,17 +126,26 @@ export const ContactForm = ({ redesSociales }: ContactFormProps) => {
         <textarea
           name="mensaje"
           placeholder="Mensaje *"
-          className={`min-h-[120px] w-full rounded-lg border px-4 py-3 text-gray-900 transition-colors focus:border-secundario focus:outline-none ${
-            errors.mensaje ? 'border-red-400' : 'border-gray-200'
-          }`}
+          className={`${inputBase} min-h-[120px] ${errors.mensaje ? 'border-red-400' : 'border-gray-200'}`}
           required
         />
         {errors.mensaje && (
           <p className="mt-1 text-sm text-red-500">{errors.mensaje}</p>
         )}
       </div>
-      <Button type="submit" variant="primary" size="lg" className="w-full gap-2">
-        Enviar Mensaje
+      {serverError && (
+        <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
+          {serverError}
+        </p>
+      )}
+      <Button
+        type="submit"
+        variant="primary"
+        size="lg"
+        className="w-full gap-2"
+        disabled={isPending}
+      >
+        {isPending ? 'Enviando...' : 'Enviar Mensaje'}
         <Send className="h-4 w-4" />
       </Button>
       <SocialLinks redes={redesSociales} />
