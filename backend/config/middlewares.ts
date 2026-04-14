@@ -1,4 +1,4 @@
-export default [
+export default ({ env }) => [
   'strapi::logger',
   'strapi::errors',
   {
@@ -13,16 +13,18 @@ export default [
             'data:',
             'blob:',
             'market-assets.strapi.io',
-            't3.storageapi.dev',
-            '*.t3.storageapi.dev',
+            env('CF_PUBLIC_URL')
+              ? env('CF_PUBLIC_URL').replace(/^https?:\/\//, '')
+              : '',
           ],
           'media-src': [
             "'self'",
             'data:',
             'blob:',
             'market-assets.strapi.io',
-            't3.storageapi.dev',
-            '*.t3.storageapi.dev',
+            env('CF_PUBLIC_URL')
+              ? env('CF_PUBLIC_URL').replace(/^https?:\/\//, '')
+              : '',
           ],
           upgradeInsecureRequests: null,
         },

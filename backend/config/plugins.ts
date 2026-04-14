@@ -11,22 +11,16 @@ export default ({ env }) => ({
   },
   upload: {
     config: {
-      provider: "aws-s3",
+      provider: "strapi-provider-cloudflare-r2",
       providerOptions: {
-        s3Options: {
-          credentials: {
-            accessKeyId: env("AWS_ACCESS_KEY_ID"),
-            secretAccessKey: env("AWS_ACCESS_SECRET"),
-          },
-          region: env("AWS_REGION"),
-          endpoint: env("AWS_ENDPOINT"),
-          forcePathStyle: true,
-          params: {
-            ACL: env("AWS_ACL", "private"),
-            signedUrlExpires: env("AWS_SIGNED_URL_EXPIRES", 15 * 60),
-            Bucket: env("AWS_BUCKET"),
-          },
+        accessKeyId: env("CF_ACCESS_KEY_ID"),
+        secretAccessKey: env("CF_SECRET_ACCESS_KEY"),
+        endpoint: env("CF_ENDPOINT"),
+        params: {
+          Bucket: env("CF_BUCKET"),
         },
+        cloudflarePublicAccessUrl: env("CF_PUBLIC_URL"),
+        pool: false,
       },
       actionOptions: {
         upload: {},

@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 't3.storageapi.dev',
+        hostname: 'pub-b4dc89a0ffb742f7980aa9d5dd6ac8b5.r2.dev',
         port: '',
         pathname: '/**',
       },
