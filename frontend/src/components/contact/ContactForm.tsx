@@ -4,6 +4,11 @@ import { useState } from 'react';
 import { Send } from 'lucide-react';
 import { SocialLinks } from './SocialLinks';
 import { Button } from '@/components/shared/Button';
+import type { RedSocial } from '@/services/contacto/types';
+
+interface ContactFormProps {
+  redesSociales: RedSocial[];
+}
 
 interface FormErrors {
   email?: string;
@@ -11,7 +16,7 @@ interface FormErrors {
   mensaje?: string;
 }
 
-export const ContactForm = () => {
+export const ContactForm = ({ redesSociales }: ContactFormProps) => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
 
@@ -111,7 +116,7 @@ export const ContactForm = () => {
         Enviar Mensaje
         <Send className="h-4 w-4" />
       </Button>
-      <SocialLinks />
+      <SocialLinks redes={redesSociales} />
     </form>
   );
 };
