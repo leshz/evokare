@@ -5,6 +5,7 @@ import { Send } from 'lucide-react';
 import { SocialLinks } from './SocialLinks';
 import { Button } from '@/components/shared/Button';
 import { submitContactForm } from '@/services/contacto';
+import { trackGenerateLead } from '@/lib/analytics';
 import type { RedSocial } from '@/services/contacto/types';
 
 interface ContactFormProps {
@@ -48,6 +49,7 @@ export const ContactForm = ({ redesSociales }: ContactFormProps) => {
           asunto: formData.get('asunto') as string,
           mensaje: formData.get('mensaje') as string,
         });
+        trackGenerateLead();
         setSubmitted(true);
       } catch {
         setServerError('Hubo un problema al enviar tu mensaje. Por favor intenta de nuevo.');

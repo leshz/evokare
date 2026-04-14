@@ -2,7 +2,14 @@ import { PostHero } from '@/components/blogs/single/PostHero';
 import { PostContent } from '@/components/blogs/single/PostContent';
 import { PostSidebar } from '@/components/blogs/single/PostSidebar';
 import { extendedBlogs } from '@/components/blogs/single/PostData';
-import { getBlogBySlugService } from '@/services/blogs';
+import { getBlogBySlugService, getBlogsService } from '@/services/blogs';
+
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const { data } = await getBlogsService({ pageSize: 100 });
+  return data.map(blog => ({ slug: blog.slug }));
+}
 
 const SinglePostPage = async ({
   params,

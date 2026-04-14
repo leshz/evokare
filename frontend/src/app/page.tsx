@@ -3,6 +3,8 @@ import { getInicioService } from '@/services/inicio';
 import { renderSection } from '@/lib/component-factory';
 import { generateMetadataFromSEO } from '@/services/seo';
 
+export const dynamic = 'force-static';
+
 export async function generateMetadata(): Promise<Metadata> {
   const {
     data: { seo },

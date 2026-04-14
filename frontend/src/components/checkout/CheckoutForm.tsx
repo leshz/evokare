@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { useSyncExternalStore } from 'react';
 import { Formik, Form } from 'formik';
 import { Loader2 } from 'lucide-react';
-import { useCartStore } from '@/store';
+import { useCartStore, selectTotalPrice } from '@/store';
 import { processCheckout } from '@/services/checkout';
 import { checkoutSchema } from '@/lib/validations/checkout-schema';
+import { trackBeginCheckout, saveOrderSnapshot } from '@/lib/analytics';
 import { BillingFields } from './BillingFields';
 import { ShippingFields } from './ShippingFields';
 import type { CheckoutFormValues } from '@/services/checkout/types';
@@ -28,6 +29,7 @@ const initialValues: CheckoutFormValues = {
 
 export function CheckoutForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const checkoutTracked = useRef(false);
 
   const isHydrated = useSyncExternalStore(
     emptySubscribe,
@@ -36,7 +38,15 @@ export function CheckoutForm() {
   );
   const items = useCartStore(state => state.items);
   const clearCart = useCartStore(state => state.clearCart);
+  const totalPrice = useCartStore(selectTotalPrice);
   const hasItems = useMemo(() => items.length > 0, [items]);
+
+  useEffect(() => {
+    if (isHydrated && hasItems && !checkoutTracked.current) {
+      checkoutTracked.current = true;
+      trackBeginCheckout(items, totalPrice);
+    }
+  }, [isHydrated, hasItems, items, totalPrice]);
 
   const handleSubmit = async (values: CheckoutFormValues) => {
     setSubmitError(null);
@@ -69,6 +79,7 @@ export function CheckoutForm() {
 
       const response = await processCheckout(checkoutData);
 
+      saveOrderSnapshot(items, totalPrice);
       clearCart();
       window.location.href = response.init_point;
     } catch (error) {

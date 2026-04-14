@@ -1,9 +1,17 @@
+'use client';
+
+import { useEffect } from 'react';
 import type { ConfirmationData } from '@/types/confirmation';
 import { statusConfigs } from './status-config';
 import { StatusIcon } from './StatusIcon';
 import { StatusMessage } from './StatusMessage';
 import { OrderDetails } from './OrderDetails';
 import { ActionButtons } from './ActionButtons';
+import {
+  getOrderSnapshot,
+  clearOrderSnapshot,
+  trackPurchase,
+} from '@/lib/analytics';
 
 interface ConfirmationCardProps {
   data: ConfirmationData;
@@ -11,6 +19,16 @@ interface ConfirmationCardProps {
 
 export function ConfirmationCard({ data }: ConfirmationCardProps) {
   const config = statusConfigs[data.status];
+
+  useEffect(() => {
+    if (data.status === 'approved') {
+      const snapshot = getOrderSnapshot();
+      if (snapshot) {
+        trackPurchase(data.paymentId ?? data.orderId ?? 'unknown', snapshot);
+        clearOrderSnapshot();
+      }
+    }
+  }, [data.status, data.paymentId, data.orderId]);
 
   return (
     <div

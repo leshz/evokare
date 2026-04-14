@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Metadata } from 'next';
 import { Hind, Josefin_Sans, Spectral, Montserrat } from 'next/font/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ShoppingCart } from '@/components/products/ShoppingCart';
@@ -46,6 +47,9 @@ export default async function RootLayout({
           <Footer footer={footer} />
         </div>
         <ShoppingCart />
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
+        )}
       </body>
     </html>
   );

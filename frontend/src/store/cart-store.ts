@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Product } from '@/services/productos/types';
+import { trackRemoveFromCart } from '@/lib/analytics';
 
 export interface CartItem {
   id: number;
@@ -90,6 +91,8 @@ export const useCartStore = create<CartState & CartActions>()(
       },
 
       removeItem: (id: number) => {
+        const item = get().items.find(i => i.id === id);
+        if (item) trackRemoveFromCart(item);
         set({ items: get().items.filter(item => item.id !== id) });
       },
 

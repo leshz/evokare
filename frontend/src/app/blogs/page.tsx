@@ -2,8 +2,9 @@ import { BlogHero } from '@/components/blogs/BlogHero';
 import { BlogGrid } from '@/components/blogs/BlogGrid';
 import { PAGINATION_PAGE_SIZE } from '@/constants';
 import { getBlogsService } from '@/services/blogs';
-
 import { Pagination } from '@/components/shared/Pagination';
+
+export const revalidate = 3600;
 
 interface BlogsPageProps {
   searchParams: Promise<{ page?: string }>;

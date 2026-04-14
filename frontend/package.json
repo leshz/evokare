@@ -10,6 +10,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@next/third-parties": "^16.2.3",
     "@strapi/blocks-react-renderer": "1.0.2",
     "embla-carousel-react": "8.6.0",
     "formik": "2.4.9",

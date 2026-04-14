@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Product } from '@/services/productos/types';
 import { formatCOP } from '@/helpers/currency';
 import { useCartStore } from '@/store';
+import { trackViewItem, trackAddToCart } from '@/lib/analytics';
 
 interface ProductInfoProps {
   product: Product;
@@ -15,6 +16,10 @@ export function ProductInfo({ product }: ProductInfoProps) {
   const addItem = useCartStore(state => state.addItem);
   const setIsOpen = useCartStore(state => state.setIsOpen);
 
+  useEffect(() => {
+    trackViewItem(product);
+  }, [product]);
+
   const handleQuantityChange = (increment: boolean) => {
     if (increment) {
       setQuantity(prev => prev + 1);
@@ -25,6 +30,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
 
   const handleAddToCart = () => {
     addItem(product, quantity);
+    trackAddToCart(product, quantity);
     setIsOpen(true);
     setQuantity(1);
   };
