@@ -1,8 +1,10 @@
+import type { Metadata } from 'next';
 import { ProductGallery } from '@/components/product-overview/ProductGallery';
 import { ProductInfo } from '@/components/product-overview/ProductInfo';
 import { ProductInformation } from '@/components/product-overview/ProductInformation';
 // import { RelatedProducts } from '@/components/product-overview/RelatedProducts';
 import { getProductBySlugService, getProductsService } from '@/services/productos';
+import { getProductSchema, getBreadcrumbSchema } from '@/lib/structured-data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AlertCircle } from 'lucide-react';
@@ -12,6 +14,48 @@ export const revalidate = 300;
 export async function generateStaticParams() {
   const { data } = await getProductsService(undefined, 100);
   return data.map(product => ({ slug: product.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const { data: product } = await getProductBySlugService(slug);
+    return {
+      title: product.name,
+      description: product.short_description,
+      openGraph: {
+        title: product.name,
+        description: product.short_description,
+        type: 'website',
+        ...(product.pictures?.[0]?.url
+          ? {
+              images: [
+                {
+                  url: product.pictures[0].url,
+                  width: product.pictures[0].width,
+                  height: product.pictures[0].height,
+                  alt: product.pictures[0].alternativeText ?? product.name,
+                },
+              ],
+            }
+          : {}),
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: product.name,
+        description: product.short_description,
+        ...(product.pictures?.[0]?.url
+          ? { images: [product.pictures[0].url] }
+          : {}),
+      },
+    };
+  } catch {
+    return { title: 'Producto' };
+  }
 }
 
 export default async function ProductOverview({
@@ -53,9 +97,23 @@ export default async function ProductOverview({
   }
 
   const primaryCategory = product.categories?.[0]?.slug;
+  const productJsonLd = getProductSchema(product);
+  const breadcrumbJsonLd = getBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Productos', url: '/productos' },
+    { name: product.name },
+  ]);
 
   return (
     <div className="bg-principal min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <nav className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex min-w-0 items-center gap-2 text-sm">

@@ -1,13 +1,30 @@
+import type { Metadata } from 'next';
 import {
   getProductosContentService,
   getProductsService,
   getCategoriesService,
 } from '@/services/productos';
 import { renderSection } from '@/lib/component-factory';
+import { generateMetadataFromSEO } from '@/services/seo';
 import { AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
+
+export async function generateMetadata(): Promise<Metadata> {
+  try {
+    const { data } = await getProductosContentService();
+    if (data?.seo) {
+      return generateMetadataFromSEO(data.seo);
+    }
+  } catch {
+    // fall through to default
+  }
+  return {
+    title: 'Productos',
+    description: 'Explora nuestra selección de productos para el bienestar mental y emocional.',
+  };
+}
 
 interface ProductosPageProps {
   searchParams: Promise<{ categoria?: string }>;
