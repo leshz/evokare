@@ -10,7 +10,7 @@ export function getBlogPostingSchema(blog: BlogData) {
     headline: blog.titulo,
     description: blog.introduccion,
     image: blog.media?.[0]?.url ?? undefined,
-    datePublished: blog.publishedAt,
+    datePublished: blog.publishedAt ?? blog.createdAt,
     dateModified: blog.updatedAt,
     url: `${BASE_URL}/blogs/${blog.slug}`,
     author: {
