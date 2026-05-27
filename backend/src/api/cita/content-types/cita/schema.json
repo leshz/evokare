@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "citas",
+  "info": {
+    "singularName": "cita",
+    "pluralName": "citas",
+    "displayName": "Cita",
+    "description": "Solicitudes de agendamiento de citas"
+  },
+  "options": { "draftAndPublish": false },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre":    { "type": "string", "required": true },
+    "correo":    { "type": "email",  "required": true },
+    "telefono":  { "type": "string", "required": true },
+    "modalidad": { "type": "enumeration", "enum": ["virtual", "presencial"], "required": true },
+    "dia":       { "type": "enumeration", "enum": ["lunes","martes","miercoles","jueves","viernes","sabado"], "required": true }
+  }
+}
