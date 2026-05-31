@@ -8,6 +8,7 @@ import { getProductSchema, getBreadcrumbSchema } from '@/lib/structured-data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AlertCircle } from 'lucide-react';
+import { FEATURE_FLAGS } from '@/constants/feature-flags';
 
 export const revalidate = 300;
 
@@ -63,6 +64,8 @@ export default async function ProductOverview({
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  if (!FEATURE_FLAGS.CART) notFound();
+
   const { slug } = await params;
 
   let product;

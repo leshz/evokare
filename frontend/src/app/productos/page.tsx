@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import {
   getProductosContentService,
   getProductsService,
@@ -8,6 +9,7 @@ import { renderSection } from '@/lib/component-factory';
 import { generateMetadataFromSEO } from '@/services/seo';
 import { AlertCircle } from 'lucide-react';
 import Link from 'next/link';
+import { FEATURE_FLAGS } from '@/constants/feature-flags';
 
 export const revalidate = 300;
 
@@ -33,6 +35,8 @@ interface ProductosPageProps {
 export default async function ProductosPage({
   searchParams,
 }: ProductosPageProps) {
+  if (!FEATURE_FLAGS.CART) notFound();
+
   const { categoria } = await searchParams;
 
   let secciones: Awaited<

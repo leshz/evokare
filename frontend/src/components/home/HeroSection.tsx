@@ -43,7 +43,7 @@ export function HeroSection({ data }: HeroSectionProps) {
     if (!emblaApi) return;
     const interval = setInterval(() => {
       emblaApi.scrollNext();
-    }, 5000);
+    }, 7000);
     return () => clearInterval(interval);
   }, [emblaApi]);
 

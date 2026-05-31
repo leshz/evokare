@@ -6,6 +6,7 @@ import { ShoppingCart, X, Menu } from 'lucide-react';
 import { menuMapping } from '@/helpers/menu-mapping';
 import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
 import { useCartStore } from '@/store';
+import { FEATURE_FLAGS } from '@/constants/feature-flags';
 
 import Link from 'next/link';
 
@@ -86,32 +87,36 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
                 </Link>
               );
             })}
-            <button
-              onClick={() => setIsOpen(true)}
-              className="text-gray-700 hover:text-secundario relative transition-colors"
-              aria-label="Carrito de compras"
-            >
-              <ShoppingCart className="h-6 w-6" />
-              {itemCount > 0 && (
-                <span className="bg-secundario absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold text-white">
-                  {itemCount}
-                </span>
-              )}
-            </button>
+            {FEATURE_FLAGS.CART && (
+              <button
+                onClick={() => setIsOpen(true)}
+                className="text-gray-700 hover:text-secundario relative transition-colors"
+                aria-label="Carrito de compras"
+              >
+                <ShoppingCart className="h-6 w-6" />
+                {itemCount > 0 && (
+                  <span className="bg-secundario absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold text-white">
+                    {itemCount}
+                  </span>
+                )}
+              </button>
+            )}
           </nav>
           <div className="flex items-center gap-3 md:hidden">
-            <button
-              onClick={() => setIsOpen(true)}
-              className="text-gray-700 hover:text-secundario relative transition-colors"
-              aria-label="Carrito de compras"
-            >
-              <ShoppingCart className="h-6 w-6" />
-              {itemCount > 0 && (
-                <span className="bg-secundario absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold text-white">
-                  {itemCount}
-                </span>
-              )}
-            </button>
+            {FEATURE_FLAGS.CART && (
+              <button
+                onClick={() => setIsOpen(true)}
+                className="text-gray-700 hover:text-secundario relative transition-colors"
+                aria-label="Carrito de compras"
+              >
+                <ShoppingCart className="h-6 w-6" />
+                {itemCount > 0 && (
+                  <span className="bg-secundario absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full text-xs font-bold text-white">
+                    {itemCount}
+                  </span>
+                )}
+              </button>
+            )}
             <button
               onClick={toggleMenu}
               className="hover:text-secundario flex items-center text-gray-700 transition-colors"
