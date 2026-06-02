@@ -10,8 +10,9 @@ import { generateMetadataFromSEO } from '@/services/seo';
 import { AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { FEATURE_FLAGS } from '@/constants/feature-flags';
+import { isCacheDisabled } from '@/lib/cache-config';
 
-export const revalidate = 300;
+export const revalidate = isCacheDisabled() ? 0 : 300;
 
 export async function generateMetadata(): Promise<Metadata> {
   try {

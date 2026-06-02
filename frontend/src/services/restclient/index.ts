@@ -7,6 +7,7 @@ import {
   CollectionQueryParams,
 } from './types';
 import { DEFAULT_TIMEOUT } from '@/constants';
+import { cacheConfig } from '@/lib/cache-config';
 
 class ApiError extends Error {
   constructor(
@@ -45,6 +46,7 @@ export const get = async <T = unknown>(
 
   try {
     const response = await fetch(fullUrl, {
+      ...cacheConfig(),
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -123,6 +125,7 @@ export const getCollections = async <T = unknown>(
 
   try {
     const response = await fetch(fullUrl, {
+      ...cacheConfig(),
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

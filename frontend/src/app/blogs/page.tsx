@@ -4,8 +4,9 @@ import { BlogGrid } from '@/components/blogs/BlogGrid';
 import { PAGINATION_PAGE_SIZE } from '@/constants';
 import { getBlogsService } from '@/services/blogs';
 import { Pagination } from '@/components/shared/Pagination';
+import { isCacheDisabled } from '@/lib/cache-config';
 
-export const revalidate = 3600;
+export const revalidate = isCacheDisabled() ? 0 : 3600;
 
 export const metadata: Metadata = {
   title: 'Blog — Bienestar Mental y Emocional',
