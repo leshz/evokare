@@ -3,9 +3,7 @@ import { ContactInfo } from '@/components/contact/ContactInfo';
 import { ContactForm } from '@/components/contact/ContactForm';
 import { getContactoService } from '@/services/contacto';
 import { generateMetadataFromSEO } from '@/services/seo';
-import { isCacheDisabled } from '@/lib/cache-config';
-
-export const dynamic = isCacheDisabled() ? 'force-dynamic' : 'force-static';
+export const dynamic = 'force-static';
 
 export async function generateMetadata(): Promise<Metadata> {
   try {

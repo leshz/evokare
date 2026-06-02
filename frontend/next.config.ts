@@ -1,6 +1,13 @@
 import type { NextConfig } from 'next';
 
+const cacheDisabled = process.env.CACHE_DISABLED === 'true';
+
 const nextConfig: NextConfig = {
+  ...(cacheDisabled && {
+    experimental: {
+      staleTimes: { dynamic: 0, static: 0 },
+    },
+  }),
   images: {
     unoptimized: true,
     remotePatterns: [

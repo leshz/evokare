@@ -6,9 +6,7 @@ import { extendedBlogs } from '@/components/blogs/single/PostData';
 import { getBlogBySlugService, getBlogsService } from '@/services/blogs';
 import { generateMetadataFromSEO } from '@/services/seo';
 import { getBlogPostingSchema } from '@/lib/structured-data';
-import { isCacheDisabled } from '@/lib/cache-config';
-
-export const revalidate = isCacheDisabled() ? 0 : 3600;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const { data } = await getBlogsService({ pageSize: 100 });
