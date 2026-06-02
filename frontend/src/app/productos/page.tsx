@@ -10,7 +10,8 @@ import { generateMetadataFromSEO } from '@/services/seo';
 import { AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 import { FEATURE_FLAGS } from '@/constants/feature-flags';
-export const revalidate = 300;
+
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
   try {

@@ -9,7 +9,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AlertCircle } from 'lucide-react';
 import { FEATURE_FLAGS } from '@/constants/feature-flags';
-export const revalidate = 300;
+
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const { data } = await getProductsService(undefined, 100);

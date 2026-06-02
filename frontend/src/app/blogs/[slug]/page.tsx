@@ -6,7 +6,8 @@ import { extendedBlogs } from '@/components/blogs/single/PostData';
 import { getBlogBySlugService, getBlogsService } from '@/services/blogs';
 import { generateMetadataFromSEO } from '@/services/seo';
 import { getBlogPostingSchema } from '@/lib/structured-data';
-export const revalidate = 3600;
+
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const { data } = await getBlogsService({ pageSize: 100 });
