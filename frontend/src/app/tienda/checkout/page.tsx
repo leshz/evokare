@@ -1,6 +1,13 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { CheckoutForm, OrderSummary } from '@/components/checkout';
 import { ShoppingCart } from '@/components/products/ShoppingCart';
+
+export const metadata: Metadata = {
+  title: 'Finalizar compra',
+  description: 'Completa tu información de pago y envío para finalizar tu compra.',
+  robots: { index: false },
+};
 
 export default function CheckoutPage() {
   return (

@@ -1,39 +1,80 @@
 import type { MetadataRoute } from 'next';
 import { getBlogsService } from '@/services/blogs';
 import { getProductsService } from '@/services/productos';
+import { SITE_URL } from '@/lib/site';
+import type { BlogData } from '@/services/blogs/types';
+import type { Product } from '@/services/productos/types';
 
 export const dynamic = 'force-dynamic';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://elisahorta.com';
+const SITEMAP_PAGE_SIZE = 100;
 
+async function fetchAllBlogs(): Promise<BlogData[]> {
+  const all: BlogData[] = [];
+  let page = 1;
+
+  while (true) {
+    const response = await getBlogsService({ page, pageSize: SITEMAP_PAGE_SIZE });
+    all.push(...(response.data ?? []));
+
+    const pageCount = response.meta?.pagination?.pageCount ?? 1;
+    if (page >= pageCount) break;
+    page++;
+  }
+
+  return all;
+}
+
+async function fetchAllProducts(): Promise<Product[]> {
+  const all: Product[] = [];
+  let page = 1;
+
+  while (true) {
+    const response = await getProductsService(page, SITEMAP_PAGE_SIZE);
+    all.push(...(response.data ?? []));
+
+    const pageCount = response.meta?.pagination?.pageCount ?? 1;
+    if (page >= pageCount) break;
+    page++;
+  }
+
+  return all;
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
+      url: SITE_URL,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/nosotros`,
+      url: `${SITE_URL}/acerca-de-mi`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/contacto`,
+      url: `${SITE_URL}/agendar`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
-      url: `${baseUrl}/blogs`,
+      url: `${SITE_URL}/contacto`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.6,
+    },
+    {
+      url: `${SITE_URL}/blogs`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/productos`,
+      url: `${SITE_URL}/productos`,
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 0.9,
@@ -42,9 +83,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let blogRoutes: MetadataRoute.Sitemap = [];
   try {
-    const blogsResponse = await getBlogsService({ pageSize: 100 });
-    blogRoutes = (blogsResponse.data ?? []).map((blog) => ({
-      url: `${baseUrl}/blogs/${blog.slug}`,
+    const blogs = await fetchAllBlogs();
+    blogRoutes = blogs.map((blog) => ({
+      url: `${SITE_URL}/blogs/${blog.slug}`,
       lastModified: new Date(blog.updatedAt),
       changeFrequency: 'weekly' as const,
       priority: 0.7,
@@ -55,10 +96,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   let productRoutes: MetadataRoute.Sitemap = [];
   try {
-    const productsResponse = await getProductsService(undefined, 100);
-    productRoutes = (productsResponse.data ?? []).map((product) => ({
-      url: `${baseUrl}/productos/${product.slug}`,
-      lastModified: new Date(),
+    const products = await fetchAllProducts();
+    productRoutes = products.map((product) => ({
+      url: `${SITE_URL}/productos/${product.slug}`,
+      lastModified: product.updatedAt ? new Date(product.updatedAt) : new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     }));

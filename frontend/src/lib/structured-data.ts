@@ -1,7 +1,6 @@
 import { Product } from '@/services/productos/types';
 import { BlogData } from '@/services/blogs/types';
-
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://evokare.com';
+import { SITE_URL } from './site';
 
 export function getBlogPostingSchema(blog: BlogData) {
   return {
@@ -12,16 +11,16 @@ export function getBlogPostingSchema(blog: BlogData) {
     image: blog.media?.[0]?.url ?? undefined,
     datePublished: blog.publishedAt ?? blog.createdAt,
     dateModified: blog.updatedAt,
-    url: `${BASE_URL}/blogs/${blog.slug}`,
+    url: `${SITE_URL}/blogs/${blog.slug}`,
     author: {
       '@type': 'Organization',
       name: 'Evokare',
-      url: BASE_URL,
+      url: SITE_URL,
     },
     publisher: {
       '@type': 'Organization',
       name: 'Evokare',
-      url: BASE_URL,
+      url: SITE_URL,
     },
   };
 }
@@ -44,13 +43,13 @@ export function getProductSchema(product: Product) {
     description: product.short_description,
     image: product.pictures?.[0]?.url ?? undefined,
     sku: product.sku,
-    url: `${BASE_URL}/productos/${product.slug}`,
+    url: `${SITE_URL}/productos/${product.slug}`,
     offers: {
       '@type': 'Offer',
       price: price,
-      priceCurrency: 'MXN',
+      priceCurrency: 'COP',
       availability,
-      url: `${BASE_URL}/productos/${product.slug}`,
+      url: `${SITE_URL}/productos/${product.slug}`,
     },
   };
 }
@@ -65,7 +64,7 @@ export function getBreadcrumbSchema(
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      ...(item.url ? { item: `${BASE_URL}${item.url}` } : {}),
+      ...(item.url ? { item: `${SITE_URL}${item.url}` } : {}),
     })),
   };
 }

@@ -5,7 +5,9 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ShoppingCart } from '@/components/products/ShoppingCart';
 import { getGeneralService } from '@/services/general';
-import { generateMetadataFromSEO } from '../services/seo';
+import { generateMetadataFromSEO, getStructuredData } from '../services/seo';
+import { SITE_URL } from '@/lib/site';
+import { JsonLd } from '@/components/shared/JsonLd';
 
 import './globals.css';
 
@@ -25,7 +27,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const {
     data: { seo },
   } = await getGeneralService();
-  return generateMetadataFromSEO(seo);
+  return {
+    ...generateMetadataFromSEO(seo),
+    metadataBase: new URL(SITE_URL),
+  };
 }
 
 export default async function RootLayout({
@@ -34,12 +39,15 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const {
-    data: { pie_de_pagina: footer, navegacion: topbar, menu },
+    data: { pie_de_pagina: footer, navegacion: topbar, menu, seo },
   } = await getGeneralService();
+
+  const structuredData = getStructuredData(seo);
 
   return (
     <html lang="es">
       <body className={`${primary.variable} ${secondary.variable} antialiased`} suppressHydrationWarning>
+        {structuredData && <JsonLd data={structuredData} />}
         <Header content={topbar} menu={menu} />
         {children}
         <div className="bg-surface-soft">

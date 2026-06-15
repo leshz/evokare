@@ -91,13 +91,6 @@ export const generateMetadataFromSEO = (seo: SEO | null): Metadata => {
       };
     }
 
-    // Add structured data if available
-    if (seo.structuredData && Object.keys(seo.structuredData).length > 0) {
-      metadata.other = {
-        'application/ld+json': JSON.stringify(seo.structuredData),
-      };
-    }
-
     return metadata;
   } catch (error) {
     console.error('Error fetching SEO metadata:', error);
@@ -108,4 +101,11 @@ export const generateMetadataFromSEO = (seo: SEO | null): Metadata => {
         'Te ayudamos a reconectar con tu verdadero ser a través de apoyo profesional en salud mental y sesiones de terapia personalizadas.',
     };
   }
+};
+
+export const getStructuredData = (seo: SEO | null): object | null => {
+  if (seo?.structuredData && Object.keys(seo.structuredData).length > 0) {
+    return seo.structuredData;
+  }
+  return null;
 };

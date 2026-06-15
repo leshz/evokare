@@ -6,6 +6,7 @@ import { extendedBlogs } from '@/components/blogs/single/PostData';
 import { getBlogBySlugService, getBlogsService } from '@/services/blogs';
 import { generateMetadataFromSEO } from '@/services/seo';
 import { getBlogPostingSchema } from '@/lib/structured-data';
+import { JsonLd } from '@/components/shared/JsonLd';
 
 export const dynamic = 'force-dynamic';
 
@@ -70,10 +71,7 @@ const SinglePostPage = async ({
 
   return (
     <main className="bg-principal min-h-screen pb-20">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <section className="mx-auto max-w-7xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
         <PostHero title={titulo} media={media} />
         <div className="grid items-start gap-8 md:grid-cols-3">

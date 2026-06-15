@@ -13,11 +13,26 @@ import { FEATURE_FLAGS } from '@/constants/feature-flags';
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata(): Promise<Metadata> {
+interface ProductosPageProps {
+  searchParams: Promise<{ categoria?: string }>;
+}
+
+export async function generateMetadata({
+  searchParams,
+}: ProductosPageProps): Promise<Metadata> {
+  const { categoria } = await searchParams;
+  const canonical =
+    categoria && categoria !== 'todos'
+      ? `/productos?categoria=${categoria}`
+      : '/productos';
+
   try {
     const { data } = await getProductosContentService();
     if (data?.seo) {
-      return generateMetadataFromSEO(data.seo);
+      return {
+        ...generateMetadataFromSEO(data.seo),
+        alternates: { canonical },
+      };
     }
   } catch {
     // fall through to default
@@ -25,11 +40,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Productos',
     description: 'Explora nuestra selección de productos para el bienestar mental y emocional.',
+    alternates: { canonical },
   };
-}
-
-interface ProductosPageProps {
-  searchParams: Promise<{ categoria?: string }>;
 }
 
 export default async function ProductosPage({
