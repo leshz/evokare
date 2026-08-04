@@ -1,4 +1,3 @@
-import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Blog } from '../BlogData';
 
@@ -9,10 +8,11 @@ interface PostSidebarProps {
 
 export const PostSidebar = ({ currentSlug, blogs }: PostSidebarProps) => {
   const related = blogs.filter(b => b.slug !== currentSlug).slice(0, 3);
+  void related;
 
   return (
     <aside className="space-y-8">
-      <div className="rounded-2xl bg-white p-6 shadow-sm">
+      {/* <div className="rounded-2xl bg-white p-6 shadow-sm">
         <h3 className="text-text-primary mb-4 text-sm font-semibold uppercase tracking-wide">
           Artículos relacionados
         </h3>
@@ -37,7 +37,7 @@ export const PostSidebar = ({ currentSlug, blogs }: PostSidebarProps) => {
             </li>
           ))}
         </ol>
-      </div>
+      </div> */}
 
       <div className="bg-secundario flex flex-col items-center justify-center rounded-2xl p-6 text-center text-white">
         <div className="mb-1 text-sm text-white/80">

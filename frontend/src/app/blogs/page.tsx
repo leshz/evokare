@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { BlogHero } from '@/components/blogs/BlogHero';
 import { BlogGrid } from '@/components/blogs/BlogGrid';
@@ -43,7 +44,9 @@ export default async function BlogsPage({ searchParams }: BlogsPageProps) {
           <BlogGrid blogs={data} />
         </div>
         <div className="mt-12">
-          <Pagination meta={meta} />
+          <Suspense fallback={null}>
+            <Pagination meta={meta} />
+          </Suspense>
         </div>
       </section>
     </main>
