@@ -3,7 +3,7 @@ import { ProductGallery } from '@/components/product-overview/ProductGallery';
 import { ProductInfo } from '@/components/product-overview/ProductInfo';
 import { ProductInformation } from '@/components/product-overview/ProductInformation';
 // import { RelatedProducts } from '@/components/product-overview/RelatedProducts';
-import { getProductBySlugService, getProductsService } from '@/services/productos';
+import { getProductBySlugService } from '@/services/productos';
 import { getProductSchema, getBreadcrumbSchema } from '@/lib/structured-data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -11,11 +11,6 @@ import { AlertCircle } from 'lucide-react';
 import { FEATURE_FLAGS } from '@/constants/feature-flags';
 
 export const dynamic = 'force-dynamic';
-
-export async function generateStaticParams() {
-  const { data } = await getProductsService(undefined, 100);
-  return data.map(product => ({ slug: product.slug }));
-}
 
 export async function generateMetadata({
   params,

@@ -4,7 +4,7 @@ import { useState, useTransition } from 'react';
 import { Send } from 'lucide-react';
 import { SocialLinks } from './SocialLinks';
 import { Button } from '@/components/shared/Button';
-import { submitContactForm } from '@/services/contacto';
+import { submitContactForm } from '@/services/contacto/actions';
 import { trackGenerateLead } from '@/lib/analytics';
 import type { RedSocial } from '@/services/contacto/types';
 

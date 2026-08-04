@@ -3,16 +3,11 @@ import { PostHero } from '@/components/blogs/single/PostHero';
 import { PostContent } from '@/components/blogs/single/PostContent';
 import { PostSidebar } from '@/components/blogs/single/PostSidebar';
 import { extendedBlogs } from '@/components/blogs/single/PostData';
-import { getBlogBySlugService, getBlogsService } from '@/services/blogs';
+import { getBlogBySlugService } from '@/services/blogs';
 import { generateMetadataFromSEO } from '@/services/seo';
 import { getBlogPostingSchema } from '@/lib/structured-data';
 
 export const dynamic = 'force-dynamic';
-
-export async function generateStaticParams() {
-  const { data } = await getBlogsService({ pageSize: 100 });
-  return data.map(blog => ({ slug: blog.slug }));
-}
 
 export async function generateMetadata({
   params,
