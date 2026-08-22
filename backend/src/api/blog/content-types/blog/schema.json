@@ -66,8 +66,9 @@
     },
     "etiquetas": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::etiqueta.etiqueta"
+      "relation": "manyToMany",
+      "target": "api::etiqueta.etiqueta",
+      "inversedBy": "blogs"
     },
     "seo": {
       "type": "component",

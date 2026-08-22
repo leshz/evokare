@@ -2,8 +2,7 @@ import type { Metadata } from 'next';
 import { PostHero } from '@/components/blogs/single/PostHero';
 import { PostContent } from '@/components/blogs/single/PostContent';
 import { PostSidebar } from '@/components/blogs/single/PostSidebar';
-import { extendedBlogs } from '@/components/blogs/single/PostData';
-import { getBlogBySlugService } from '@/services/blogs';
+import { getBlogBySlugService, getRelatedBlogsService } from '@/services/blogs';
 import { generateMetadataFromSEO } from '@/services/seo';
 import { getBlogPostingSchema } from '@/lib/structured-data';
 
@@ -60,6 +59,12 @@ const SinglePostPage = async ({
   const { slug } = await params;
   const { data } = await getBlogBySlugService(slug);
 
+  const slugsEtiquetas = data.etiquetas?.map(etiqueta => etiqueta.slug) ?? [];
+  const { data: relacionados } = await getRelatedBlogsService({
+    slugsEtiquetas,
+    slugActual: slug,
+  });
+
   const { articulo, media, titulo } = data;
   const jsonLd = getBlogPostingSchema(data);
 
@@ -74,7 +79,7 @@ const SinglePostPage = async ({
         <div className="grid items-start gap-8 md:grid-cols-3">
           <PostContent articulo={articulo} />
           <div>
-            <PostSidebar currentSlug={slug} blogs={extendedBlogs} />
+            <PostSidebar relacionados={relacionados} />
           </div>
         </div>
       </section>
