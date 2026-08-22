@@ -1,5 +1,7 @@
 export const PAGINATION_PAGE_SIZE = 6 as const;
 
+export const RELATED_POSTS_LIMIT = 3 as const;
+
 export const DEFAULT_TIMEOUT = 10000 as const;
 
 export const STRAPI_API_PATHS = {

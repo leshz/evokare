@@ -520,7 +520,7 @@ export interface SharedSeo extends Struct.ComponentSchema {
 }
 
 declare module '@strapi/strapi' {
-  export module Public {
+  export namespace Public {
     export interface ComponentSchemas {
       'contacto.red-social': ContactoRedSocial;
       'general.barra-de-navegacion': GeneralBarraDeNavegacion;

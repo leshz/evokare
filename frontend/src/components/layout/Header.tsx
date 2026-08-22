@@ -74,8 +74,8 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
             {menuContent.map(({ id, link, texto, boton }) => {
               const active = isActive(link);
               const buttonClassNames =
-                'bg-secundario hover:bg-secundario-light capitalize rounded-full px-4 py-2 text-white font-medium transition-all';
-              const linkClassNames = `transition-colors capitalize ${
+                'bg-secundario hover:bg-secundario-light rounded-full px-4 py-2 text-white font-medium transition-all';
+              const linkClassNames = `transition-colors ${
                 active
                   ? 'text-secundario font-semibold'
                   : 'text-gray-700 hover:text-secundario'
@@ -156,7 +156,7 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
                 key={id}
                 href={link}
                 onClick={closeMenu}
-                className={`border-b border-gray-100 py-3 capitalize transition-colors ${
+                className={`border-b border-gray-100 py-3 transition-colors ${
                   active
                     ? 'text-secundario font-semibold'
                     : 'text-gray-700 hover:text-secundario'
