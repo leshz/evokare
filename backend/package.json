@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "@strapi-community/plugin-seo": "^2.1.1",
-    "@strapi/plugin-users-permissions": "5.51.0",
-    "@strapi/strapi": "5.51.0",
+    "@strapi/plugin-users-permissions": "5.52.1",
+    "@strapi/strapi": "5.52.1",
     "install": "^0.13.0",
     "npm": "^12.0.1",
     "pg": "^8.16.2",
