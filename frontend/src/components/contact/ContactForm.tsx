@@ -59,7 +59,7 @@ export const ContactForm = ({ redesSociales }: ContactFormProps) => {
 
   if (submitted) {
     return (
-      <div className="mx-auto w-full max-w-lg rounded-2xl bg-white p-8 text-center shadow-md">
+      <div className="mx-auto w-full max-w-lg rounded-2xl bg-white p-6 text-center shadow-md sm:p-8">
         <div className="bg-secundario/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
           <Send className="text-secundario h-8 w-8" />
         </div>
@@ -76,7 +76,7 @@ export const ContactForm = ({ redesSociales }: ContactFormProps) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="mx-auto w-full max-w-lg space-y-6 rounded-2xl bg-white p-8 shadow-md"
+      className="mx-auto w-full max-w-lg space-y-5 rounded-2xl bg-white p-6 shadow-md sm:space-y-6 sm:p-8"
       noValidate
     >
       <div className="text-text-primary mb-2 text-lg font-semibold">
