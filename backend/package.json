@@ -30,6 +30,7 @@
     "strapi-mercadopago": "https://github.com/leshz/mercadopago-strapi.git#main",
     "strapi-plugin-populate-all": "^1.2.3",
     "strapi-provider-cloudflare-r2": "^0.3.0",
+    "strapi-provider-email-resend": "^1.0.4",
     "styled-components": "^6.0.0"
   },
   "devDependencies": {

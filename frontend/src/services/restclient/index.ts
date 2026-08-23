@@ -48,7 +48,7 @@ export const get = async <T = unknown>(
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer  ${token}`,
+        Authorization: `Bearer ${token}`,
         ...config.headers,
       },
       signal: controller.signal,
@@ -126,7 +126,7 @@ export const getCollections = async <T = unknown>(
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer  ${token}`,
+        Authorization: `Bearer ${token}`,
         ...config.headers,
       },
       signal: controller.signal,
@@ -166,7 +166,7 @@ export const post = async <T = unknown>(
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer  ${token}`,
+      Authorization: `Bearer ${token}`,
       ...config.headers,
     },
     body: JSON.stringify(body),
