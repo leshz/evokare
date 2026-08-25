@@ -4,6 +4,7 @@ import { BlogHero } from '@/components/blogs/BlogHero';
 import { BlogGrid } from '@/components/blogs/BlogGrid';
 import { PAGINATION_PAGE_SIZE } from '@/constants';
 import { getBlogsService } from '@/services/blogs';
+import { DEFAULT_OG_IMAGE } from '@/services/seo';
 import { Pagination } from '@/components/shared/Pagination';
 
 export const dynamic = 'force-dynamic';
@@ -33,11 +34,13 @@ export async function generateMetadata({
       description: BLOG_DESCRIPTION,
       type: 'website',
       url: canonical,
+      images: [DEFAULT_OG_IMAGE],
     },
     twitter: {
       card: 'summary_large_image',
       title: BLOG_TITLE,
       description: BLOG_DESCRIPTION,
+      images: [DEFAULT_OG_IMAGE.url],
     },
   };
 }
