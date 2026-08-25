@@ -86,7 +86,6 @@ export const generateMetadataFromSEO = (seo: SEO | null): Metadata => {
     const metadata: Metadata = {
       title: resolveTitle(seo.metaTitle),
       description: seo.metaDescription,
-      keywords: seo.keywords ?? undefined,
       robots: seo.metaRobots ?? undefined,
       ...(seo.canonicalURL
         ? { alternates: { canonical: toCanonicalOrigin(seo.canonicalURL) } }
