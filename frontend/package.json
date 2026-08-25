@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "CMS_BUILD_FETCH=fresh next build",
+    "build": "rm -rf .next/cache && next build",
     "start": "next start",
     "lint": "eslint .",
     "prepare": "husky"
