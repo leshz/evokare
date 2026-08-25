@@ -14,10 +14,11 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
       title: 'Inicio',
       description: 'Bienvenido a nuestra plataforma de bienestar mental',
+      alternates: { canonical: '/' },
     };
   }
 
-  return generateMetadataFromSEO(seo);
+  return { alternates: { canonical: '/' }, ...generateMetadataFromSEO(seo) };
 }
 
 export default async function Home() {

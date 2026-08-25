@@ -3,9 +3,10 @@ import { SectionHeader } from '@/components/shared/SectionHeader';
 import { AgendarForm } from '@/components/agendar/AgendarForm';
 
 export const metadata: Metadata = {
-  title: 'Agendar Cita | Evokare',
+  title: 'Agendar Cita',
   description:
     'Agenda tu cita con nuestros especialistas en salud mental y bienestar. Elige la modalidad y el día que mejor se adapte a ti.',
+  alternates: { canonical: '/agendar' },
 };
 
 export default function AgendarPage() {

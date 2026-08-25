@@ -10,7 +10,10 @@ export async function generateMetadata(): Promise<Metadata> {
   try {
     const { data } = await getContactoService();
     if (data?.seo) {
-      return generateMetadataFromSEO(data.seo);
+      return {
+        alternates: { canonical: '/contacto' },
+        ...generateMetadataFromSEO(data.seo),
+      };
     }
   } catch {
     // fall through to default
@@ -18,6 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'Contacto',
     description: 'Contáctanos y te responderemos lo antes posible.',
+    alternates: { canonical: '/contacto' },
   };
 }
 

@@ -9,6 +9,7 @@ import {
 } from '@/services/blogs';
 import { generateMetadataFromSEO } from '@/services/seo';
 import { getBlogPostingSchema } from '@/lib/structured-data';
+import { JsonLd } from '@/components/shared/JsonLd';
 
 export const dynamic = 'force-static';
 
@@ -31,11 +32,13 @@ export async function generateMetadata({
   const { slug } = await params;
   try {
     const { data } = await getBlogBySlugService(slug);
+    const canonical = `/blogs/${slug}`;
     if (data.seo) {
-      return generateMetadataFromSEO(data.seo);
+      return { alternates: { canonical }, ...generateMetadataFromSEO(data.seo) };
     }
     return {
       title: data.titulo,
+      alternates: { canonical },
       description: data.introduccion,
       openGraph: {
         title: data.titulo,
@@ -62,7 +65,7 @@ export async function generateMetadata({
       },
     };
   } catch {
-    return { title: 'Blog' };
+    return { title: 'Blog', alternates: { canonical: `/blogs/${slug}` } };
   }
 }
 
@@ -85,10 +88,7 @@ const SinglePostPage = async ({
 
   return (
     <main className="bg-principal min-h-screen pb-20">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      <JsonLd data={jsonLd} />
       <section className="mx-auto max-w-7xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
         <PostHero title={titulo} media={media} />
         <div className="grid items-start gap-8 md:grid-cols-3">

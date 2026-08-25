@@ -61,8 +61,9 @@ export function HeroSection({ data }: HeroSectionProps) {
     <section className="from-secundario to-terciario grainy relative bg-linear-to-r py-20">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex">
-          {banners.map(banner => {
+          {banners.map((banner, bannerIndex) => {
             const { titulo, contenido, imagen, botones } = banner;
+            const TitleTag = bannerIndex === 0 ? 'h1' : 'h2';
 
             if (!imagen || !imagen.url) {
               return null;
@@ -76,9 +77,9 @@ export function HeroSection({ data }: HeroSectionProps) {
                   <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:items-center md:gap-12">
                     {/* Texto: siempre primero */}
                     <div className="order-1">
-                      <h1 className="mb-4 text-4xl font-bold text-white sm:text-5xl md:mb-6 md:text-6xl">
+                      <TitleTag className="mb-4 text-4xl font-bold text-white sm:text-5xl md:mb-6 md:text-6xl">
                         {titulo}
-                      </h1>
+                      </TitleTag>
                       <p className="mb-0 text-lg text-gray-100 md:mb-8 md:text-xl">{contenido}</p>
                       {/* Botones: hidden en mobile aquí, visibles en desktop */}
                       <div className="mt-6 hidden flex-col gap-3 sm:flex-row sm:gap-4 md:flex md:flex-row">

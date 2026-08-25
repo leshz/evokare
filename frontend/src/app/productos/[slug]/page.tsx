@@ -5,6 +5,7 @@ import { ProductInformation } from '@/components/product-overview/ProductInforma
 // import { RelatedProducts } from '@/components/product-overview/RelatedProducts';
 import { getProductBySlugService } from '@/services/productos';
 import { getProductSchema, getBreadcrumbSchema } from '@/lib/structured-data';
+import { JsonLd } from '@/components/shared/JsonLd';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AlertCircle } from 'lucide-react';
@@ -23,6 +24,7 @@ export async function generateMetadata({
     return {
       title: product.name,
       description: product.short_description,
+      alternates: { canonical: `/productos/${slug}` },
       openGraph: {
         title: product.name,
         description: product.short_description,
@@ -50,7 +52,7 @@ export async function generateMetadata({
       },
     };
   } catch {
-    return { title: 'Producto' };
+    return { title: 'Producto', alternates: { canonical: `/productos/${slug}` } };
   }
 }
 
@@ -104,14 +106,8 @@ export default async function ProductOverview({
 
   return (
     <div className="bg-principal min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-      />
+      <JsonLd data={productJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <nav className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex min-w-0 items-center gap-2 text-sm">
