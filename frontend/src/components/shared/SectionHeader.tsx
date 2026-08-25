@@ -3,6 +3,7 @@ interface SectionHeaderProps {
   subtitle?: string;
   align?: 'center' | 'left';
   decoration?: boolean;
+  as?: 'h1' | 'h2' | 'h3';
 }
 
 export function SectionHeader({
@@ -10,16 +11,16 @@ export function SectionHeader({
   subtitle,
   align = 'center',
   decoration = true,
+  as: Heading = 'h2',
 }: SectionHeaderProps) {
   const alignClass = align === 'center' ? 'text-center' : 'text-left';
-  const decorationAlign =
-    align === 'center' ? 'mx-auto' : '';
+  const decorationAlign = align === 'center' ? 'mx-auto' : '';
 
   return (
     <div className={`mb-12 ${alignClass}`}>
-      <h2 className="text-text-primary mb-4 text-3xl font-bold md:text-4xl">
+      <Heading className="text-text-primary mb-4 text-3xl font-bold md:text-4xl">
         {title}
-      </h2>
+      </Heading>
       {decoration && (
         <div
           className={`bg-secundario mb-6 h-0.5 w-16 rounded-full ${decorationAlign}`}
