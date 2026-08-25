@@ -5,4 +5,7 @@ export default ({ env }) => ({
     keys: env.array('APP_KEYS'),
   },
   url: env('PUBLIC_DOMAIN', ''),
+  mcp: {
+    enabled: env.bool('MCP_ENABLED', false),
+  },
 });
