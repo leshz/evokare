@@ -8,7 +8,10 @@ import {
   getBlogsService,
 } from '@/services/blogs';
 import { generateMetadataFromSEO } from '@/services/seo';
-import { getBlogPostingSchema } from '@/lib/structured-data';
+import {
+  getBlogPostingSchema,
+  getBreadcrumbSchema,
+} from '@/lib/structured-data';
 import { JsonLd } from '@/components/shared/JsonLd';
 
 export const dynamic = 'force-static';
@@ -103,10 +106,16 @@ const SinglePostPage = async ({
 
   const { articulo, media, titulo } = data;
   const jsonLd = getBlogPostingSchema(data);
+  const breadcrumbJsonLd = getBreadcrumbSchema([
+    { name: 'Inicio', url: '/' },
+    { name: 'Blog', url: '/blogs' },
+    { name: titulo },
+  ]);
 
   return (
     <main className="bg-principal min-h-screen pb-20">
       <JsonLd data={jsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <section className="mx-auto max-w-7xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
         <PostHero title={titulo} media={media} />
         <div className="grid items-start gap-8 md:grid-cols-3">

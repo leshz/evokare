@@ -58,7 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const entries = response.data ?? [];
 
       blogRoutes.push(
-        ...entries.map((blog) => ({
+        ...entries.map(blog => ({
           url: `${baseUrl}/blogs/${blog.slug}`,
           lastModified: new Date(blog.updatedAt),
           changeFrequency: 'weekly' as const,
@@ -69,8 +69,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const pageCount = response.meta?.pagination?.pageCount ?? 1;
       if (page >= pageCount) break;
     }
-  } catch {
-    // Si el CMS no responde, continúa con rutas estáticas
+  } catch (error) {
+    console.warn('[sitemap] No se pudieron cargar los blogs:', error);
   }
 
   const productRoutes: MetadataRoute.Sitemap = [];
@@ -88,9 +88,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         const entries = response.data ?? [];
 
         productRoutes.push(
-          ...entries.map((product) => ({
+          ...entries.map(product => ({
             url: `${baseUrl}/productos/${product.slug}`,
-            lastModified: BUILD_DATE,
+            lastModified: product.updatedAt
+              ? new Date(product.updatedAt)
+              : BUILD_DATE,
             changeFrequency: 'weekly' as const,
             priority: 0.8,
           }))
@@ -99,8 +101,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         const pageCount = response.meta?.pagination?.pageCount ?? 1;
         if (page >= pageCount) break;
       }
-    } catch {
-      // Si el CMS no responde, continúa sin productos
+    } catch (error) {
+      console.warn('[sitemap] No se pudieron cargar los productos:', error);
     }
   }
 
