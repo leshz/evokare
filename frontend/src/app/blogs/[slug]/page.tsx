@@ -33,12 +33,9 @@ export async function generateMetadata({
   try {
     const { data } = await getBlogBySlugService(slug);
     const canonical = `/blogs/${slug}`;
-    if (data.seo) {
-      return { alternates: { canonical }, ...generateMetadataFromSEO(data.seo) };
-    }
-    return {
+
+    const baseMetadata: Metadata = {
       title: data.titulo,
-      alternates: { canonical },
       description: data.introduccion,
       openGraph: {
         title: data.titulo,
@@ -62,6 +59,27 @@ export async function generateMetadata({
         title: data.titulo,
         description: data.introduccion,
         ...(data.media?.[0]?.url ? { images: [data.media[0].url] } : {}),
+      },
+    };
+
+    if (!data.seo) {
+      return { ...baseMetadata, alternates: { canonical } };
+    }
+
+    const seoMetadata = generateMetadataFromSEO(data.seo);
+
+    return {
+      ...baseMetadata,
+      ...seoMetadata,
+      alternates: { canonical },
+      openGraph: {
+        ...baseMetadata.openGraph,
+        ...seoMetadata.openGraph,
+        type: 'article',
+      },
+      twitter: {
+        ...baseMetadata.twitter,
+        ...seoMetadata.twitter,
       },
     };
   } catch {

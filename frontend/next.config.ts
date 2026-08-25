@@ -22,7 +22,8 @@ const CSP_REPORT_ONLY = [
 
 const nextConfig: NextConfig = {
   images: {
-    unoptimized: true,
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 2592000,
     remotePatterns: [
       {
         protocol: 'https',
@@ -49,7 +50,10 @@ const nextConfig: NextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=(), payment=()',
           },
-          { key: 'Content-Security-Policy-Report-Only', value: CSP_REPORT_ONLY },
+          {
+            key: 'Content-Security-Policy-Report-Only',
+            value: CSP_REPORT_ONLY,
+          },
         ],
       },
     ];
