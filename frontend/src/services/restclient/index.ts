@@ -45,7 +45,7 @@ const getBaseUrl = () => {
   return `${url}/api`;
 };
 
-const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build';
+const isBuildFetchFresh = process.env.CMS_BUILD_FETCH === 'fresh';
 
 /**
  * Construye las opciones de caché de un GET.
@@ -54,14 +54,16 @@ const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build';
  * (dos llamadas idénticas en un mismo render se ejecutarían dos veces) y rompe
  * las revalidaciones en background (vercel/next.js#54045).
  *
- * En build time se fuerza `no-store`: Railway restaura `.next/cache` entre
- * deploys y, con `revalidate: false`, las respuestas de Strapi no caducan
- * nunca. El build reutilizaba datos de builds anteriores y publicar en el CMS
- * no cambiaba el sitio. `NO_CACHE=1` no cubre este caso: actúa sobre las capas
- * de build, no sobre la caché de datos de Next.
+ * `CMS_BUILD_FETCH=fresh` (lo define el script `build`) fuerza `no-store`:
+ * Railway restaura `.next/cache` entre deploys y, con `revalidate: false`,
+ * las respuestas de Strapi no caducan nunca, así que el build reutilizaba
+ * datos de builds anteriores y publicar en el CMS no cambiaba el sitio.
+ * `NO_CACHE=1` no cubre este caso: actúa sobre las capas de build, no sobre
+ * la caché de datos de Next. Se usa una variable propia porque Next no expone
+ * la fase en `process.env` — `NEXT_PHASE` siempre es undefined ahí.
  */
 const buildCacheOptions = (config: RequestConfig): RequestInit => {
-  if (config.noStore || isBuildPhase) return { cache: 'no-store' };
+  if (config.noStore || isBuildFetchFresh) return { cache: 'no-store' };
   return { next: { revalidate: config.revalidate ?? false } };
 };
 
