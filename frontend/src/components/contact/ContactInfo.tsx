@@ -9,7 +9,7 @@ export const ContactInfo = ({ informacion_contacto }: ContactInfoProps) => {
   if (!informacion_contacto) return null;
 
   return (
-    <div className="space-y-2 text-gray-600">
+    <div className="mt-10 space-y-2 text-center text-gray-600">
       <BlocksRendererCustom
         content={informacion_contacto}
         classNames={{

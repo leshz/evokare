@@ -45,7 +45,7 @@ export const SocialLinks = ({ redes }: SocialLinksProps) => {
   if (!redes.length) return null;
 
   return (
-    <div className="mt-4 flex justify-center gap-4">
+    <div className="mt-6 flex justify-center gap-4">
       {redes.map((red) => (
         <a
           key={red.id}
