@@ -12,3 +12,4 @@ backend/scripts/*
 backend/.claude/settings.local.json
 frontend/.claude/settings.local.json
 .playwright-mcp/*
+.mcp.json
