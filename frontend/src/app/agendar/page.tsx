@@ -3,7 +3,7 @@ import { SectionHeader } from '@/components/shared/SectionHeader';
 import { AgendarForm } from '@/components/agendar/AgendarForm';
 
 export const metadata: Metadata = {
-  title: 'Agendar Cita con Elisa Horta',
+  title: { absolute: 'Agendar Cita | Elisa Horta, Psicóloga en Bogotá' },
   description:
     'Agenda tu cita con nuestros especialistas en salud mental y bienestar. Elige la modalidad y el día que mejor se adapte a ti.',
   alternates: { canonical: '/agendar' },
