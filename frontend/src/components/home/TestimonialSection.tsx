@@ -48,7 +48,7 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
           <div className="rounded-3xl bg-surface-soft p-8 md:p-12">
             <Quote className="text-secundario/20 mb-4 h-12 w-12" />
             <div className="flex items-start space-x-6">
-              <div className="shrink-0">
+              <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full">
                 {currentTestimonio.foto?.url ? (
                   <AdaptiveImage
                     image={currentTestimonio.foto}
@@ -56,10 +56,10 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
                     alt={currentTestimonio.nombre}
                     width={64}
                     height={64}
-                    className="rounded-full object-cover"
+                    className="h-full w-full object-cover object-center"
                   />
                 ) : (
-                  <div className="bg-secundario flex h-16 w-16 shrink-0 items-center justify-center rounded-full">
+                  <div className="bg-secundario flex h-full w-full items-center justify-center">
                     <span className="text-lg font-semibold text-white">
                       {currentTestimonio.nombre?.charAt(0) || '?'}
                     </span>
