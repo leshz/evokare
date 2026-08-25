@@ -1,7 +1,11 @@
 import { Product } from '@/services/productos/types';
 import { BlogData } from '@/services/blogs/types';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://evokare.com';
+import { SITE_URL } from './site';
+
+const BASE_URL = SITE_URL;
+
+const BRAND_NAME = 'Elisa Horta';
 
 export function getBlogPostingSchema(blog: BlogData) {
   return {
@@ -14,13 +18,13 @@ export function getBlogPostingSchema(blog: BlogData) {
     dateModified: blog.updatedAt,
     url: `${BASE_URL}/blogs/${blog.slug}`,
     author: {
-      '@type': 'Organization',
-      name: 'Evokare',
+      '@type': 'Person',
+      name: BRAND_NAME,
       url: BASE_URL,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Evokare',
+      name: BRAND_NAME,
       url: BASE_URL,
     },
   };
@@ -48,7 +52,7 @@ export function getProductSchema(product: Product) {
     offers: {
       '@type': 'Offer',
       price: price,
-      priceCurrency: 'MXN',
+      priceCurrency: 'COP',
       availability,
       url: `${BASE_URL}/productos/${product.slug}`,
     },

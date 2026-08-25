@@ -8,23 +8,38 @@ import { Pagination } from '@/components/shared/Pagination';
 
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = {
-  title: 'Blog — Bienestar Mental y Emocional',
-  description: 'Artículos, consejos y recursos sobre salud mental, bienestar emocional y desarrollo personal. Aprende a reconectar con tu verdadero ser.',
-  openGraph: {
-    title: 'Blog — Bienestar Mental y Emocional',
-    description: 'Artículos, consejos y recursos sobre salud mental, bienestar emocional y desarrollo personal.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Blog — Bienestar Mental y Emocional',
-    description: 'Artículos, consejos y recursos sobre salud mental, bienestar emocional y desarrollo personal.',
-  },
-};
-
 interface BlogsPageProps {
   searchParams: Promise<{ page?: string }>;
+}
+
+const BLOG_TITLE = 'Blog — Bienestar Mental y Emocional';
+const BLOG_DESCRIPTION =
+  'Artículos, consejos y recursos sobre salud mental, bienestar emocional y desarrollo personal.';
+
+export async function generateMetadata({
+  searchParams,
+}: BlogsPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const page = Number(params.page) || 1;
+  const canonical = page > 1 ? `/blogs?page=${page}` : '/blogs';
+
+  return {
+    title: BLOG_TITLE,
+    description:
+      'Artículos, consejos y recursos sobre salud mental, bienestar emocional y desarrollo personal. Aprende a reconectar con tu verdadero ser.',
+    alternates: { canonical },
+    openGraph: {
+      title: BLOG_TITLE,
+      description: BLOG_DESCRIPTION,
+      type: 'website',
+      url: canonical,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: BLOG_TITLE,
+      description: BLOG_DESCRIPTION,
+    },
+  };
 }
 
 export default async function BlogsPage({ searchParams }: BlogsPageProps) {

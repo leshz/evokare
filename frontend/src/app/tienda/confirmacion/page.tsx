@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ConfirmationCard } from '@/components/confirmation';
 import type {
@@ -5,6 +6,11 @@ import type {
   ConfirmationSearchParams,
   ConfirmationData,
 } from '@/types/confirmation';
+
+export const metadata: Metadata = {
+  title: 'Confirmación de pago',
+  robots: { index: false, follow: false },
+};
 
 interface ConfirmationPageProps {
   searchParams: Promise<ConfirmationSearchParams>;

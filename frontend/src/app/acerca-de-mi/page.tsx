@@ -11,12 +11,16 @@ export async function generateMetadata(): Promise<Metadata> {
 
   if (!data.seo) {
     return {
-      title: 'Nosotros',
-      description: 'Conoce nuestro enfoque y credenciales profesionales',
+      title: 'Sobre Elisa Horta',
+      description: 'Conoce el enfoque y las credenciales profesionales de Elisa Horta.',
+      alternates: { canonical: '/acerca-de-mi' },
     };
   }
 
-  return generateMetadataFromSEO(data.seo);
+  return {
+    alternates: { canonical: '/acerca-de-mi' },
+    ...generateMetadataFromSEO(data.seo),
+  };
 }
 
 export default async function AboutPage() {

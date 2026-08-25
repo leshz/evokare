@@ -1,5 +1,16 @@
 import { Metadata } from 'next';
 import { SEO } from './types';
+import { SITE_URL } from '@/lib/site';
+
+const toCanonicalOrigin = (url?: string | null): string | undefined => {
+  if (!url) return undefined;
+  try {
+    const parsed = new URL(url, SITE_URL);
+    return `${SITE_URL}${parsed.pathname}${parsed.search}`.replace(/\/$/, '') || SITE_URL;
+  } catch {
+    return undefined;
+  }
+};
 
 export const generateMetadataFromSEO = (seo: SEO | null): Metadata => {
   try {
@@ -17,12 +28,9 @@ export const generateMetadataFromSEO = (seo: SEO | null): Metadata => {
       description: seo.metaDescription,
       keywords: seo.keywords ?? undefined,
       robots: seo.metaRobots ?? undefined,
-      viewport: seo.metaViewport ?? undefined,
-      alternates: seo.canonicalURL
-        ? {
-            canonical: seo.canonicalURL,
-          }
-        : undefined,
+      ...(seo.canonicalURL
+        ? { alternates: { canonical: toCanonicalOrigin(seo.canonicalURL) } }
+        : {}),
     };
 
     // Add OpenGraph if available
@@ -30,7 +38,7 @@ export const generateMetadataFromSEO = (seo: SEO | null): Metadata => {
       metadata.openGraph = {
         title: seo.openGraph.ogTitle,
         description: seo.openGraph.ogDescription,
-        url: seo.openGraph.ogUrl,
+        url: toCanonicalOrigin(seo.openGraph.ogUrl),
         type: (seo.openGraph.ogType ?? 'website') as
           | 'website'
           | 'article'
@@ -91,13 +99,6 @@ export const generateMetadataFromSEO = (seo: SEO | null): Metadata => {
       };
     }
 
-    // Add structured data if available
-    if (seo.structuredData && Object.keys(seo.structuredData).length > 0) {
-      metadata.other = {
-        'application/ld+json': JSON.stringify(seo.structuredData),
-      };
-    }
-
     return metadata;
   } catch (error) {
     console.error('Error fetching SEO metadata:', error);
@@ -108,4 +109,10 @@ export const generateMetadataFromSEO = (seo: SEO | null): Metadata => {
         'Te ayudamos a reconectar con tu verdadero ser a través de apoyo profesional en salud mental y sesiones de terapia personalizadas.',
     };
   }
+};
+
+export const getStructuredData = (seo: SEO | null): object | null => {
+  if (!seo?.structuredData) return null;
+  if (Object.keys(seo.structuredData).length === 0) return null;
+  return seo.structuredData;
 };

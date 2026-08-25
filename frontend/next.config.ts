@@ -18,6 +18,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/nosotros',
+        destination: '/acerca-de-mi',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

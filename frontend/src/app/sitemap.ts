@@ -1,6 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { getBlogsService } from '@/services/blogs';
 import { getProductsService } from '@/services/productos';
+import { FEATURE_FLAGS } from '@/constants/feature-flags';
+import { SITE_URL } from '@/lib/site';
 
 /**
  * Se resuelve en build time. `lastModified` usa la fecha del build para las
@@ -10,8 +12,11 @@ import { getProductsService } from '@/services/productos';
  */
 const BUILD_DATE = new Date();
 
+const MAX_PAGES = 50;
+const PAGE_SIZE = 100;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://elisahorta.com';
+  const baseUrl = SITE_URL;
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -21,10 +26,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/nosotros`,
+      url: `${baseUrl}/acerca-de-mi`,
       lastModified: BUILD_DATE,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/agendar`,
+      lastModified: BUILD_DATE,
+      changeFrequency: 'monthly',
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/contacto`,
@@ -38,38 +49,59 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.8,
     },
-    {
-      url: `${baseUrl}/productos`,
-      lastModified: BUILD_DATE,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
   ];
 
-  let blogRoutes: MetadataRoute.Sitemap = [];
+  const blogRoutes: MetadataRoute.Sitemap = [];
   try {
-    const blogsResponse = await getBlogsService({ pageSize: 100 });
-    blogRoutes = (blogsResponse.data ?? []).map((blog) => ({
-      url: `${baseUrl}/blogs/${blog.slug}`,
-      lastModified: new Date(blog.updatedAt),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    }));
+    for (let page = 1; page <= MAX_PAGES; page++) {
+      const response = await getBlogsService({ page, pageSize: PAGE_SIZE });
+      const entries = response.data ?? [];
+
+      blogRoutes.push(
+        ...entries.map((blog) => ({
+          url: `${baseUrl}/blogs/${blog.slug}`,
+          lastModified: new Date(blog.updatedAt),
+          changeFrequency: 'weekly' as const,
+          priority: 0.7,
+        }))
+      );
+
+      const pageCount = response.meta?.pagination?.pageCount ?? 1;
+      if (page >= pageCount) break;
+    }
   } catch {
     // Si el CMS no responde, continúa con rutas estáticas
   }
 
-  let productRoutes: MetadataRoute.Sitemap = [];
-  try {
-    const productsResponse = await getProductsService(undefined, 100);
-    productRoutes = (productsResponse.data ?? []).map((product) => ({
-      url: `${baseUrl}/productos/${product.slug}`,
+  const productRoutes: MetadataRoute.Sitemap = [];
+  if (FEATURE_FLAGS.CART) {
+    productRoutes.push({
+      url: `${baseUrl}/productos`,
       lastModified: BUILD_DATE,
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    }));
-  } catch {
-    // Si el CMS no responde, continúa sin productos
+      changeFrequency: 'daily',
+      priority: 0.9,
+    });
+
+    try {
+      for (let page = 1; page <= MAX_PAGES; page++) {
+        const response = await getProductsService(page, PAGE_SIZE);
+        const entries = response.data ?? [];
+
+        productRoutes.push(
+          ...entries.map((product) => ({
+            url: `${baseUrl}/productos/${product.slug}`,
+            lastModified: BUILD_DATE,
+            changeFrequency: 'weekly' as const,
+            priority: 0.8,
+          }))
+        );
+
+        const pageCount = response.meta?.pagination?.pageCount ?? 1;
+        if (page >= pageCount) break;
+      }
+    } catch {
+      // Si el CMS no responde, continúa sin productos
+    }
   }
 
   return [...staticRoutes, ...blogRoutes, ...productRoutes];

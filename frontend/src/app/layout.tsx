@@ -6,7 +6,9 @@ import { Footer } from '@/components/layout/Footer';
 import { ShoppingCart } from '@/components/products/ShoppingCart';
 import { getGeneralService } from '@/services/general';
 import { GENERAL_FALLBACK } from '@/services/general/fallback';
-import { generateMetadataFromSEO } from '../services/seo';
+import { generateMetadataFromSEO, getStructuredData } from '../services/seo';
+import { SITE_URL } from '@/lib/site';
+import { JsonLd } from '@/components/shared/JsonLd';
 
 import './globals.css';
 
@@ -22,15 +24,23 @@ const secondary = Spectral({
   weight: ['300', '400', '500', '600', '700'],
 });
 
+const BASE_METADATA: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Elisa Horta | Psicóloga Clínica en Bogotá',
+    template: '%s | Elisa Horta',
+  },
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   try {
     const {
       data: { seo },
     } = await getGeneralService();
-    return generateMetadataFromSEO(seo);
+    return { ...BASE_METADATA, ...generateMetadataFromSEO(seo) };
   } catch (error) {
     console.warn('[layout] Strapi no respondió, usando metadata por defecto:', error);
-    return generateMetadataFromSEO(null);
+    return { ...BASE_METADATA, ...generateMetadataFromSEO(null) };
   }
 }
 
@@ -48,10 +58,12 @@ export default async function RootLayout({
   }
 
   const { pie_de_pagina: footer, navegacion: topbar, menu } = general;
+  const structuredData = getStructuredData(general.seo ?? null);
 
   return (
     <html lang="es">
       <body className={`${primary.variable} ${secondary.variable} antialiased`} suppressHydrationWarning>
+        {structuredData && <JsonLd data={structuredData} />}
         <Header content={topbar} menu={menu} />
         {children}
         <div className="bg-surface-soft">
