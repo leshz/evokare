@@ -25,16 +25,43 @@ const createAbortController = (timeout: number) => {
   return controller;
 };
 
-const token = `${process.env.STRAPI_API_TOKEN}`;
-const baseUrl = `${process.env.STRAPI_API_URL}/api`;
+const getToken = () => {
+  const token = process.env.STRAPI_API_TOKEN;
+  if (!token) {
+    throw new Error(
+      'STRAPI_API_TOKEN no está definida — revisa las env vars del build'
+    );
+  }
+  return token;
+};
+
+const getBaseUrl = () => {
+  const url = process.env.STRAPI_API_URL;
+  if (!url) {
+    throw new Error(
+      'STRAPI_API_URL no está definida — revisa las env vars del build'
+    );
+  }
+  return `${url}/api`;
+};
+
+/**
+ * Construye las opciones de caché de un GET.
+ *
+ * Los GET no llevan `signal`: un AbortSignal desactiva la memoización de fetch
+ * (dos llamadas idénticas en un mismo render se ejecutarían dos veces) y rompe
+ * las revalidaciones en background (vercel/next.js#54045).
+ */
+const buildCacheOptions = (config: RequestConfig): RequestInit => {
+  if (config.noStore) return { cache: 'no-store' };
+  return { next: { revalidate: config.revalidate ?? false } };
+};
 
 export const get = async <T = unknown>(
   url: string,
   config: RequestConfig = {}
 ): Promise<ApiResponse<T>> => {
-  const controller = createAbortController(DEFAULT_TIMEOUT);
-
-  const requestPath = `${baseUrl}${url}`;
+  const requestPath = `${getBaseUrl()}${url}`;
 
   const params = new URLSearchParams({
     populate: 'all',
@@ -45,13 +72,13 @@ export const get = async <T = unknown>(
 
   try {
     const response = await fetch(fullUrl, {
+      ...buildCacheOptions(config),
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
         ...config.headers,
       },
-      signal: controller.signal,
     });
 
     if (!response.ok) {
@@ -79,9 +106,7 @@ export const getCollections = async <T = unknown>(
   queryParams: CollectionQueryParams = {},
   config: RequestConfig = {}
 ): Promise<ApiCollectionResponse<T>> => {
-  const controller = createAbortController(DEFAULT_TIMEOUT);
-
-  const requestPath = `${baseUrl}${url}`;
+  const requestPath = `${getBaseUrl()}${url}`;
 
   const params = new URLSearchParams();
 
@@ -123,13 +148,13 @@ export const getCollections = async <T = unknown>(
 
   try {
     const response = await fetch(fullUrl, {
+      ...buildCacheOptions(config),
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${getToken()}`,
         ...config.headers,
       },
-      signal: controller.signal,
     });
 
     if (!response.ok) {
@@ -160,13 +185,13 @@ export const post = async <T = unknown>(
 ): Promise<ApiResponse<T>> => {
   const controller = createAbortController(config.timeout || DEFAULT_TIMEOUT);
 
-  const requestPath = `${baseUrl}${url}`;
+  const requestPath = `${getBaseUrl()}${url}`;
 
   const response = await fetch(requestPath, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getToken()}`,
       ...config.headers,
     },
     body: JSON.stringify(body),

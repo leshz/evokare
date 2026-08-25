@@ -5,6 +5,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ShoppingCart } from '@/components/products/ShoppingCart';
 import { getGeneralService } from '@/services/general';
+import { GENERAL_FALLBACK } from '@/services/general/fallback';
 import { generateMetadataFromSEO } from '../services/seo';
 
 import './globals.css';
@@ -22,10 +23,15 @@ const secondary = Spectral({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const {
-    data: { seo },
-  } = await getGeneralService();
-  return generateMetadataFromSEO(seo);
+  try {
+    const {
+      data: { seo },
+    } = await getGeneralService();
+    return generateMetadataFromSEO(seo);
+  } catch (error) {
+    console.warn('[layout] Strapi no respondió, usando metadata por defecto:', error);
+    return generateMetadataFromSEO(null);
+  }
 }
 
 export default async function RootLayout({
@@ -33,9 +39,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const {
-    data: { pie_de_pagina: footer, navegacion: topbar, menu },
-  } = await getGeneralService();
+  let general = GENERAL_FALLBACK;
+  try {
+    const { data } = await getGeneralService();
+    general = data;
+  } catch (error) {
+    console.warn('[layout] Strapi no respondió, renderizando layout degradado:', error);
+  }
+
+  const { pie_de_pagina: footer, navegacion: topbar, menu } = general;
 
   return (
     <html lang="es">

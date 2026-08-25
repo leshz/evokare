@@ -2,11 +2,26 @@ import type { Metadata } from 'next';
 import { PostHero } from '@/components/blogs/single/PostHero';
 import { PostContent } from '@/components/blogs/single/PostContent';
 import { PostSidebar } from '@/components/blogs/single/PostSidebar';
-import { getBlogBySlugService, getRelatedBlogsService } from '@/services/blogs';
+import {
+  getBlogBySlugService,
+  getRelatedBlogsService,
+  getBlogsService,
+} from '@/services/blogs';
 import { generateMetadataFromSEO } from '@/services/seo';
 import { getBlogPostingSchema } from '@/lib/structured-data';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
+
+export async function generateStaticParams() {
+  try {
+    const { data } = await getBlogsService({ pageSize: 100 });
+    return (data ?? []).map(({ slug }) => ({ slug }));
+  } catch (error) {
+    // Un CMS caído degrada el build (posts generados on-demand), no lo tumba.
+    console.warn('[build] No se pudieron prerenderizar los blogs:', error);
+    return [];
+  }
+}
 
 export async function generateMetadata({
   params,
