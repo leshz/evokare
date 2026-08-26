@@ -2,6 +2,12 @@ import type { NextConfig } from 'next';
 
 const R2_HOST = 'https://pub-b4dc89a0ffb742f7980aa9d5dd6ac8b5.r2.dev';
 
+const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://elisahorta.com.co'
+).replace(/\/$/, '');
+
+const WWW_HOST = SITE_URL.replace('https://', 'www.');
+
 // Next inyecta scripts y estilos inline para la hidratación, así que
 // script-src y style-src necesitan 'unsafe-inline'. Por eso el CSP se
 // despliega en Report-Only: mide qué se bloquearía sin llegar a romper el
@@ -63,6 +69,12 @@ const nextConfig: NextConfig = {
       {
         source: '/nosotros',
         destination: '/acerca-de-mi',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: WWW_HOST }],
+        destination: `${SITE_URL}/:path*`,
         permanent: true,
       },
     ];
