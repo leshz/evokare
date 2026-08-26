@@ -77,6 +77,15 @@ const nextConfig: NextConfig = {
         destination: `${SITE_URL}/:path*`,
         permanent: true,
       },
+      // El edge de Railway reescribe `Host` al del servicio interno, así que
+      // `has: host` no llega a coincidir; el dominio original viaja en
+      // `x-forwarded-host`.
+      {
+        source: '/:path*',
+        has: [{ type: 'header', key: 'x-forwarded-host', value: WWW_HOST }],
+        destination: `${SITE_URL}/:path*`,
+        permanent: true,
+      },
     ];
   },
 };
