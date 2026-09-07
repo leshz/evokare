@@ -154,6 +154,15 @@ export interface ReflexionesComponent {
   reflexion: Reflexion[];
 }
 
+export interface BlogsComponent {
+  __component: 'inicio.blogs';
+  id: number;
+  titulo: string;
+  subtitulo?: string;
+  boton: Boton;
+  cantidad: number;
+}
+
 // Union type para todos los tipos de secciones
 export type SeccionInicio =
   | HeroComponent
@@ -165,7 +174,8 @@ export type SeccionInicio =
   | StatisticsComponent
   | TestimonialComponent
   | PerspectivesComponent
-  | ReflexionesComponent;
+  | ReflexionesComponent
+  | BlogsComponent;
 
 export interface InicioData {
   id: number;

@@ -124,6 +124,27 @@ export interface InicioBanner extends Struct.ComponentSchema {
   };
 }
 
+export interface InicioBlogs extends Struct.ComponentSchema {
+  collectionName: 'components_inicio_blogs';
+  info: {
+    displayName: 'blogs';
+  };
+  attributes: {
+    boton: Schema.Attribute.Component<'shared.accion', false>;
+    cantidad: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 6;
+          min: 1;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<3>;
+    subtitulo: Schema.Attribute.String;
+    titulo: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface InicioDatos extends Struct.ComponentSchema {
   collectionName: 'components_inicio_datos';
   info: {
@@ -531,6 +552,7 @@ declare module '@strapi/strapi' {
       'inicio.acerca': InicioAcerca;
       'inicio.apoyo': InicioApoyo;
       'inicio.banner': InicioBanner;
+      'inicio.blogs': InicioBlogs;
       'inicio.datos': InicioDatos;
       'inicio.destacados': InicioDestacados;
       'inicio.entendiendo': InicioEntendiendo;
