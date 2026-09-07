@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_inicio_blogs",
+  "info": {
+    "displayName": "blogs"
+  },
+  "options": {},
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "subtitulo": {
+      "type": "string"
+    },
+    "boton": {
+      "type": "component",
+      "component": "shared.accion",
+      "repeatable": false
+    },
+    "cantidad": {
+      "type": "integer",
+      "default": 3,
+      "min": 1,
+      "max": 6
+    }
+  },
+  "config": {}
+}

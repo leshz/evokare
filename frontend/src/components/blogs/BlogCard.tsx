@@ -2,8 +2,17 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { BlogData } from '@/services/blogs/types';
 import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
+import { formatFecha } from '@/helpers/date';
 
-export const BlogCard = ({ titulo, introduccion, media, slug }: BlogData) => {
+export const BlogCard = ({
+  titulo,
+  introduccion,
+  media,
+  slug,
+  createdAt,
+}: BlogData) => {
+  const fecha = formatFecha(createdAt);
+
   return (
     <div className="group overflow-hidden rounded-2xl bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
       <Link href={`/blogs/${slug}`} className="block aspect-video overflow-hidden">
@@ -13,6 +22,11 @@ export const BlogCard = ({ titulo, introduccion, media, slug }: BlogData) => {
         />
       </Link>
       <div className="p-6">
+        {fecha && (
+          <time dateTime={createdAt} className="mb-2 block text-xs text-gray-500">
+            {fecha}
+          </time>
+        )}
         <Link
           href={`/blogs/${slug}`}
           className="text-text-primary hover:text-secundario mb-2 block text-lg font-semibold transition-colors"

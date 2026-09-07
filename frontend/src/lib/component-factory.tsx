@@ -7,6 +7,7 @@ import { StatisticsSection } from '@/components/home/StatisticsSection';
 import { TestimonialSection } from '@/components/home/TestimonialSection';
 import { FreshPerspectivesSection } from '@/components/home/FreshPerspectivesSection';
 import { DailyQuotesSection } from '@/components/home/DailyQuotesSection';
+import { LatestBlogsSection } from '@/components/home/LatestBlogsSection';
 import { AboutHero } from '@/components/about/AboutHero';
 import { AboutBio } from '@/components/about/AboutBio';
 import { AboutCredentials } from '@/components/about/AboutCredentials';
@@ -42,6 +43,7 @@ const COMPONENT_MAP: ComponentMap = {
   'inicio.que-dicen': TestimonialSection,
   'inicio.perspectivas': FreshPerspectivesSection,
   'inicio.reflexiones': DailyQuotesSection,
+  'inicio.blogs': LatestBlogsSection,
   // Componentes de Nosotros
   'nosotros.hero': AboutHero,
   'nosotros.bio': AboutBio,
@@ -164,6 +166,16 @@ export function renderSection(
   if (section.__component === 'inicio.reflexiones') {
     if (!section.reflexion || section.reflexion.length === 0) {
       console.warn('inicio.reflexiones: No reflexion array found');
+      return null;
+    }
+    return <Component key={`${section.__component}-${index}`} data={section} />;
+  }
+
+  // Para inicio.blogs, validamos los campos editoriales: los artículos se
+  // resuelven dentro del propio componente con un fetch al CMS.
+  if (section.__component === 'inicio.blogs') {
+    if (!section.titulo) {
+      console.warn('inicio.blogs: No titulo found');
       return null;
     }
     return <Component key={`${section.__component}-${index}`} data={section} />;
