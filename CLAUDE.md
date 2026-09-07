@@ -5,7 +5,7 @@ This file provides comprehensive guidance to Claude Code (claude.ai/code) when w
 ## Project Overview
 
 **Evokare** is a modern e-commerce platform for mental health and wellness services. It's a full-stack monorepo application with:
-- **Backend**: Strapi 5.31.0 headless CMS for content management
+- **Backend**: Strapi 5.52.3 headless CMS for content management
 - **Frontend**: Next.js 16.1.1 with App Router for the user-facing application
 - **Language**: TypeScript throughout
 - **Primary Market**: Spanish-speaking users (content in Spanish)
@@ -26,7 +26,7 @@ evokare/
 ## Backend (Strapi CMS)
 
 ### Technology Stack
-- **Framework**: Strapi 5.31.0 (Headless CMS)
+- **Framework**: Strapi 5.52.3 (Headless CMS)
 - **Language**: TypeScript
 - **Runtime**: Node.js v22
 - **Database**:
