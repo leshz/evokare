@@ -1,13 +1,17 @@
 import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
 import { StrapiImage } from '@/services/general/types';
+import { formatFecha } from '@/helpers/date';
 import Link from 'next/link';
 
 interface PostHeroProps {
   media: StrapiImage[];
   title: string;
+  createdAt: string;
 }
 
-export const PostHero = ({ media, title }: PostHeroProps) => {
+export const PostHero = ({ media, title, createdAt }: PostHeroProps) => {
+  const fecha = formatFecha(createdAt);
+
   return (
     <div className="relative mb-8 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
       <div className="flex-1">
@@ -28,6 +32,11 @@ export const PostHero = ({ media, title }: PostHeroProps) => {
           /{' '}
           <span className="text-secundario font-medium">Artículo</span>
         </nav>
+        {fecha && (
+          <time dateTime={createdAt} className="block text-sm text-gray-500">
+            {fecha}
+          </time>
+        )}
       </div>
       {media?.length > 0 && (
         <div className="flex flex-col gap-3 md:w-1/2">

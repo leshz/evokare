@@ -104,7 +104,7 @@ const SinglePostPage = async ({
     slugActual: slug,
   });
 
-  const { articulo, media, titulo } = data;
+  const { articulo, media, titulo, createdAt } = data;
   const jsonLd = getBlogPostingSchema(data);
   const breadcrumbJsonLd = getBreadcrumbSchema([
     { name: 'Inicio', url: '/' },
@@ -117,7 +117,7 @@ const SinglePostPage = async ({
       <JsonLd data={jsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
       <section className="mx-auto max-w-7xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
-        <PostHero title={titulo} media={media} />
+        <PostHero title={titulo} media={media} createdAt={createdAt} />
         <div className="grid items-start gap-8 md:grid-cols-3">
           <PostContent articulo={articulo} />
           <div>
