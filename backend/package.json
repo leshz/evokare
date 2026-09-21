@@ -12,7 +12,7 @@
     "start": "strapi start",
     "strapi": "strapi",
     "seed": "npx tsx scripts/seed-content.ts",
-    "upgrade": "npx @strapi/upgrade minor",
+    "upgrade:latest": "npx @strapi/upgrade latest",
     "upgrade:dry": "npx @strapi/upgrade latest --dry"
   },
   "dependencies": {
