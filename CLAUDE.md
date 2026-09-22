@@ -5,8 +5,8 @@ This file provides comprehensive guidance to Claude Code (claude.ai/code) when w
 ## Project Overview
 
 **Evokare** is a modern e-commerce platform for mental health and wellness services. It's a full-stack monorepo application with:
-- **Backend**: Strapi 5.52.3 headless CMS for content management
-- **Frontend**: Next.js 16.1.1 with App Router for the user-facing application
+- **Backend**: Strapi 5.52.1 headless CMS for content management
+- **Frontend**: Next.js 16.3.0 with App Router for the user-facing application
 - **Language**: TypeScript throughout
 - **Primary Market**: Spanish-speaking users (content in Spanish)
 
@@ -26,14 +26,15 @@ evokare/
 ## Backend (Strapi CMS)
 
 ### Technology Stack
-- **Framework**: Strapi 5.52.3 (Headless CMS)
+- **Framework**: Strapi 5.52.1 (Headless CMS)
 - **Language**: TypeScript
 - **Runtime**: Node.js v22
 - **Database**:
   - Development: SQLite (`.tmp/data.db`)
   - Production: PostgreSQL
-- **File Storage**: AWS S3
-- **Payment Integration**: MercadoPago
+- **File Storage**: Cloudflare R2 (`strapi-provider-cloudflare-r2`)
+- **Email**: Resend (`strapi-provider-email-resend`)
+- **Payment Integration**: MercadoPago (own fork, see Plugins)
 
 ### Directory Structure
 
@@ -53,20 +54,30 @@ backend/
 ├── public/
 │   └── uploads/         # File uploads (local dev)
 ├── src/
-│   ├── api/             # API endpoints
-│   │   ├── acerca/      # About page content
-│   │   ├── blog/        # Blog posts
-│   │   ├── etiqueta/    # Tags/labels
-│   │   ├── general/     # Global content (header, footer, nav)
-│   │   └── inicio/      # Homepage content
+│   ├── api/             # API endpoints (9 content-types)
+│   │   ├── acerca/      # About page content (single)
+│   │   ├── blog/        # Blog posts (collection)
+│   │   ├── cita/        # Appointment requests (collection, public POST)
+│   │   ├── contacto/    # Contact page content (single)
+│   │   ├── etiqueta/    # Tags/labels (collection)
+│   │   ├── general/     # Global content (header, footer, nav) (single)
+│   │   ├── inicio/      # Homepage content (single)
+│   │   ├── mensaje-contacto/  # Contact messages (collection, public POST)
+│   │   └── producto/    # Products PAGE content (single, not the catalog)
 │   ├── admin/           # Admin customizations
-│   ├── components/      # Reusable Strapi components
+│   ├── components/      # Reusable Strapi components (6 namespaces)
+│   │   ├── contacto/    # Contact page components
 │   │   ├── general/     # Layout components
 │   │   ├── inicio/      # Homepage sections
 │   │   ├── nosotros/    # About page sections
+│   │   ├── productos/   # Products page sections
 │   │   └── shared/      # Shared components (SEO, banners, etc.)
 │   ├── extensions/      # Plugin extensions
+│   ├── plugins/         # Local plugin sources
 │   └── index.ts         # Bootstrap file
+├── scripts/
+│   ├── seed-content.ts  # Seed runner (`yarn seed`)
+│   └── seed-data/       # Seed payloads (acerca, general, inicio)
 └── types/
     └── generated/       # Auto-generated TypeScript types
 ```
@@ -74,14 +85,25 @@ backend/
 ### Key Configuration
 
 #### Plugins (`config/plugins.ts`)
-- **MercadoPago**: Payment processing (`strapi-mercadopago`) - enabled
-- **SEO**: Meta tags and optimization (`@strapi/plugin-seo`) - enabled
-- **Populate-All**: Automatic relation population - enabled
-- **AWS S3**: Upload provider with environment variables:
-  - `AWS_ACCESS_KEY_ID`
-  - `AWS_ACCESS_SECRET`
-  - `AWS_REGION`
-  - `AWS_BUCKET`
+- **MercadoPago** (`strapi-mercadopago`) — enabled. Installed from an **own fork**
+  (`github.com/leshz/mercadopago-strapi#main`). In this working copy it resolves
+  through a symlink to a local checkout, so plugin changes are made in that repo,
+  not here. Declares the product catalog content-types — see *Product catalog* below.
+- **SEO** (`@strapi-community/plugin-seo` 2.x) — enabled. Note the `@strapi-community`
+  scope; it is not the old `@strapi/plugin-seo`.
+- **Populate-All** (`strapi-plugin-populate-all`) — automatic relation population
+- **Advanced UUID** (`strapi-advanced-uuid`)
+- **Responsive images** (`strapi-5-plugin-responsive-backend`)
+- **Upload → Cloudflare R2** (`strapi-provider-cloudflare-r2`):
+  - `CF_ACCESS_KEY_ID`
+  - `CF_SECRET_ACCESS_KEY`
+  - `CF_ENDPOINT`
+  - `CF_BUCKET`
+  - `CF_PUBLIC_URL`
+- **Email → Resend** (`strapi-provider-email-resend`):
+  - `RESEND_API_KEY`
+  - `EMAIL_FROM`, `EMAIL_REPLY_TO` (defaults fall back to `onboarding@resend.dev`)
+  - `EMAIL_TO` — recipient of the form notifications (see *Public form endpoints*)
 
 #### Database (`config/database.ts`)
 - Supports: SQLite (dev), MySQL, PostgreSQL (production)
@@ -91,7 +113,9 @@ backend/
 
 #### Middlewares (`config/middlewares.ts`)
 - Standard Strapi middleware stack
-- Custom CSP for S3 bucket: `eli-website-develop.s3.us-west-2.amazonaws.com`
+- CSP `img-src` / `media-src` are built **dynamically** from `CF_PUBLIC_URL`
+  (the scheme is stripped at runtime). There is no hardcoded bucket host — if
+  images stop loading, check that `CF_PUBLIC_URL` is set, not the middleware.
 - CORS enabled (configurable via environment)
 
 #### API Configuration (`config/api.ts`)
@@ -100,45 +124,120 @@ backend/
 
 ### Content Types
 
-**Single Types** (one instance per locale):
-- `api::inicio.inicio` - Homepage content with dynamic zones
-- `api::acerca.acerca` - About page content
-- `api::general.general` - Global content (header, footer, navigation)
+Nine content-types live under `src/api/`. The product **catalog** is not among
+them — it is declared by the MercadoPago plugin (see *Product catalog*).
 
-**Collection Types** (multiple instances):
-- `api::blog.blog` - Blog posts with slug-based routing
-- `api::etiqueta.etiqueta` - Tags/categories
+**Single Types** (one instance per locale):
+
+| Type | Fields |
+|------|--------|
+| `api::inicio.inicio` | `secciones` (dynamic zone), `seo` |
+| `api::acerca.acerca` | `secciones` (dynamic zone), `seo` |
+| `api::general.general` | `navegacion`, `pie_de_pagina` (**required**), `menu` (dynamic zone of `shared.accion`), `seo` |
+| `api::contacto.contacto` | `titulo`, `subtitulo`, `informacion_contacto` (blocks), `redes_sociales` (`contacto.red-social`), `mapa` (bool), `latitud`/`longitud` (decimal), `seo` |
+| `api::producto.producto` | `secciones` (dynamic zone), `seo` — **static page content only** |
+
+**Collection Types**:
+
+| Type | Fields |
+|------|--------|
+| `api::blog.blog` | `titulo`*, `articulo`* (blocks), `introduccion`, `slug` (uid), `media`, `etiquetas` (→ `etiqueta`), `seo` |
+| `api::etiqueta.etiqueta` | `nombre`*, `slug` (uid), `blogs` (→ `blog`) |
+| `api::cita.cita` | `nombre`*, `correo`* (email), `telefono`*, `modalidad`* (`virtual` \| `presencial`), `dia`* (`lunes`…`sabado`) |
+| `api::mensaje-contacto.mensaje-contacto` | `email`*, `asunto`*, `mensaje`*, `nombre`, `telefono` |
+
+`*` = required.
+
+#### Dynamic zones (exact component lists)
+
+Adding a component to a zone here is what makes it available in the CMS. The
+frontend must have a matching entry in its component factory or it renders nothing.
+
+- **`inicio.secciones`**: `inicio.acerca`, `inicio.entendiendo`, `inicio.apoyo`,
+  `inicio.sistemaintegral`, `inicio.datos`, `inicio.hero`, `inicio.que-dicen`,
+  `inicio.perspectivas`, `inicio.reflexiones`
+- **`acerca.secciones`**: `nosotros.bio`, `nosotros.credenciales`, `nosotros.metodologias`
+- **`producto.secciones`**: `inicio.entendiendo`, `productos.banner`, `productos.categorias`
+- **`general.menu`**: `shared.accion`
+
+> **`nosotros.certificaciones` exists as a component but is in NO dynamic zone.**
+> It cannot be selected from the CMS as things stand. Either add it to
+> `acerca.secciones` or treat it as dead. Do not assume it is reachable.
+
+> There is **no `nosotros.hero` component** in this backend. If you see the
+> frontend mapping one, that mapping has no counterpart here — see the frontend
+> component-factory notes.
+
+#### `GET /api/blogs/:id` resolves by SLUG
+
+`src/api/blog/controllers/blog.ts` overrides `findOne`: the `:id` path parameter
+is treated as a **slug** and looked up with `findFirst({ filters: { slug } })`.
+Passing a numeric id returns `404 "Blog not Found"`. The route is the stock core
+router — only the controller is custom, so this is easy to miss.
+
+### Public form endpoints
+
+Two collection types accept public `POST`s from the site forms (stock core routers):
+
+| Endpoint | Required body |
+|----------|---------------|
+| `POST /api/citas` | `nombre`, `correo`, `telefono`, `modalidad` (`virtual`\|`presencial`), `dia` (`lunes`\|`martes`\|`miercoles`\|`jueves`\|`viernes`\|`sabado`) |
+| `POST /api/mensaje-contactos` | `email`, `asunto`, `mensaje` (optional: `nombre`, `telefono`) |
+
+> **A `200` means "record saved", NOT "email sent".**
+> Both types have an `afterCreate` lifecycle that emails `EMAIL_TO`. A send
+> failure is caught and only logged (`strapi.log.error`) — the request still
+> succeeds, deliberately, so a broken mailer never loses a lead. Consequences:
+> - If `EMAIL_TO` is unset, notification is skipped with a `warn` and nothing breaks.
+> - Nobody is alerted when Resend fails. The record is in the CMS; the email is not.
+> - Do not treat the HTTP status as delivery confirmation anywhere.
+
+Lifecycles: `src/api/cita/content-types/cita/lifecycles.ts`,
+`src/api/mensaje-contacto/content-types/mensaje-contacto/lifecycles.ts`.
+The contact one escapes HTML in the message body (public unsanitized input);
+keep that if you edit the template.
+
+### Product catalog (MercadoPago plugin)
+
+The catalog **is** a Strapi content-type — same Strapi, same database, same
+content-api — but it is declared by the `strapi-mercadopago` plugin, not under
+`src/api/`. Do not confuse it with the `api::producto.producto` single type,
+which only holds the static page content.
+
+Content-api routes exposed by the plugin (`server/src/routes/`):
+
+- `GET /strapi-mercadopago/products` — list
+- `GET /strapi-mercadopago/products/:slug` — **resolves by slug**, `404` if absent
+- also: `categories`, `checkout`, `order`, `notification`, `configuration`, `dashboard`
+
+`plugin::strapi-mercadopago.product` (collection, i18n localized):
+`name`*, `price`* (integer), `pictures`* (media), `short_description`*,
+`slug`* (uid), `stock`* (integer), `sku`*, `promotion`* (component),
+`categories` (→ plugin category), `middle_description`, `information`.
+`findOne` populates `pictures`, `categories`, `promotion`, `information` by default.
 
 ### Component Architecture
 
 Strapi components are organized into groups:
 
-- **`general/`**: Layout components
-  - `barra-de-navegacion` - Navigation bar items
-  - `pie-de-pagina` - Footer sections
-  - `derechos-de-autor` - Copyright info
-  - `columna` - Column layouts
+- **`general/`** (5): `barra-de-navegacion`, `columna`, `derechos-de-autor`,
+  `invitacion`, `pie-de-pagina`
 
-- **`inicio/`**: Homepage sections
-  - `hero` - Hero section
-  - `banner` - Banner sections
-  - `apoyo` - Support section
-  - `sistemaintegral` - Integral system section
-  - `datos` - Data/statistics section
-  - And more...
+- **`inicio/`** (13): `acerca`, `apoyo`, `banner`, `datos`, `destacados`,
+  `entendiendo`, `hero`, `perspectivas`, `puntos`, `que-dicen`, `reflexiones`,
+  `sistemaintegral`, `testimonios`
+  (only 9 of these are in the `inicio.secciones` zone — see *Dynamic zones*)
 
-- **`nosotros/`**: About page sections
-  - `bio` - Biography
-  - `certificaciones` - Certifications
-  - `credenciales` - Credentials
-  - `metodologias` - Methodologies
+- **`nosotros/`** (4): `bio`, `certificaciones`, `credenciales`, `metodologias`
+  (`certificaciones` is in no dynamic zone — see the warning above.
+  There is no `hero` here.)
 
-- **`shared/`**: Reusable components
-  - `seo` - SEO metadata
-  - `banner-comp` - Reusable banners
-  - `accion` - Call-to-action
-  - `contenido` - Generic content blocks
-  - `open-graph` - Open Graph metadata
+- **`contacto/`** (1): `red-social`
+
+- **`productos/`** (2): `banner`, `categorias`
+
+- **`shared/`** (7): `accion`, `banner-comp`, `contenido`, `items`,
+  `open-graph`, `perspectiva`, `seo`
 
 ### Development Commands
 
@@ -157,6 +256,11 @@ yarn start            # Start production server
 
 # CLI
 yarn strapi           # Access Strapi CLI
+yarn console          # Strapi REPL
+yarn deploy           # strapi deploy
+
+# Seeding
+yarn seed             # Runs scripts/seed-content.ts (acerca, general, inicio)
 
 # Upgrades
 yarn upgrade          # Minor version upgrade
@@ -180,15 +284,26 @@ TRANSFER_TOKEN_SALT=
 JWT_SECRET=
 ENCRYPTION_KEY=
 
-# AWS S3
-AWS_ACCESS_KEY_ID=
-AWS_ACCESS_SECRET=
-AWS_REGION=
-AWS_BUCKET=
+# Cloudflare R2 (file storage)
+CF_ACCESS_KEY_ID=
+CF_SECRET_ACCESS_KEY=
+CF_ENDPOINT=https://<ACCOUNT_ID>.r2.cloudflarestorage.com
+CF_PUBLIC_URL=https://pub-<hash>.r2.dev
+CF_BUCKET=
+
+# Email (Resend) — cita / mensaje-contacto notifications
+RESEND_API_KEY=
+EMAIL_FROM=
+EMAIL_REPLY_TO=
+EMAIL_TO=
 
 # Database (production)
 DATABASE_URL=postgres://user:password@host:5432/dbname
 ```
+
+`CF_PUBLIC_URL` also feeds the CSP in `config/middlewares.ts`; leaving it unset
+breaks image loading in the admin panel. `EMAIL_TO` unset only disables the form
+notifications (logged as a warning) — the records are still saved.
 
 ### Docker Development
 
@@ -217,12 +332,15 @@ Database credentials (docker-compose.yml):
 ## Frontend (Next.js)
 
 ### Technology Stack
-- **Framework**: Next.js 16.1.1 with App Router
+- **Framework**: Next.js 16.3.0 with App Router
 - **Language**: TypeScript 5
 - **UI Library**: React 19.2.3
 - **Styling**: Tailwind CSS v4
+- **State**: Zustand 5.0.10 (shopping cart, with `persist` middleware)
+- **Forms**: Formik 2.4.9 + Yup 1.7.1 (validation schemas)
 - **Icons**: Lucide React 0.525.0
 - **Carousel**: Embla Carousel 8.6.0
+- **Analytics**: `@next/third-parties` 16.3.0 (Google Analytics)
 - **Strapi Integration**: `@strapi/blocks-react-renderer` 1.0.2
 
 ### Directory Structure
@@ -236,42 +354,66 @@ frontend/
 │   └── pre-push         # Runs lint + build
 ├── .vscode/             # VS Code settings
 ├── docs/
-│   └── zustand.md       # Zustand implementation plan
+│   └── zustand.md       # Zustand plan (already implemented, see State Management)
 ├── public/              # Static assets
 ├── src/
 │   ├── app/             # Next.js App Router
-│   │   ├── blogs/       # Blog pages
-│   │   │   └── [slug]/  # Dynamic blog post
-│   │   ├── contacto/    # Contact page
-│   │   ├── nosotros/    # About page
-│   │   ├── productos/   # Products pages
-│   │   │   └── [id]/    # Dynamic product detail
-│   │   ├── layout.tsx   # Root layout
-│   │   ├── page.tsx     # Homepage
-│   │   └── globals.css  # Global styles
+│   │   ├── acerca-de-mi/    # About page
+│   │   ├── agendar/         # Appointment booking page
+│   │   ├── blogs/           # Blog listing
+│   │   │   └── [slug]/      # Dynamic blog post
+│   │   ├── contacto/        # Contact page
+│   │   ├── productos/       # Product catalog
+│   │   │   └── [slug]/      # Dynamic product detail (SLUG, not id)
+│   │   ├── tienda/
+│   │   │   ├── checkout/    # Checkout flow
+│   │   │   └── confirmacion/  # Order confirmation
+│   │   ├── llms.txt/        # route.ts — llms.txt for AI crawlers
+│   │   ├── manifest.ts      # PWA manifest
+│   │   ├── robots.ts        # robots.txt
+│   │   ├── sitemap.ts       # Dynamic sitemap
+│   │   ├── layout.tsx       # Root layout
+│   │   ├── page.tsx         # Homepage
+│   │   └── globals.css      # Global styles
 │   ├── components/      # React components (domain-organized)
 │   │   ├── about/       # About page components
+│   │   ├── agendar/     # Appointment booking components
 │   │   ├── blogs/       # Blog components
+│   │   ├── checkout/    # Checkout components
+│   │   ├── confirmation/  # Order confirmation components
 │   │   ├── contact/     # Contact form components
 │   │   ├── home/        # 10 homepage section components
 │   │   ├── layout/      # Header, Footer
 │   │   ├── product-overview/  # Product overview components
 │   │   ├── products/    # Product list/detail components
-│   │   └── shared/      # Shared UI components (Pagination, etc.)
+│   │   └── shared/      # Shared UI components (Button, Card, SectionHeader…)
 │   ├── constants/       # Constants
-│   │   ├── pagination.ts   # Pagination constants
-│   │   └── timeout.ts      # API timeout constants
+│   │   ├── index.ts            # STRAPI_API_PATHS, timeouts, pagination
+│   │   ├── colombia-locations.ts  # Location data for forms
+│   │   └── feature-flags.ts    # FEATURE_FLAGS (CART)
 │   ├── helpers/         # Helper functions
+│   │   ├── currency.ts      # Currency formatting
 │   │   └── menu-mapping.ts  # Navigation menu mapping
 │   ├── lib/             # Library code
-│   │   └── component-factory.tsx  # Dynamic component renderer
-│   ├── services/        # API services (server-side)
+│   │   ├── analytics.ts        # GA event tracking
+│   │   ├── component-factory.tsx  # Dynamic component renderer
+│   │   ├── site.ts             # Site-wide metadata config
+│   │   ├── structured-data.ts  # JSON-LD schema builders
+│   │   └── validations/
+│   │       └── checkout-schema.ts  # Yup schema for checkout
+│   ├── services/        # API services (server-side only)
 │   │   ├── blogs/       # Blog API calls
-│   │   ├── general/     # General content API
+│   │   ├── checkout/    # MercadoPago checkout
+│   │   ├── citas/       # Appointment booking (POST)
+│   │   ├── contacto/    # Contact page + message submission
+│   │   ├── general/     # General content API (+ fallback.ts)
 │   │   ├── inicio/      # Homepage content API
 │   │   ├── nosotros/    # About content API
+│   │   ├── productos/   # Static page content + MercadoPago catalog
 │   │   ├── restclient/  # Core API client
 │   │   └── seo/         # SEO data API
+│   ├── store/           # Zustand stores
+│   │   └── cart-store.ts   # Shopping cart (persisted)
 │   └── types/           # TypeScript type definitions
 └── [config files]       # See below
 ```
@@ -332,9 +474,9 @@ The component factory dynamically renders Strapi components based on their `__co
 // Maps Strapi component types to React components
 const componentMap = {
   'inicio.hero': HeroSection,
-  'inicio.banner': BannerSection,
+  'productos.banner': ProductsBanner,
   'shared.banner-comp': BannerComp,
-  // ... 15+ component mappings
+  // ... 16 mappings total
 }
 
 // Usage in pages
@@ -344,11 +486,25 @@ export default async function HomePage() {
 }
 ```
 
+**The 16 mapped component types** (must match the Strapi dynamic zones exactly):
+- `inicio.*`: acerca, apoyo, datos, entendiendo, hero, perspectivas, que-dicen, reflexiones, sistemaintegral
+- `nosotros.*`: bio, credenciales, hero*, metodologias
+- `productos.*`: banner, categorias
+- `shared.banner-comp`
+
 **Key characteristics**:
-- Handles 15+ component types
 - Extensive validation for each section
 - Type-safe with TypeScript interfaces
 - Fallback for unknown components
+
+> Adding a section in Strapi requires adding its mapping here, or it renders nothing.
+
+> \* `nosotros.hero` is a **dead mapping**: no `hero.json` exists under
+> `backend/src/components/nosotros/`, and the `acerca` dynamic zone only accepts
+> bio, credenciales and metodologias. Strapi can never emit it, so `AboutHero`
+> on `/acerca-de-mi` always renders through its fallback path. This is not a bug
+> to fix by creating the component in Strapi — the page works as intended.
+> Verified against the backend schemas.
 
 #### 2. Service Layer Architecture
 
@@ -363,16 +519,38 @@ services/
 ├── blogs/
 │   ├── index.ts         # getAllBlogs, getBlogBySlug
 │   └── types.ts         # Blog type definitions
+├── citas/               # index.ts + types.ts + schema.ts (Yup)
+├── contacto/            # index.ts + types.ts + schema.ts + actions.ts
 └── [other services]/
 ```
 
 **REST Client** (`services/restclient/index.ts`):
-- Server actions: `'use server'`
-- Bearer token authentication
+- `import 'server-only'` — NOT `'use server'`. These are not server actions;
+  the import makes the build FAIL if this module reaches a client component,
+  so `STRAPI_API_TOKEN` can never leak into the browser bundle.
+- Bearer token authentication via `process.env.STRAPI_API_TOKEN`
 - Automatic `populate=all` for Strapi relations
-- Timeout handling: 10 seconds default
+- Timeout handling via `AbortController` (see `DEFAULT_TIMEOUT`)
 - Custom `ApiError` class
-- Retry logic for network failures
+
+**API paths** are centralized in `src/constants/index.ts` (`STRAPI_API_PATHS`) —
+never hardcode a Strapi path in a service or component.
+
+#### Product catalog (MercadoPago plugin)
+
+Products are a Strapi content-type declared by the `strapi-mercadopago` plugin
+rather than under `backend/src/api/`. Same Strapi, same database, same content-api
+— the frontend never talks to the MercadoPago API directly. All access is
+server-side through the REST client:
+
+- `GET /strapi-mercadopago/products` — list (supports pagination and
+  `filters[categories][slug][$eq]`; the frontend treats `'todos'` as "no filter")
+- `GET /strapi-mercadopago/products/:slug` — **resolves by SLUG, not numeric id**
+- `GET /strapi-mercadopago/categories`
+- `POST /strapi-mercadopago/checkout`
+
+Do not confuse this with the `producto` single type, which holds only the
+*static* content of the products page (banner, categories section, SEO).
 
 **Example usage**:
 ```typescript
@@ -415,13 +593,27 @@ CSS variables:
 
 ### State Management
 
-**Current**: Local component state (`useState`, `useEffect`)
+**Zustand 5** for the shopping cart — implemented in `src/store/cart-store.ts`.
 
-**Planned**: Zustand for shopping cart
-- Documentation: `frontend/docs/zustand.md` (386 lines)
-- Features: Global cart state, localStorage persistence
-- Status: Not yet implemented
-- Phases: Setup, types, store creation, component refactoring, testing
+- Persisted with the `persist` middleware (survives reloads)
+- State: `items: CartItem[]`, `isOpen: boolean`
+- Actions: `addItem`, `removeItem`, `updateQuantity`, `clearCart`, `setIsOpen`, `toggleCart`
+- Exported selectors (e.g. `selectTotalPrice`) — prefer them over deriving
+  totals in components, so subscriptions stay narrow
+- Emits analytics events via `src/lib/analytics.ts`
+
+Everything else uses local component state (`useState`, `useEffect`). Pages are
+server components by default; only interactive leaves are `'use client'`.
+
+> `frontend/docs/zustand.md` is the original implementation *plan*, kept for
+> historical context. The store is already built — read the code, not the plan.
+
+### Feature Flags
+
+`src/constants/feature-flags.ts` exposes `FEATURE_FLAGS`, read from
+`NEXT_PUBLIC_*` env vars at build time:
+
+- `CART` ← `NEXT_PUBLIC_FEATURE_CART` (cart/checkout flow, off unless `'true'`)
 
 ### Development Commands
 
@@ -432,15 +624,19 @@ cd frontend
 yarn dev              # Next.js with Turbopack
 
 # Production
-yarn build            # Production build
+yarn build            # Empties .next/cache, then next build
 yarn start            # Start production server
 
 # Quality
-yarn lint             # Run ESLint
+yarn lint             # Run ESLint (flat config, eslint .)
 
 # Git hooks (automatic)
 yarn prepare          # Setup Husky hooks
 ```
+
+> `build` empties `.next/cache` **without deleting the directory**
+> (`find .next/cache -mindepth 1 -delete`). Removing the directory itself breaks
+> builds on some deploy targets — keep the `-mindepth 1`.
 
 ### Environment Variables
 
@@ -448,16 +644,20 @@ Create `.env.local` based on `.env.example`:
 
 ```env
 # Strapi Backend
-STRAPI_API_URL=http://localhost:1337
-STRAPI_API_TOKEN=your_strapi_api_token
+STRAPI_API_URL=tobechanged
+STRAPI_API_TOKEN=tobechanged
 
 # Site Configuration
-NEXT_PUBLIC_SITE_URL=https://evokare.com
-NEXT_PUBLIC_SITE_NAME=Evokare
+NEXT_PUBLIC_SITE_URL=tobechanged
+NEXT_PUBLIC_SITE_NAME=tobechanged
+NEXT_PUBLIC_FEATURE_CART=false
 
-# Analytics
+# Third-party Services
 NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
 ```
+
+`STRAPI_API_TOKEN` has no `NEXT_PUBLIC_` prefix by design — it is read only from
+`server-only` modules and must never reach the browser.
 
 ### VS Code Configuration
 
@@ -669,7 +869,8 @@ export async function getAllBlogs(): Promise<Blog[]> {
 - Build: `yarn build`
 - Start: `yarn start`
 - Database: PostgreSQL (via `DATABASE_URL`)
-- File uploads: AWS S3
+- File uploads: Cloudflare R2 (`CF_*` variables)
+- Email: Resend (`RESEND_API_KEY`, `EMAIL_TO`)
 - Port: 1337
 
 **Frontend**:
@@ -693,7 +894,8 @@ export async function getAllBlogs(): Promise<Blog[]> {
 - Check TypeScript errors with `tsc --noEmit`
 
 ### Images not loading
-- Verify AWS S3 credentials in backend `.env`
+- Verify Cloudflare R2 credentials in backend `.env` (`CF_*`)
+- `CF_PUBLIC_URL` must be set — the backend CSP is derived from it
 - Check CSP configuration in `backend/config/middlewares.ts`
 - Ensure remote patterns configured in `frontend/next.config.ts`
 
@@ -715,11 +917,12 @@ export async function getAllBlogs(): Promise<Blog[]> {
 
 ## Project Statistics
 
-- **API Endpoints**: 5 (acerca, blog, etiqueta, general, inicio)
-- **Component Groups**: 4 (general, inicio, nosotros, shared)
-- **Frontend Pages**: 5 main routes + dynamic routes
+- **API Endpoints**: 9 under `src/api/` (acerca, blog, cita, contacto, etiqueta, general, inicio, mensaje-contacto, producto), plus the MercadoPago plugin routes
+- **Component Groups**: 6 (contacto, general, inicio, nosotros, productos, shared)
+- **Frontend Pages**: 8 routes (home, acerca-de-mi, agendar, blogs, contacto, productos, tienda/checkout, tienda/confirmacion) + 2 dynamic ([slug] for blogs and productos)
 - **Homepage Sections**: 10 components
-- **Service Modules**: 6 (blogs, general, inicio, nosotros, restclient, seo)
+- **Component Factory Mappings**: 16
+- **Service Modules**: 10 (blogs, checkout, citas, contacto, general, inicio, nosotros, productos, restclient, seo)
 - **Node Version**: v22
 - **Primary Language**: Spanish (content), English (code)
 
