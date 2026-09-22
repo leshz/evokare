@@ -6,7 +6,6 @@ import { ShoppingCart, X, Menu } from 'lucide-react';
 import { menuMapping } from '@/helpers/menu-mapping';
 import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
 import { useCartStore } from '@/store';
-import { FEATURE_FLAGS } from '@/constants/feature-flags';
 
 import Link from 'next/link';
 
@@ -15,9 +14,15 @@ import { Navegacion, MenuSection } from '@/services/general/types';
 interface HeaderProps {
   content: Navegacion;
   menu: MenuSection[];
+  /** Resolved on the server from the `cart` flag; see src/flags.ts. */
+  cartEnabled: boolean;
 }
 
-export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
+export const Header: React.FC<HeaderProps> = ({
+  content,
+  menu,
+  cartEnabled,
+}) => {
   const menuContent = menuMapping(menu);
   const pathname = usePathname();
 
@@ -87,7 +92,7 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
                 </Link>
               );
             })}
-            {FEATURE_FLAGS.CART && (
+            {cartEnabled && (
               <button
                 onClick={() => setIsOpen(true)}
                 className="text-gray-700 hover:text-secundario relative transition-colors"
@@ -103,7 +108,7 @@ export const Header: React.FC<HeaderProps> = ({ content, menu }) => {
             )}
           </nav>
           <div className="flex items-center gap-3 md:hidden">
-            {FEATURE_FLAGS.CART && (
+            {cartEnabled && (
               <button
                 onClick={() => setIsOpen(true)}
                 className="text-gray-700 hover:text-secundario relative transition-colors"

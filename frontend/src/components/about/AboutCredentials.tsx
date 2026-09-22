@@ -10,19 +10,21 @@ export function AboutCredentials({ data }: AboutCredentialsProps) {
     <section className="bg-surface-soft py-16">
       <div className="mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
         <div className="grid items-start gap-12 lg:grid-cols-2">
-          {/* Imagen profesional */}
-          <div className="relative">
-            <div className="rounded-2xl bg-white p-8 shadow-xl">
-              <AdaptiveImage
-                image={data.imagen}
-                format="medium"
-                alt={data.imagen.alternativeText ?? data.titulo}
-                className="h-auto w-full rounded-xl"
-                width={data.imagen.width}
-                height={data.imagen.height}
-              />
+          {/* Imagen profesional: opcional en Strapi */}
+          {data.imagen && (
+            <div className="relative">
+              <div className="rounded-2xl bg-white p-8 shadow-xl">
+                <AdaptiveImage
+                  image={data.imagen}
+                  format="medium"
+                  alt={data.imagen.alternativeText ?? data.titulo}
+                  className="h-auto w-full rounded-xl"
+                  width={data.imagen.width}
+                  height={data.imagen.height}
+                />
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Contenido de credenciales */}
           <div className="space-y-8">

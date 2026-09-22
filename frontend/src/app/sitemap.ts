@@ -1,8 +1,12 @@
 import type { MetadataRoute } from 'next';
 import { getBlogsService } from '@/services/blogs';
 import { getProductsService } from '@/services/productos';
-import { FEATURE_FLAGS } from '@/constants/feature-flags';
+import { FEATURE_CART } from '@/flags';
 import { SITE_URL } from '@/lib/site';
+
+// El flag del carrito se evalúa aquí dentro; sin esta directiva explícita esa
+// llamada opta al sitemap fuera del prerender y cada crawler golpearía Strapi.
+export const dynamic = 'force-static';
 
 /**
  * Se resuelve en build time. `lastModified` usa la fecha del build para las
@@ -74,7 +78,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   const productRoutes: MetadataRoute.Sitemap = [];
-  if (FEATURE_FLAGS.CART) {
+  if (await FEATURE_CART()) {
     productRoutes.push({
       url: `${baseUrl}/productos`,
       lastModified: BUILD_DATE,

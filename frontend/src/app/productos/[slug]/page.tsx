@@ -9,7 +9,7 @@ import { JsonLd } from '@/components/shared/JsonLd';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AlertCircle } from 'lucide-react';
-import { FEATURE_FLAGS } from '@/constants/feature-flags';
+import { FEATURE_CART } from '@/flags';
 
 export const dynamic = 'force-dynamic';
 
@@ -61,7 +61,7 @@ export default async function ProductOverview({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  if (!FEATURE_FLAGS.CART) notFound();
+  if (!(await FEATURE_CART())) notFound();
 
   const { slug } = await params;
 
