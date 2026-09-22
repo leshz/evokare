@@ -25,7 +25,8 @@ export interface CredencialesSection {
   __component: 'nosotros.credenciales';
   id: number;
   titulo: string;
-  imagen: StrapiImage;
+  // Opcional en Strapi: la API devuelve `null` cuando no se ha subido imagen.
+  imagen: StrapiImage | null;
   Credenciales: Credencial[];
 }
 

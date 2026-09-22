@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import createWithVercelToolbar from '@vercel/toolbar/plugins/next';
 
 const R2_HOST = 'https://pub-b4dc89a0ffb742f7980aa9d5dd6ac8b5.r2.dev';
 
@@ -90,4 +91,6 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withVercelToolbar = createWithVercelToolbar();
+
+export default withVercelToolbar(nextConfig);

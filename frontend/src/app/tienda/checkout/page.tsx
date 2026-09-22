@@ -3,6 +3,10 @@ import Link from 'next/link';
 import { CheckoutForm, OrderSummary } from '@/components/checkout';
 import { ShoppingCart } from '@/components/products/ShoppingCart';
 
+// Static page with no CMS data: declared explicitly so the root layout's
+// flag evaluation does not opt it into dynamic rendering.
+export const dynamic = 'force-static';
+
 export const metadata: Metadata = {
   title: 'Finalizar compra',
   robots: { index: false, follow: false },

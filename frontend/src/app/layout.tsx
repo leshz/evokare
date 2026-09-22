@@ -6,6 +6,8 @@ import { Footer } from '@/components/layout/Footer';
 import { ShoppingCart } from '@/components/products/ShoppingCart';
 import { getGeneralService } from '@/services/general';
 import { GENERAL_FALLBACK } from '@/services/general/fallback';
+import { FEATURE_CART } from '@/flags';
+import { VercelToolbar } from '@vercel/toolbar/next';
 import {
   generateMetadataFromSEO,
   getStructuredData,
@@ -79,6 +81,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cartEnabled = await FEATURE_CART();
+
   let general = GENERAL_FALLBACK;
   try {
     const { data } = await getGeneralService();
@@ -100,15 +104,17 @@ export default async function RootLayout({
         suppressHydrationWarning
       >
         {structuredData && <JsonLd data={structuredData} />}
-        <Header content={topbar} menu={menu} />
+        <Header content={topbar} menu={menu} cartEnabled={cartEnabled} />
         {children}
         <div className="bg-surface-soft">
           <Footer footer={footer} />
         </div>
-        <ShoppingCart />
+        {cartEnabled && <ShoppingCart />}
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID} />
         )}
+        {/* On Vercel the toolbar is auto-injected in preview; this covers local dev. */}
+        {process.env.NODE_ENV === 'development' && <VercelToolbar />}
       </body>
     </html>
   );

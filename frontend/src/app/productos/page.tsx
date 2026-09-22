@@ -9,7 +9,7 @@ import { renderSection } from '@/lib/component-factory';
 import { generateMetadataFromSEO } from '@/services/seo';
 import { AlertCircle } from 'lucide-react';
 import Link from 'next/link';
-import { FEATURE_FLAGS } from '@/constants/feature-flags';
+import { FEATURE_CART } from '@/flags';
 
 export const dynamic = 'force-dynamic';
 
@@ -44,7 +44,7 @@ export async function generateMetadata({
 export default async function ProductosPage({
   searchParams,
 }: ProductosPageProps) {
-  if (!FEATURE_FLAGS.CART) notFound();
+  if (!(await FEATURE_CART())) notFound();
 
   const { categoria } = await searchParams;
 

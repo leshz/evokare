@@ -2,6 +2,10 @@ import type { Metadata } from 'next';
 import { SectionHeader } from '@/components/shared/SectionHeader';
 import { AgendarForm } from '@/components/agendar/AgendarForm';
 
+// Static page with no CMS data: declared explicitly so the root layout's
+// flag evaluation does not opt it into dynamic rendering.
+export const dynamic = 'force-static';
+
 export const metadata: Metadata = {
   title: { absolute: 'Agendar Cita | Elisa Horta, Psicóloga en Bogotá' },
   description:
