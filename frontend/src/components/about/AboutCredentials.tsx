@@ -17,6 +17,7 @@ export function AboutCredentials({ data }: AboutCredentialsProps) {
                 <AdaptiveImage
                   image={data.imagen}
                   format="medium"
+                  sizes="(max-width: 1023px) calc(100vw - 6.5rem), 456px"
                   alt={data.imagen.alternativeText ?? data.titulo}
                   className="h-auto w-full rounded-xl"
                   width={data.imagen.width}

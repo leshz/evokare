@@ -50,6 +50,7 @@ export function SupportingSection({ data }: SupportingSectionProps) {
                   alt={imagen.alternativeText ?? titulo}
                   width={imagen.width ?? 500}
                   height={imagen.height ?? 500}
+                  sizes="(max-width: 767px) calc(100vw - 2.5rem), 584px"
                   className="h-auto w-full object-cover"
                 />
               </div>

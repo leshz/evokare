@@ -43,6 +43,7 @@ export const PostHero = ({ media, title, createdAt }: PostHeroProps) => {
           <div className="overflow-hidden rounded-2xl">
             <AdaptiveImage
               image={media[0]}
+              sizes="(max-width: 767px) calc(100vw - 2rem), 608px"
               width={600}
               height={300}
               alt={title}
