@@ -115,6 +115,9 @@ export function HeroSection({ data }: HeroSectionProps) {
                             alt={alternativeText ?? titulo}
                             width={width}
                             height={height}
+                            sizes="(max-width: 767px) calc(100vw - 2.5rem), (max-width: 1023px) 50vw, 512px"
+                            preload={bannerIndex === 0}
+                            fetchPriority={bannerIndex === 0 ? 'high' : undefined}
                           />
                         </div>
                       </div>

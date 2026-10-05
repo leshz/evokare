@@ -18,6 +18,9 @@ export const BlogCard = ({
       <Link href={`/blogs/${slug}`} className="block aspect-video overflow-hidden">
         <AdaptiveImage
           image={media?.[0]}
+          sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1023px) 45vw, 400px"
+          width={750}
+          height={422}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </Link>

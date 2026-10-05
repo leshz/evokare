@@ -182,6 +182,7 @@ export const BlocksRendererCustom: React.FC<BlocksRendererCustomProps> = ({
             alt={image.alternativeText ?? ''}
             width={image.width ?? 800}
             height={image.height ?? 600}
+            sizes="(max-width: 767px) calc(100vw - 2rem), 768px"
             className={classNames.image}
           />
         ),
