@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5f3ff"/>
+      <stop offset="1" stop-color="#e0e7ff"/>
+    </linearGradient>
+    <linearGradient id="figure" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9f97f0"/>
+      <stop offset="1" stop-color="#5893f7"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.38" r="0.5">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="frame">
+      <rect width="400" height="400"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <rect width="400" height="400" fill="url(#bg)"/>
+
+    <!-- Soft decorative shapes -->
+    <circle cx="335" cy="70" r="90" fill="#c4bff6" opacity="0.35"/>
+    <circle cx="50" cy="350" r="110" fill="#a5b4fc" opacity="0.25"/>
+    <circle cx="200" cy="165" r="150" fill="url(#glow)"/>
+
+    <!-- Silhouette -->
+    <circle cx="200" cy="160" r="68" fill="url(#figure)"/>
+    <path d="M60 420 C60 310 125 255 200 255 C275 255 340 310 340 420 Z" fill="url(#figure)"/>
+
+    <!-- Subtle highlight on head -->
+    <circle cx="178" cy="136" r="22" fill="#ffffff" opacity="0.18"/>
+  </g>
+</svg>
