@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { TestimonialComponent } from '@/services/inicio/types';
 import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
 import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
@@ -59,11 +60,13 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
                     className="h-full w-full object-cover object-center"
                   />
                 ) : (
-                  <div className="bg-secundario flex h-full w-full items-center justify-center">
-                    <span className="text-lg font-semibold text-white">
-                      {currentTestimonio.nombre?.charAt(0) || '?'}
-                    </span>
-                  </div>
+                  <Image
+                    src="/images/avatar-generico.png"
+                    alt={currentTestimonio.nombre || 'Avatar genérico'}
+                    width={64}
+                    height={64}
+                    className="h-full w-full object-cover object-center"
+                  />
                 )}
               </div>
               <div className="flex-1">
