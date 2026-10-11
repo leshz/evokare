@@ -62,7 +62,7 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
                 ) : (
                   <Image
                     src="/images/avatar-generico.png"
-                    alt={currentTestimonio.nombre || 'Avatar genérico'}
+                    alt=""
                     width={64}
                     height={64}
                     className="h-full w-full object-cover object-center"
