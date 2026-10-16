@@ -21,13 +21,14 @@ import './globals.css';
 const primary = Montserrat({
   variable: '--font-primary',
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
 });
 
 const secondary = Spectral({
   variable: '--font-secondary',
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  // Static font: one file per weight. Headings only render 600 (h3) and 700 (h1/h2).
+  weight: ['600', '700'],
 });
 
 const BASE_METADATA: Metadata = {
