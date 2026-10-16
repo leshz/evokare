@@ -7,6 +7,8 @@ const BASE_URL = SITE_URL;
 
 const BRAND_NAME = 'Elisa Horta';
 
+const PRACTICE_NAME = 'Elisa Horta — Consulta de Psicología Clínica';
+
 export function getBlogPostingSchema(blog: BlogData) {
   return {
     '@context': 'https://schema.org',
@@ -17,14 +19,17 @@ export function getBlogPostingSchema(blog: BlogData) {
     datePublished: blog.publishedAt ?? blog.createdAt,
     dateModified: blog.updatedAt,
     url: `${BASE_URL}/blogs/${blog.slug}`,
+    // Linked by @id to the site-wide graph managed in Strapi.
     author: {
       '@type': 'Person',
+      '@id': `${BASE_URL}/#person`,
       name: BRAND_NAME,
-      url: BASE_URL,
+      url: `${BASE_URL}/acerca-de-mi`,
     },
     publisher: {
       '@type': 'Organization',
-      name: BRAND_NAME,
+      '@id': `${BASE_URL}/#practice`,
+      name: PRACTICE_NAME,
       url: BASE_URL,
     },
   };

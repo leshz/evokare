@@ -9,7 +9,7 @@ export const dynamic = 'force-static';
 export const metadata: Metadata = {
   title: { absolute: 'Agendar Cita | Elisa Horta, Psicóloga en Bogotá' },
   description:
-    'Agenda tu cita con nuestros especialistas en salud mental y bienestar. Elige la modalidad y el día que mejor se adapte a ti.',
+    'Agenda tu cita con Elisa Horta, psicóloga clínica en Bogotá. Elige la modalidad (presencial o virtual) y el día que mejor se adapte a ti.',
   alternates: { canonical: '/agendar' },
 };
 

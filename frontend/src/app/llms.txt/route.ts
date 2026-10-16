@@ -1,4 +1,5 @@
 import { SITE_URL } from '@/lib/site';
+import { getBlogsService } from '@/services/blogs';
 
 export const dynamic = 'force-static';
 
@@ -21,8 +22,35 @@ const CONTENT = `# Elisa Horta
 - Talleres grupales: sesiones quincenales de 2 horas.
 `;
 
-export function GET(): Response {
-  return new Response(CONTENT, {
+const MAX_PAGES = 50;
+const PAGE_SIZE = 100;
+
+const collapse = (text: string): string => text.replace(/\s+/g, ' ').trim();
+
+async function getArticlesSection(): Promise<string> {
+  try {
+    const lines: string[] = [];
+    for (let page = 1; page <= MAX_PAGES; page++) {
+      const response = await getBlogsService({ page, pageSize: PAGE_SIZE });
+      for (const blog of response.data ?? []) {
+        const intro = collapse(blog.introduccion ?? '');
+        const link = `[${collapse(blog.titulo)}](${SITE_URL}/blogs/${blog.slug})`;
+        lines.push(intro ? `- ${link}: ${intro}` : `- ${link}`);
+      }
+      const pageCount = response.meta?.pagination?.pageCount ?? 1;
+      if (page >= pageCount) break;
+    }
+    return lines.length > 0 ? `\n## Artículos\n\n${lines.join('\n')}\n` : '';
+  } catch (error) {
+    console.warn('[llms.txt] No se pudieron cargar los artículos:', error);
+    return '';
+  }
+}
+
+export async function GET(): Promise<Response> {
+  const body = CONTENT + (await getArticlesSection());
+
+  return new Response(body, {
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
     },
