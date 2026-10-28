@@ -46,7 +46,7 @@ export const PostHero = ({ media, title, createdAt }: PostHeroProps) => {
               sizes="(max-width: 767px) calc(100vw - 2rem), 608px"
               width={600}
               height={300}
-              alt={title}
+              alt={media[0].alternativeText || title}
               className="h-52 w-full rounded-2xl object-cover md:h-64"
             />
           </div>
@@ -61,7 +61,7 @@ export const PostHero = ({ media, title, createdAt }: PostHeroProps) => {
                     image={img}
                     width={300}
                     height={150}
-                    alt={`${title} - ${i + 2}`}
+                    alt={img.alternativeText || `${title} - ${i + 2}`}
                     className="h-24 w-full rounded-xl object-cover"
                   />
                 </div>

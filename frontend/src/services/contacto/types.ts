@@ -17,6 +17,7 @@ export interface RedSocial {
 export interface ContactoData {
   id: number;
   documentId: string;
+  updatedAt?: string;
   titulo?: string;
   subtitulo?: string;
   informacion_contacto?: BlocksContent;
