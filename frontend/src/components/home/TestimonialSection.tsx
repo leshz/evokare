@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { TestimonialComponent } from '@/services/inicio/types';
 import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
@@ -12,24 +12,52 @@ interface TestimonialSectionProps {
 }
 
 const AUTOPLAY_INTERVAL_MS = 7000;
+const FADE_MS = 250;
+
+const prefersReducedMotion = () =>
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export function TestimonialSection({ data }: TestimonialSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isFading, setIsFading] = useState(false);
+  const fadeTimer = useRef<number | undefined>(undefined);
   const total = data?.testimonio?.length ?? 0;
+
+  // Fade the current testimonial out, swap it, and let it fade back in.
+  // Reduced-motion users get an instant swap.
+  const goTo = (index: number) => {
+    if (index === currentIndex) return;
+    window.clearTimeout(fadeTimer.current);
+
+    if (prefersReducedMotion()) {
+      setCurrentIndex(index);
+      return;
+    }
+
+    setIsFading(true);
+    fadeTimer.current = window.setTimeout(() => {
+      setCurrentIndex(index);
+      setIsFading(false);
+    }, FADE_MS);
+  };
+
+  useEffect(() => () => window.clearTimeout(fadeTimer.current), []);
 
   // Advance automatically. Keyed on currentIndex so any manual navigation
   // restarts the full interval instead of jumping right after a click.
   useEffect(() => {
-    if (total < 2 || isPaused) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (total < 2 || isPaused || isFading) return;
+    if (prefersReducedMotion()) return;
 
     const timer = window.setTimeout(() => {
-      setCurrentIndex(prevIndex => (prevIndex + 1) % total);
+      goTo((currentIndex + 1) % total);
     }, AUTOPLAY_INTERVAL_MS);
 
     return () => window.clearTimeout(timer);
-  }, [currentIndex, isPaused, total]);
+    // goTo is recreated each render; the deps that drive the timer are listed.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex, isPaused, isFading, total]);
 
   if (!data) {
     console.error('TestimonialSection: data is undefined');
@@ -46,15 +74,11 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
   const currentTestimonio = testimonio[currentIndex];
 
   const handlePrevious = () => {
-    setCurrentIndex(prevIndex =>
-      prevIndex === 0 ? testimonio.length - 1 : prevIndex - 1
-    );
+    goTo(currentIndex === 0 ? testimonio.length - 1 : currentIndex - 1);
   };
 
   const handleNext = () => {
-    setCurrentIndex(prevIndex =>
-      prevIndex === testimonio.length - 1 ? 0 : prevIndex + 1
-    );
+    goTo(currentIndex === testimonio.length - 1 ? 0 : currentIndex + 1);
   };
 
   return (
@@ -78,7 +102,11 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
             aria-live={isPaused ? 'polite' : 'off'}
           >
             <Quote className="text-secundario/20 mb-4 h-12 w-12" />
-            <div className="flex items-start space-x-6">
+            <div
+              className={`flex items-start space-x-6 transition-opacity duration-250 ease-in-out motion-reduce:transition-none ${
+                isFading ? 'opacity-0' : 'opacity-100'
+              }`}
+            >
               <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full">
                 {currentTestimonio.foto?.url ? (
                   <AdaptiveImage
@@ -137,7 +165,7 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
                 {testimonio.map((_, index) => (
                   <button
                     key={index}
-                    onClick={() => setCurrentIndex(index)}
+                    onClick={() => goTo(index)}
                     className={`h-2.5 rounded-full transition-all duration-300 ${
                       index === currentIndex
                         ? 'bg-secundario w-8'
