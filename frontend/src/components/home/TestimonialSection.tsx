@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { TestimonialComponent } from '@/services/inicio/types';
 import { AdaptiveImage } from '@/components/shared/AdaptiveImage';
@@ -11,8 +11,25 @@ interface TestimonialSectionProps {
   data: TestimonialComponent;
 }
 
+const AUTOPLAY_INTERVAL_MS = 7000;
+
 export function TestimonialSection({ data }: TestimonialSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const total = data?.testimonio?.length ?? 0;
+
+  // Advance automatically. Keyed on currentIndex so any manual navigation
+  // restarts the full interval instead of jumping right after a click.
+  useEffect(() => {
+    if (total < 2 || isPaused) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const timer = window.setTimeout(() => {
+      setCurrentIndex(prevIndex => (prevIndex + 1) % total);
+    }, AUTOPLAY_INTERVAL_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [currentIndex, isPaused, total]);
 
   if (!data) {
     console.error('TestimonialSection: data is undefined');
@@ -45,8 +62,21 @@ export function TestimonialSection({ data }: TestimonialSectionProps) {
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <SectionHeader title={titulo} />
 
-        <div className="relative">
-          <div className="rounded-3xl bg-surface-soft p-8 md:p-12">
+        <div
+          className="relative"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={event => {
+            if (!event.currentTarget.contains(event.relatedTarget)) {
+              setIsPaused(false);
+            }
+          }}
+        >
+          <div
+            className="bg-surface-soft rounded-3xl p-8 md:p-12"
+            aria-live={isPaused ? 'polite' : 'off'}
+          >
             <Quote className="text-secundario/20 mb-4 h-12 w-12" />
             <div className="flex items-start space-x-6">
               <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full">
